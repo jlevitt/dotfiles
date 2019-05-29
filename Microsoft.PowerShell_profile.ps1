@@ -485,3 +485,8 @@ function Jake()
 {
     "Blah"
 }
+
+function Ron()
+{
+    "Ron!"
+}
