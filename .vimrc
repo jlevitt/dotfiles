@@ -116,6 +116,10 @@ nnoremap <C-j> :join<CR>
 nnoremap <C-f> :let @/ = @"<CR>|  " Find yanked text
 set pastetoggle=<F2>
 
+" Insert current date header in markdown files
+nnoremap <F5> "=strftime("## %Y-%m-%d")<CR>P
+inoremap <F5> <C-R>=strftime("## %Y-%m-%d")<CR>
+
 " Tab -- indent at beginning of line, otherwise autocomplete  [Insert Mode]
 inoremap <silent> <Tab> <C-R>=DwiwITab()<cr>
 inoremap <silent> <S-Tab> <C-N>
@@ -203,6 +207,7 @@ autocmd FileType markdown,txt set formatoptions-=t
 autocmd BufEnter * silent! lcd %:p:h|                           " cd to opened file location
 autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")|     " Normal mode on focus lost
 autocmd FileType c,cpp,java,php,python,javascript,json,ruby,markdown autocmd BufWritePre * :%s/\s\+$//e
+autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 "python with virtualenv support
 "py << EOF
