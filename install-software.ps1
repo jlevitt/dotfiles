@@ -34,7 +34,7 @@ choco install wireshark -y
 choco install baretail -y
 choco install autohotkey -y
 choco install jq -y
-choco install sysinternals
+choco install sysinternals -y
 
 # Has non choco dependencies
 choco install resharper
