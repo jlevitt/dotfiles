@@ -33,6 +33,10 @@ dir = 'agent-dinerware'
 remote = 'git@github.com:omnivore/agent-dinerware.git'
 
 [[repo]]
+dir = 'agent-focus'
+remote = 'git@github.com:omnivore/agent-focus.git'
+
+[[repo]]
 dir = 'agent-infogenesis'
 remote = 'git@github.com:omnivore/agent-infogenesis.git'
 
@@ -125,6 +129,7 @@ build = [
     'agent-aloha',
     'agent-azbar',
     'agent-dinerware',
+    'agent-focus',
     'agent-infogenesis',
     'agent-maitred',
     'agent-micros3700',
@@ -149,6 +154,7 @@ brink = ['agent', 'agent-common', 'agent-brink']
 cloudconnect = ['agent', 'agent-common', 'agent-cloudconnect']
 dinerware = ['agent', 'agent-common', 'agent-dinerware']
 doshii = ['agent', 'agent-common', 'agent-doshii']
+focus = ['agent', 'agent-common', 'agent-focus']
 infogenesis = ['agent', 'agent-common', 'agent-infogenesis']
 maitred = ['agent', 'agent-common', 'agent-maitred']
 micros3700 = ['agent', 'agent-common', 'agent-micros3700']
