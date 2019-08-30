@@ -336,13 +336,14 @@ if (-not $(ps pageant -ErrorAction SilentlyContinue))
 
 if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
 {
-    try
-    {
-        & "$homeDir\default.ahk"
-    }
-    catch
-    {
-    }
+    Start-Job -ScriptBlock {
+        $mtx = New-Object System.Threading.Mutex($false, "autohotkey")
+        if ($mtx.WaitOne(.5))
+        {
+            & "$homeDir\default.ahk"
+            $mtx.ReleaseMutex()
+        }
+    } | Out-Null
 }
 
 $env:GOPATH = "$projectsDir\go"
@@ -479,4 +480,13 @@ if ($usePoshGit)
 {
     Import-Module Pscx
     Import-Module "C:\Tools\poshgit\dahlbyk-posh-git-a4faccd\src\posh-git.psm1"
+}
+
+function UnEscape-Html
+{
+    param(
+        [Parameter(ValueFromPipeline=$true)]
+        $pipedStr
+    )
+    $pipedStr | python36 -c"import html, sys;print(html.unescape(sys.stdin.read()), end='')"
 }
