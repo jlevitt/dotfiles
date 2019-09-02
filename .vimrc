@@ -20,6 +20,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'othree/html5.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'fatih/vim-go'
+Plugin 'chrisbra/Recover.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -175,12 +176,6 @@ set backup
 let &backupdir = s:vimfiles . '/tmp/backup//'
 if !isdirectory(expand(&backupdir))
     call mkdir(expand(&backupdir), "p")
-endif
-
-" Move swap files to $HOME/.vim/tmp/swp
-let &directory = s:vimfiles . '/tmp/swp//'
-if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
 endif
 
 " Undofile -- keep a file to persist undo history after file is closed
