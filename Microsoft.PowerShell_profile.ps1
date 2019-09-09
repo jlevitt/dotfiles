@@ -322,29 +322,35 @@ function use-mgit-env()
     . $projectsDir\multigit\env\Scripts\activate.ps1
 }
 
-if (-not $(ps pageant -ErrorAction SilentlyContinue))
+# One time setup - only one profile script can enter this block at a time
+$mtx = New-Object System.Threading.Mutex($false, "ps-profile")
+if ($mtx.WaitOne(0))
 {
-    Start-Job -ScriptBlock {
-        $mtx = New-Object System.Threading.Mutex($false, "pageant")
-        if ($mtx.WaitOne(.5))
+    try
+    {
+        if (-not $(ps pageant -ErrorAction SilentlyContinue))
         {
             pageant $(Resolve-Path ~\.ssh\id_rsa.ppk)
-            $mtx.ReleaseMutex()
         }
-    } | Out-Null
+
+        if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
+        {
+            # Ignore if file not found.
+            try
+            {
+                & "$homeDir\default.ahk"
+            }
+            catch
+            {
+            }
+        }
+    }
+    finally
+    {
+        $mtx.ReleaseMutex()
+    }
 }
 
-if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
-{
-    Start-Job -ScriptBlock {
-        $mtx = New-Object System.Threading.Mutex($false, "autohotkey")
-        if ($mtx.WaitOne(.5))
-        {
-            & "$homeDir\default.ahk"
-            $mtx.ReleaseMutex()
-        }
-    } | Out-Null
-}
 
 $env:GOPATH = "$projectsDir\go"
 $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
