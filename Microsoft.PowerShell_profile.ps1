@@ -11,6 +11,7 @@ $vm_type = "__VM_TYPE__"
 ### Cmdlet Aliases
 
 New-Alias which Get-Command
+New-Alias rs Restart-Service
 
 ### End cmdlet Aliases
 
