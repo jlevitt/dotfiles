@@ -11,7 +11,8 @@ $vm_type = "__VM_TYPE__"
 ### Cmdlet Aliases
 
 New-Alias which Get-Command
-New-Alias rs Restart-Service
+New-Alias rsv Restart-Service
+New-Alias pc Get-Clipboard
 
 ### End cmdlet Aliases
 
@@ -496,4 +497,9 @@ function UnEscape-Html
         $pipedStr
     )
     $pipedStr | python36 -c"import html, sys;print(html.unescape(sys.stdin.read()), end='')"
+}
+
+function zoom()
+{
+    "https://zoom.us/my/omnijake" | clip
 }
