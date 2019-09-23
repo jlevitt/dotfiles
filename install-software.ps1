@@ -35,6 +35,7 @@ choco install baretail -y
 choco install autohotkey -y
 choco install jq -y
 choco install sysinternals -y
+choco install nssm -y # Service Manager - https://nssm.cc
 
 # Has non choco dependencies
 choco install resharper
