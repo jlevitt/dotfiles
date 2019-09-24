@@ -25,7 +25,6 @@ choco install logparser -y
 choco install mysql -y
 choco install mysql.workbench -y
 choco install shexview.portable -y
-choco install procexp -y
 choco install putty -y
 choco install pstools -y
 choco install windirstat -y
