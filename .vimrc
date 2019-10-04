@@ -21,6 +21,7 @@ Plugin 'othree/html5.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'fatih/vim-go'
 Plugin 'chrisbra/Recover.vim'
+Plugin 'sk1418/Join'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
