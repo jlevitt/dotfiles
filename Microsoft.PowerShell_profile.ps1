@@ -65,6 +65,12 @@ function mpop()
     mgitp agent pop
 }
 
+function Copy-Branch($pattern)
+{
+    $(git br | grep $pattern).Replace("*", "").Trim() | clip
+}
+Set-Alias cbr Copy-Branch
+
 ### End git helpers
 
 ### Aloha specific
@@ -242,6 +248,11 @@ Set-Alias hs ChangeDirHaskell
 function cdmig
 {
     cd $projectsDir\agent\src\positronics_agent\v1_0\migrations
+}
+
+function giganto
+{
+    cd $env:GOPATH\src\github.com\omnivore\giganto
 }
 
 function edit-profile
