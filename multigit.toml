@@ -86,10 +86,6 @@ dir = 'agent-brink'
 remote = 'git@github.com:omnivore/agent-brink.git'
 
 [[repo]]
-dir = 'agent-cloudconnect'
-remote = 'git@github.com:omnivore/agent-cloudconnect.git'
-
-[[repo]]
 dir = 'agent-doshii'
 remote = 'git@github.com:omnivore/agent-doshii.git'
 
