@@ -5,9 +5,9 @@ choco install devbox-rapidee -y
 choco install tortoisegit -y
 choco install git -params '"/GitAndUnixToolsOnPath /NoAutoCrlf"' -y
 choco install notepadplusplus -y
-choco install pidgin -y
 choco install 7zip.install -y
 choco install conemu -y
+choco install postman -y
 choco install vim -y
 choco install rdcman -y
 choco install keepass -y
@@ -26,7 +26,6 @@ choco install mysql -y
 choco install mysql.workbench -y
 choco install shexview.portable -y
 choco install putty -y
-choco install pstools -y
 choco install windirstat -y
 choco install winscp -y
 choco install wireshark -y
@@ -35,6 +34,14 @@ choco install autohotkey -y
 choco install jq -y
 choco install sysinternals -y
 choco install nssm -y # Service Manager - https://nssm.cc
+
+# Python
+
+# Privacy
+choco install gpg4win -y
+
+# Finance
+choco install kmymoney -y
 
 # Has non choco dependencies
 choco install resharper
