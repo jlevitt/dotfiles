@@ -1,0 +1,89 @@
+{
+    "breadcrumbs.enabled": true,
+    "editor.insertSpaces": true,
+    "editor.rulers": [
+        120
+    ],
+    "editor.trimAutoWhitespace": true,
+    "editor.scrollBeyondLastLine": false,
+    "eslint.workingDirectories": [
+        "./bin",
+        "./src",
+        "./tests"
+    ],
+    "explorer.confirmDelete": false,
+    "files.eol": "\n",
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/env": true,
+        "**/node_modules": true,
+        "**/public": true,
+        "**/debug.test": true,
+        "env/": true,
+        "om/**/env/": true,
+        "om/vendor": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "**/om/vendor/*/**": true,
+        "**/om/**/env/*/**": true,
+        "**/node_modules/*/**": true,
+        "**/tmp/*/**": true
+    },
+    "go.coverageDecorator": {
+        "type": "gutter"
+    },
+    "go.formatFlags": [
+        "-local",
+        "github.com/omnivore/giganto/"
+    ],
+    "go.formatTool": "goimports",
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.scrollBeyondLastLine": false
+    },
+    "go.testEnvVars": {
+        "ENABLE_INTEGRATION_TESTS": false,
+        "ENABLE_REPO_LOGGING": false,
+    },
+    "go.lintTool": "golangci-lint",
+    "go.useLanguageServer": true,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "python.formatting.provider": "autopep8",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "/usr/local/bin/flake8",
+    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "/usr/local/bin/python3",
+    "search.exclude": {
+        ".generated/": true,
+        ".include/": true,
+        "**/.git": true,
+        "**/node_modules": true,
+        "env/": true,
+        "om/**/env/": true,
+        "om/vendor": true,
+        "public/": true
+    },
+    "window.title": "${activeEditorLong}",
+    "window.zoomLevel": 0,
+    "window.restoreWindows": "all",
+    "telemetry.enableTelemetry": false,
+    "terminal.integrated.env.windows": {
+        "GOPATH": "C:\\projects\\go"
+    },
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "vim.handleKeys": {
+        "<C-c>": false,
+        "<C-v>": false
+    },
+    "vim.useCtrlKeys": false,
+    "vim.useSystemClipboard": true,
+    "explorer.confirmDragAndDrop": false,
+    "git.ignoreLegacyWarning": true,
+}
