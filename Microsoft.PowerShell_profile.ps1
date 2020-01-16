@@ -326,8 +326,8 @@ New-Alias python36 C:\Python36\python.exe
 
 function use-agent-env()
 {
-    . $projectsDir\agent\env\Scripts\activate.ps1
-    $env:PYTHONPATH = "$projectsDir\agent\src;$projectsDir\agent-aloha\src;$projectsDir\agent-beyond\src;$projectsDir\agent-cloud-connect\src;$projectsDir\agent-common\src;$projectsDir\agent-doshii\src;$projectsDir\agent-infogenesis\src;$projectsDir\agent-micros3700\src;$projectsDir\agent-northstar\src;$projectsDir\agent-positouch\src;$projectsDir\agent-squirrel\src;$projectsDir\agent-virtual\src;$projectsDir\debug-helpers\src;"
+    . $projectsDir\env\env\Scripts\activate.ps1
+    $env:PYTHONPATH = "$projectsDir\anzu\src;$projectsDir\anzu\tests;"
 }
 
 function use-mgit-env()
