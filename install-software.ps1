@@ -34,6 +34,8 @@ choco install autohotkey -y
 choco install jq -y
 choco install sysinternals -y
 choco install nssm -y # Service Manager - https://nssm.cc
+choco install sqlitebrowser -y
+
 
 # Python
 
