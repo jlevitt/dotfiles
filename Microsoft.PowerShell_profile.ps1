@@ -326,7 +326,7 @@ New-Alias python36 C:\Python36\python.exe
 
 function use-agent-env()
 {
-    . $projectsDir\env\env\Scripts\activate.ps1
+    . $projectsDir\anzu\env\Scripts\activate.ps1
     $env:PYTHONPATH = "$projectsDir\anzu\src;$projectsDir\anzu\tests;"
 }
 
