@@ -282,3 +282,7 @@ function! FormatJson()
     endif
 endfunction
 nnoremap <Leader>j :call FormatJson()<cr>
+
+" Use smart case for searching
+set ignorecase
+set smartcase

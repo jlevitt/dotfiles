@@ -226,3 +226,6 @@ set noshowmode  " vim-airline displays the mode
 autocmd FileType python map <buffer> <F5> :call Flake8()<CR>
 autocmd BufWritePost *.py call Flake8()
 
+" Use smart case for searching
+set ignorecase
+set smartcase
