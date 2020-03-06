@@ -245,14 +245,24 @@ function ChangeDirHaskellKatas
 
 Set-Alias hs ChangeDirHaskell
 
-function cdmig
-{
-    cd $projectsDir\agent\src\positronics_agent\v1_0\migrations
-}
-
 function giganto
 {
     cd $env:GOPATH\src\github.com\omnivore\giganto
+}
+
+function anzu
+{
+    cd $projectsDir\anzu
+}
+
+function migrations
+{
+    cd $projectsDir\anzu\src\positronics_agent\v1_0\migrations
+}
+
+function dotfiles
+{
+    cd $projectsDir\personal\dotfiles
 }
 
 function edit-profile
