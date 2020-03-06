@@ -13,7 +13,7 @@ choco install rdcman -y
 choco install keepass -y
 choco install lockhunter -y
 choco install fiddler -y
-choco install NuGet.CommandLine
+choco install NuGet.CommandLine -y
 choco install NugetPackageExplorer -y
 choco install pandoc -y
 choco install hxd -y
@@ -36,7 +36,9 @@ choco install sysinternals -y
 choco install nssm -y # Service Manager - https://nssm.cc
 choco install sqlitebrowser -y
 choco install sqlite.shell -y
-
+choco install visualstudio2017professional -y
+choco install powershell -y
+choco install poshgit -y
 
 # Python
 
@@ -51,7 +53,3 @@ choco install resharper
 
 # Non-choco
 (new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
-
-# Other
-# * Posh git
-
