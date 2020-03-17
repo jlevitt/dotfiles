@@ -507,8 +507,7 @@ function Get-DebugBuild
 
 if ($usePoshGit)
 {
-    Import-Module Pscx
-    Import-Module "C:\Tools\poshgit\dahlbyk-posh-git-a4faccd\src\posh-git.psm1"
+    Import-Module posh-git
 }
 
 function UnEscape-Html

@@ -92,6 +92,12 @@ function Merge-Tokens() {
 Get-Content .\Microsoft.PowerShell_profile.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $PROFILE
 Write-Host "Profile written [OK]"
 
+if ($profileParams["USE_POSH_GIT"])
+{
+    PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
+    Write-Host "PoshGit module installed [OK]"
+}
+
 $installAgentModulePath = "C:\Program Files\WindowsPowerShell\Modules\InstallAgent"
 if (-not $(Test-Path $installAgentModulePath))
 {
