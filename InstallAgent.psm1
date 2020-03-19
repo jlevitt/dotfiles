@@ -2,7 +2,7 @@ function Install-Agent
 {
     param(
         $Version,
-        $IniPath = (Join-Path $(Resolve-Path "$projectsDir\agent\src\positronics_agent") "*.ini")
+        $IniPath = (Join-Path $(Resolve-Path "$projectsDir\anzu\src\positronics_agent") "*.ini")
     )
 
     $url = "https://s3.amazonaws.com/omnivore-agent-files-candidates/installer/agent_installer-$Version.exe"
