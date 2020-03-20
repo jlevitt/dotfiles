@@ -245,25 +245,25 @@ function ChangeDirHaskellKatas
 
 Set-Alias hs ChangeDirHaskell
 
-$giganto = $env:GOPATH\src\github.com\omnivore\giganto
+$giganto = "$env:GOPATH\src\github.com\omnivore\giganto"
 function giganto
 {
     cd $giganto
 }
 
-$anzu = $projectsDir\anzu
+$anzu = "$projectsDir\anzu"
 function anzu
 {
     cd $anzu
 }
 
-$migrations = $projectsDir\anzu\src\positronics_agent\v1_0\migrations
+$migrations = "$projectsDir\anzu\src\positronics_agent\v1_0\migrations"
 function migrations
 {
     cd $migrations
 }
 
-$dotfiles = $projectsDir\personal\dotfiles
+$dotfiles = "$projectsDir\personal\dotfiles"
 function dotfiles
 {
     cd $dotfiles
