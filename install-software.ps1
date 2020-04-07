@@ -40,13 +40,13 @@ choco install visualstudio2017professional -y
 choco install powershell -y
 choco install poshgit -y
 
+# DBFs
+choco install libreoffice-still -y  # OR http://www.alexnolan.net/software/dbf.htm
+
 # Python
 
 # Privacy
 choco install gpg4win -y
-
-# Finance
-choco install kmymoney -y
 
 # Has non choco dependencies
 choco install resharper
