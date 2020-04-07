@@ -245,7 +245,7 @@ function ChangeDirHaskellKatas
 
 Set-Alias hs ChangeDirHaskell
 
-$giganto = "$env:GOPATH\src\github.com\omnivore\giganto"
+$giganto = "$($env:GOPATH)\src\github.com\omnivore\giganto"
 function giganto
 {
     cd $giganto
@@ -527,3 +527,14 @@ function zoom()
 {
     "https://zoom.us/my/omnijake" | clip
 }
+
+function git-skip($path)
+{
+    git update-index --skip-worktree $path
+}
+
+function git-unskip($path)
+{
+    git update-index --no-skip-worktree $path
+}
+
