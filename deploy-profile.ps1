@@ -92,7 +92,7 @@ function Merge-Tokens() {
 Get-Content .\Microsoft.PowerShell_profile.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $PROFILE
 Write-Host "Profile written [OK]"
 
-if ($profileParams["USE_POSH_GIT"])
+if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
 {
     PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
     Write-Host "PoshGit module installed [OK]"
