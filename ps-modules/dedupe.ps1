@@ -4,22 +4,48 @@ function hash($fileInfo)
     $fileInfo.Name
 }
 
-function New-DupeInfo($Filename, $Files)
+class DupeInfo
 {
-    $compare = {
-        foreach ($file in $Files)
+    $Filename
+    $Files
+    $DiscardPath
+    
+    DupeInfo(
+        [string]$filename,
+        [System.Collections.Generic.List[System.IO.FileInfo]]$files,
+        [string]$discardPath
+    ){
+        $this.Filename = $filename
+        $this.Files = $files
+        $this.DiscardPath = $discardPath
+    }
+    
+    [void]Compare()
+    {
+        foreach ($file in $this.Files)
         {
             & $file.FullName
         }
-    }.GetNewClosure()
+    }
 
-    New-Object -TypeName psobject -Property @{ Filename = $Filename; Files = $Files | select -ExpandProperty FullName; Compare = $compare }
+    [void]rm([int]$index)
+    {
+        $index--
+        $file = $this.Files[$index]
+        $rnd = [System.IO.Path]::GetRandomFileName()
+        mv $file.FullName "$($this.DiscardPath)\$($file.BaseName)_$rnd$($file.Extension)"
+        $this.Files.RemoveAt($index)
+
+    }
 }
+
+Update-FormatData -PrependPath DupeInfo.ps1xml
 
 function Get-Dupes
 {
 param(
-    [string]$Path
+    [string]$Path,
+    [string]$DiscardPath
 )
     $hashes = @{}
     $files = gci $Path -r | where { ! $_.PSIsContainer }
@@ -38,8 +64,10 @@ param(
         }
     }
 
-    $hashes.GetEnumerator() |? { $_.Value.Length -gt 1 } |% { New-DupeInfo $_.Key $_.Value }
+    $hashes.GetEnumerator() |? { $_.Value.Length -gt 1 } |% { [DupeInfo]::new($_.key, $_.Value, $DiscardPath) }
 }
+
+$dupes = Get-Dupes E:\media\pictures\family E:\discards
 #
 # $hashes = New-Object System.Collections.Generic.HashSet[string]
 # $dupes = @()

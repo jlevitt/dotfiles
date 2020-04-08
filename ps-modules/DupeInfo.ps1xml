@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>mygciview</Name>
+            <ViewSelectedBy>
+                <TypeName>DupeInfo</TypeName>
+            </ViewSelectedBy>
+            <GroupBy>
+                <PropertyName>Filename</PropertyName>
+            </GroupBy>
+            <ListControl>
+                <ListEntries>
+                    <ListEntry>
+                        <ListItems>
+                            <ListItem>
+                                <Label>Files</Label>            
+                                <ScriptBlock>
+                                    $result = ""
+                                    $index = 1
+                                    foreach ($file in $_.Files)
+                                    {
+                                        $result += "$index - " + $file.FullName + "`r`n"
+                                        $index++
+                                    }
+                                    $result
+                                </ScriptBlock>
+                            </ListItem>
+                        </ListItems>
+                    </ListEntry>
+                </ListEntries>
+            </ListControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>
