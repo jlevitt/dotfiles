@@ -67,6 +67,34 @@ param(
     $hashes.GetEnumerator() |? { $_.Value.Length -gt 1 } |% { [DupeInfo]::new($_.key, $_.Value, $DiscardPath) }
 }
 
+function Process-Dupes($dupes)
+{
+    foreach ($dupe in $dupes)
+    {
+        $dupe.Compare()
+        $dupe
+        "s - skip"
+        "q - quit"
+
+        $choice = Read-Host "Delete?"
+
+        switch ($choice)
+        {
+            "s" { continue }
+            "q" { return }
+            default
+            {
+                $index = [int]$choice - 1
+                $file = $dupe.Files[$index]
+                "Deleting $($file.FullName)..."
+                $dupe.rm([int]$choice)
+            }
+        }
+
+    }
+    "Done processing."
+}
+
 $dupes = Get-Dupes E:\media\pictures\family E:\discards
 #
 # $hashes = New-Object System.Collections.Generic.HashSet[string]
