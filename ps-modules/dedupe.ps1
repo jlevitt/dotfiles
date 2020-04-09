@@ -34,6 +34,7 @@ class DupeInfo
         $file = $this.Files[$index]
         $rnd = [System.IO.Path]::GetRandomFileName()
         mv $file.FullName "$($this.DiscardPath)\$($file.BaseName)_$rnd$($file.Extension)"
+        Write-Host "mv $($file.FullName) $($this.DiscardPath)\$($file.BaseName)_$rnd$($file.Extension)"
         $this.Files.RemoveAt($index)
 
     }
@@ -41,15 +42,8 @@ class DupeInfo
 
 Update-FormatData -PrependPath DupeInfo.ps1xml
 
-function Get-Dupes
+function addFiles($hashes, $files)
 {
-param(
-    [string]$Path,
-    [string]$DiscardPath
-)
-    $hashes = @{}
-    $files = gci $Path -r | where { ! $_.PSIsContainer }
-
     foreach ($file in $files)
     {
         $hash = hash($file)
@@ -62,6 +56,30 @@ param(
         {
             $hashes[$hash] =  @($file)
         }
+    }
+}
+
+function Get-Dupes
+{
+param(
+    [string]$Path,
+    [string]$DiscardPath,
+    [string]$Dest = $null
+)
+    $hashes = @{}
+
+
+    $files = gci $Path -r | where { ! $_.PSIsContainer }
+    Write-Host "Found $($files | measure | select -ExpandProperty Count) source file(s)..."
+    addFiles $hashes $files
+    Write-Host "Source file hashes added..."
+    
+    if ($dest)
+    {
+        $destFiles = gci $Dest -r | where { ! $_.PSIsContainer }
+        Write-Host "Found $($destFiles | measure | select -ExpandProperty Count) dest file(s)..."
+        addFiles $hashes $destFiles
+        Write-Host "Dest file hashes added..."
     }
 
     $hashes.GetEnumerator() |? { $_.Value.Length -gt 1 } |% { [DupeInfo]::new($_.key, $_.Value, $DiscardPath) }
@@ -95,35 +113,5 @@ function Process-Dupes($dupes)
     "Done processing."
 }
 
-$dupes = Get-Dupes E:\media\pictures\family E:\discards
-#
-# $hashes = New-Object System.Collections.Generic.HashSet[string]
-# $dupes = @()
-# $unique = @()
-#
-# gci $dest -r | where { ! $_.PSIsContainer } |% { $hashes.Add((hash($_))) | Out-Null }
-#
-# $srcFiles = gci $src -r | where { ! $_.PSIsContainer }
-# foreach ($file in $srcFiles)
-# {
-#     $srcHash = hash($file)
-#
-#     if ($hashes.Contains($srcHash))
-#     {
-#         $dupes += $file
-#         cp $($file.FullName) $grouped\dupes
-#     }
-#     else
-#     {
-#         $unique += $file
-#         cp $($file.FullName) $grouped\unique
-#     }
-# }
-#
-# "Dupes ($($dupes.Length)):"
-# $dupes
-#
-# "*********************************"
-# "Unique ($($unique.Length)):"
-# $unique
-
+#$dupes = Get-Dupes -Path C:\Users\jlevitt\Pictures\staging -DiscardPath E:\discards -Dest E:\media\pictures
+#$dupes = Get-Dupes -Path E:\media\pictures -DiscardPath E:\discards
