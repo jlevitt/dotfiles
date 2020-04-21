@@ -71,6 +71,30 @@ function Copy-Branch($pattern)
 }
 Set-Alias cbr Copy-Branch
 
+function git-skip($path)
+{
+    git update-index --skip-worktree $path
+}
+
+function git-unskip($path)
+{
+    git update-index --no-skip-worktree $path
+}
+
+function git-pop-ini
+{
+	git pop
+	git-skip src/positronics_agent/general.ini
+	git-skip src/positronics_agent/site.ini
+}
+
+function git-stash-ini
+{
+	git-unskip src/positronics_agent/general.ini
+	git-unskip src/positronics_agent/site.ini
+	git save
+}
+
 ### End git helpers
 
 ### Aloha specific
@@ -526,15 +550,5 @@ function UnEscape-Html
 function zoom()
 {
     "https://zoom.us/my/omnijake" | clip
-}
-
-function git-skip($path)
-{
-    git update-index --skip-worktree $path
-}
-
-function git-unskip($path)
-{
-    git update-index --no-skip-worktree $path
 }
 
