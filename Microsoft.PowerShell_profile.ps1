@@ -526,6 +526,21 @@ function Stop-JlevittTunnel
     Get-Job -Name "Tunnel - Jlevitt" | Remove-Job -Force
 }
 
+function Start-DashTunnelDev
+{
+    Start-Job -Name "Tunnel - Dash (Dev)" -ScriptBlock {
+        while ($true)
+        {
+            ssh -N -L 5050:localhost:5050 jlevitt
+        }
+    } | Out-Null
+}
+
+function Stop-DashTunnelDev
+{
+    Get-Job -Name "Tunnel - Dash (Dev)" | Remove-Job -Force
+}
+
 
 function Get-DebugBuild
 {
