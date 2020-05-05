@@ -20,13 +20,29 @@ Plugin 'nvie/vim-flake8'
 Plugin 'othree/html5.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'fatih/vim-go'
-Plugin 'chrisbra/Recover.vim'
+"Plugin 'chrisbra/Recover.vim'
+"Plugin 'gioele/vim-autoswap'
 Plugin 'sk1418/Join'
 Plugin 'tpope/vim-surround'
+Plugin 'robhurring/todo.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" Plugin Config
+let g:go_version_warning = 0
+
+"" todo.vim
+autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
+autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
+autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
+autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
+
+autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 
 " Aliases/Helpers
 :command! Reload so %
@@ -179,7 +195,13 @@ let &backupdir = s:vimfiles . '/tmp/backup//'
 if !isdirectory(expand(&backupdir))
     call mkdir(expand(&backupdir), "p")
 endif
-
+"
+" Move swap files to $HOME/.vim/tmp/swp
+let &directory = s:vimfiles . '/tmp/swp//'
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+"
 " Undofile -- keep a file to persist undo history after file is closed
 if has("persistent_undo") == 1
     set undofile
@@ -226,6 +248,7 @@ let NERDTreeShowHidden=1
 " Ctrl-P Settings
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlPMRU'|  " Start Ctrl P in MRU mode
+map <C-B> :CtrlPBuffer<CR>
 
 " vim-airline Settings
 let g:airline#extensions#tabline#enabled = 1
@@ -286,3 +309,5 @@ nnoremap <Leader>j :call FormatJson()<cr>
 " Use smart case for searching
 set ignorecase
 set smartcase
+
+
