@@ -45,6 +45,9 @@ choco install libreoffice-still -y  # OR http://www.alexnolan.net/software/dbf.h
 
 # Python
 
+# Media
+choco install makemkv
+
 # Privacy
 choco install gpg4win -y
 
