@@ -239,7 +239,7 @@ autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/n
 " EOF
 
 " NerdTree Settings
-autocmd VimEnter * nmap <F3> :NERDTreeToggle<CR>
+autocmd VimEnter * nmap <F3> cd %:p:h<CR>|:NERDTreeToggle<CR>
 autocmd VimEnter * imap <F3> <Esc>:NERDTreeToggle<CR>a
 let NERDTreeQuitOnOpen=1
 let NERDTreeWinSize=50
