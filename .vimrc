@@ -143,6 +143,16 @@ inoremap <F5> <C-R>=strftime("## %Y-%m-%d")<CR>
 inoremap <silent> <Tab> <C-R>=DwiwITab()<cr>
 inoremap <silent> <S-Tab> <C-N>
 
+" Append tag to end of markdown line. One of: (**Action Item**, **Document**,
+" **Radar).
+autocmd FileType markdown nmap <buffer> <LocalLeader>a A - **Action Item**<Esc>
+autocmd FileType markdown imap <buffer> <LocalLeader>a <Esc>A - **Action Item**
+autocmd FileType markdown nmap <buffer> <LocalLeader>d A - **Document**<Esc>
+autocmd FileType markdown imap <buffer> <LocalLeader>d <Esc>A - **Document**
+autocmd FileType markdown nmap <buffer> <LocalLeader>r A - **Radar**<Esc>
+autocmd FileType markdown imap <buffer> <LocalLeader>r <Esc>A - **Radar**
+
+
 " Taken from Gary Bernhardt's vimrc [1]
 function! DwiwITab()
     let col = col('.') - 1
