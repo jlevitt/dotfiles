@@ -94,6 +94,7 @@ Write-Host "Profile written [OK]"
 
 if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
 {
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
     Write-Host "PoshGit module installed [OK]"
 }
