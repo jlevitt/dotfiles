@@ -1,7 +1,7 @@
 function hash($fileInfo)
 {
     #$fileInfo.Name + "-" + $fileInfo.Length
-    $fileInfo.Name
+    $fileInfo.Name.Replace("_converted", "")
 }
 
 class DupeInfo
@@ -69,14 +69,14 @@ param(
     $hashes = @{}
 
 
-    $files = gci $Path -r | where { ! $_.PSIsContainer }
+    $files = gci $Path -r |? { ! $_.PSIsContainer }
     Write-Host "Found $($files | measure | select -ExpandProperty Count) source file(s)..."
     addFiles $hashes $files
     Write-Host "Source file hashes added..."
     
     if ($dest)
     {
-        $destFiles = gci $Dest -r | where { ! $_.PSIsContainer }
+        $destFiles = gci $Dest -r |? { ! $_.PSIsContainer }
         Write-Host "Found $($destFiles | measure | select -ExpandProperty Count) dest file(s)..."
         addFiles $hashes $destFiles
         Write-Host "Dest file hashes added..."
@@ -113,5 +113,26 @@ function Process-Dupes($dupes)
     "Done processing."
 }
 
-#$dupes = Get-Dupes -Path C:\Users\jlevitt\Pictures\staging -DiscardPath E:\discards -Dest E:\media\pictures
-#$dupes = Get-Dupes -Path E:\media\pictures -DiscardPath E:\discards
+
+function Compare-Paths
+{
+param(
+    [string]$Src,
+    [string]$Dest,
+    [switch]$Missing
+)
+    $hashes = @{}
+
+    $destFiles = gci $Dest -r |? { ! $_.PSIsContainer }
+    Write-Host "Found $($destFiles | measure | select -ExpandProperty Count) dest file(s)..."
+    addFiles $hashes $destFiles
+    Write-Host "Dest file hashes added..."
+
+
+    $srcFiles = gci $Src -r |? { ! $_.PSIsContainer }
+    Write-Host "Found $($srcFiles | measure | select -ExpandProperty Count) source file(s)..."
+    $diff = $srcFiles |? {  if ($Missing) { ! $hashes.Contains($(hash $_)) } else { $hashes.Contains($(hash $_)) }}
+
+    return $diff
+}
+
