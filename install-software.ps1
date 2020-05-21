@@ -46,13 +46,8 @@ choco install libreoffice-still -y  # OR http://www.alexnolan.net/software/dbf.h
 # Python
 
 # Media
-choco install makemkv
+choco install makemkv -y
+choco install mkvtoolnix -y
 
 # Privacy
 choco install gpg4win -y
-
-# Has non choco dependencies
-choco install resharper
-
-# Non-choco
-(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
