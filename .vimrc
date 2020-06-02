@@ -151,6 +151,8 @@ autocmd FileType markdown nmap <buffer> <LocalLeader>d A - **Document**<Esc>
 autocmd FileType markdown imap <buffer> <LocalLeader>d <Esc>A - **Document**
 autocmd FileType markdown nmap <buffer> <LocalLeader>r A - **Radar**<Esc>
 autocmd FileType markdown imap <buffer> <LocalLeader>r <Esc>A - **Radar**
+autocmd FileType markdown nmap <buffer> <LocalLeader>v A - **Review**<Esc>
+autocmd FileType markdown imap <buffer> <LocalLeader>v <Esc>A - **Review**
 
 
 " Taken from Gary Bernhardt's vimrc [1]
