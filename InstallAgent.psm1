@@ -31,3 +31,10 @@ function Install-Agent
 
     Write-Output "Time taken: $((Get-Date).Subtract($start_time).Seconds) second(s)"
 }
+
+function Uninstall-Agent
+{
+    Write-Output "Uninstalling POSAgent..."
+
+    & "C:\Program Files (x86)\POS Agent\unins000.exe"
+}
