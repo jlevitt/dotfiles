@@ -293,6 +293,12 @@ function dotfiles
     cd $dotfiles
 }
 
+$titanoboa = "$projectsDir\titanoboa"
+function titanoboa
+{
+    cd $titanoboa
+}
+
 function edit-profile
 {
     & $editor $PROFILE
