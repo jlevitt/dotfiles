@@ -472,9 +472,9 @@ function Stop-MySqlTunnelDev
     Get-Job -Name "Tunnel - MySql (Dev)" | Remove-Job -Force
 }
 
-function Start-MySqlTunnelStage
+function Start-MySqlTunnelStageBrink
 {
-    Start-Job -Name "Tunnel - MySql (Stage)" -ScriptBlock {
+    Start-Job -Name "Tunnel - MySql (Stage - Brink)" -ScriptBlock {
         while ($true)
         {
             ssh -N -L 3308:stage-gateway.cgvzdzphnxrt.us-west-2.rds.amazonaws.com:3306 jump-stage
@@ -482,9 +482,26 @@ function Start-MySqlTunnelStage
     } | Out-Null
 }
 
-function Stop-MySqlTunnelStage
+function Stop-MySqlTunnelStageBrink
 {
-    Get-Job -Name "Tunnel - MySql (Stage)" | Remove-Job -Force
+    Get-Job -Name "Tunnel - MySql (Stage - Brink)" | Remove-Job -Force
+}
+
+function Start-MySqlTunnelStagePositronics
+{
+    # Make sure tunnel is running on jump-stage as well:
+    # In a screen: ssh -4L 3308:10.0.68.111:3306 database1
+    Start-Job -Name "Tunnel - MySql (Stage - Positronics)" -ScriptBlock {
+        while ($true)
+        {
+            ssh -N -L 3308:127.0.0.1:3308 jump-stage
+        }
+    } | Out-Null
+}
+
+function Stop-MySqlTunnelStagePositronics
+{
+    Get-Job -Name "Tunnel - MySql (Stage - Positronics)" | Remove-Job -Force
 }
 
 function Start-SftpTunnel
