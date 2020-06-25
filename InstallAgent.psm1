@@ -25,7 +25,7 @@ function Install-Agent
 
     Start-Process -NoNewWindow -FilePath $output -ArgumentList "/SKIPACTIVATION" -Wait
 
-    cp $IniPath "C:\Program Files (x86)\POS Agent"
+    cp $IniPath "$($env:ProgramFiles)\POS Agent"
 
     Get-Service POSAgent | Start-Service
 
@@ -36,5 +36,5 @@ function Uninstall-Agent
 {
     Write-Output "Uninstalling POSAgent..."
 
-    & "C:\Program Files (x86)\POS Agent\unins000.exe"
+    & "$($env:ProgramFiles)\POS Agent\unins000.exe"
 }
