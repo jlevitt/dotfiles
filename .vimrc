@@ -309,7 +309,7 @@ nnoremap <special> <C-d> :call DiffText(@a, @b, g:diffed_buffers)<CR>
 nnoremap <special> <C-d><C-d> :call WipeOutDiffs(g:diffed_buffers) <bar> let g:diffed_buffers=[]<CR>
 
 function! FormatJson()
-    %!jq .
+    %!jq . --indent 4
     if v:shell_error
         let error=getline(1)
         undo
