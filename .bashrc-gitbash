@@ -1,0 +1,2 @@
+alias giganto="cd /c/projects/go/src/github.com/omnivore/giganto/"
+export DEV_ROOT=/c/projects
