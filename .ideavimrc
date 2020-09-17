@@ -118,6 +118,11 @@ set pastetoggle=<F2>
 inoremap <silent> <Tab> <C-R>=DwiwITab()<cr>
 inoremap <silent> <S-Tab> <C-N>
 
+" Clear search highlighting
+set incsearch
+" Use <C-L> to clear the highlighting of :set hlsearch.
+nnoremap <silent> <C-L> :nohlsearch<CR>
+
 " Taken from Gary Bernhardt's vimrc [1]
 function! DwiwITab()
     let col = col('.') - 1
@@ -229,3 +234,6 @@ autocmd BufWritePost *.py call Flake8()
 " Use smart case for searching
 set ignorecase
 set smartcase
+
+" Add ideaput to clipboard option to perform a put via the IDE
+set clipboard+=ideaput
