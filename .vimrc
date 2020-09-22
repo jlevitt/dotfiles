@@ -322,4 +322,6 @@ nnoremap <Leader>j :call FormatJson()<cr>
 set ignorecase
 set smartcase
 
-
+" Better splits
+set splitbelow
+set splitright
