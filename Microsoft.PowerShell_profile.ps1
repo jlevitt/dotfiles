@@ -5,6 +5,7 @@ $projectsDir = "__PROJECTS_DIR__"
 $homeDir = "__HOME_DIR__"
 $editor = "__EDITOR__"
 $vm_type = "__VM_TYPE__"
+$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
 
 ### End params
 
@@ -494,7 +495,7 @@ function Start-MySqlTunnelStagePositronics
     Start-Job -Name "Tunnel - MySql (Stage - Positronics)" -ScriptBlock {
         while ($true)
         {
-            ssh -N -L 3308:127.0.0.1:3308 jump-stage
+            ssh -N -L 3309:127.0.0.1:3309 jump-stage
         }
     } | Out-Null
 }
@@ -502,6 +503,23 @@ function Start-MySqlTunnelStagePositronics
 function Stop-MySqlTunnelStagePositronics
 {
     Get-Job -Name "Tunnel - MySql (Stage - Positronics)" | Remove-Job -Force
+}
+
+function Start-MySqlTunnelStageAgentMaster
+{
+    # Make sure tunnel is running on jump-stage as well:
+    # In a screen: ssh -4L 3310:10.0.101.72:3310 database1
+    Start-Job -Name "Tunnel - MySql (Stage - Agent Master)" -ScriptBlock {
+        while ($true)
+        {
+            ssh -N -L 3310:127.0.0.1:3310 jump-stage
+        }
+    } | Out-Null
+}
+
+function Stop-MySqlTunnelStageAgentMaster
+{
+    Get-Job -Name "Tunnel - MySql (Stage - Agent Master)" | Remove-Job -Force
 }
 
 function Start-SftpTunnel
@@ -517,36 +535,6 @@ function Start-SftpTunnel
 function Stop-SftpTunnel
 {
     Get-Job -Name "Tunnel - Sftp" | Remove-Job -Force
-}
-
-function Start-DinerwareTunnel
-{
-    Start-Job -Name "Tunnel - Dinerware" -ScriptBlock {
-        while ($true)
-        {
-            ssh -4 -L22222:127.0.0.1:22222 jlevitt@jump.dev-va1.internal.pos-api.com
-        }
-    } | Out-Null
-}
-
-function Stop-DinerwareTunnel
-{
-    Get-Job -Name "Tunnel - Dinerware" | Remove-Job -Force
-}
-
-function Start-JlevittTunnel
-{
-    Start-Job -Name "Tunnel - Jlevitt" -ScriptBlock {
-        while ($true)
-        {
-            ssh -M 2023:2024 jlevitt
-        }
-    } | Out-Null
-}
-
-function Stop-JlevittTunnel
-{
-    Get-Job -Name "Tunnel - Jlevitt" | Remove-Job -Force
 }
 
 function Start-DashTunnelDev
@@ -587,6 +575,10 @@ function UnEscape-Html
 
 function zoom()
 {
-    "https://zoom.us/my/omnijake" | clip
+    "https://omnivore.zoom.us/my/omnijake?pwd=$zoom_room_password" | clip
 }
 
+function retro()
+{
+    start "https://omnivore.atlassian.net/issues/?jql=project%20%3D%20AGENT%20AND%20status%20changed%20to%20%22Pending%20Release%22%20during%20($(([datetime]::now.Date - [timespan]::FromDays(14)).ToString('yyyy-MM-dd'))%2C%20$(([datetime]::now.Date - [timespan]::FromDays(1)).ToString('yyyy-MM-dd')))"
+}

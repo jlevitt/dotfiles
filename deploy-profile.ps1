@@ -5,7 +5,8 @@ $expectedParams = @(
     'USE_POSH_GIT',
     'PROJECTS_DIR',
     'EDITOR',
-    'VM_TYPE'
+    'VM_TYPE',
+    'ZOOM_ROOM_PASSWORD'
 )
 
 if (Test-Path $deployParamsPath)
@@ -106,4 +107,3 @@ if (-not $(Test-Path $installAgentModulePath))
 }
 cp .\InstallAgent.psm1 $installAgentModulePath\InstallAgent.psm1
 Write-Host "InstallAgent module written [OK]"
-
