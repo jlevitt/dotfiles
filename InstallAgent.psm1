@@ -36,5 +36,15 @@ function Uninstall-Agent
 {
     Write-Output "Uninstalling POSAgent..."
 
-    & "$($env:ProgramFiles)\POS Agent\unins000.exe"
+	if (Test-Path "C:\Program Files (x86)")
+	{
+		$programFiles = "C:\Program Files (x86)"
+	}
+    else
+	{
+		$programFiles = "C:\Program Files"
+	}
+
+    & "$programFiles\POS Agent\unins000.exe"
 }
+
