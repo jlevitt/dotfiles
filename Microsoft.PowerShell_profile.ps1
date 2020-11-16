@@ -578,7 +578,20 @@ function zoom()
     "https://omnivore.zoom.us/my/omnijake?pwd=$zoom_room_password" | clip
 }
 
-function retro()
+function retro
 {
-    start "https://omnivore.atlassian.net/issues/?jql=project%20%3D%20AGENT%20AND%20status%20changed%20to%20%22Pending%20Release%22%20during%20($(([datetime]::now.Date - [timespan]::FromDays(14)).ToString('yyyy-MM-dd'))%2C%20$(([datetime]::now.Date - [timespan]::FromDays(1)).ToString('yyyy-MM-dd')))"
+    param(
+        $date = $null
+    )
+
+    if ($date -eq $null)
+    {
+        $date = [datetime]::now.Date
+    }
+    else
+    {
+        $date = ([datetime]$date).Date
+    }
+
+    start "https://omnivore.atlassian.net/issues/?jql=project%20%3D%20AGENT%20AND%20status%20changed%20to%20%22Pending%20Release%22%20during%20($(($date - [timespan]::FromDays(14)).ToString('yyyy-MM-dd'))%2C%20$(($date - [timespan]::FromDays(1)).ToString('yyyy-MM-dd')))"
 }
