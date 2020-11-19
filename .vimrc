@@ -153,6 +153,10 @@ autocmd FileType markdown nmap <buffer> <LocalLeader>r A - **Radar**<Esc>
 autocmd FileType markdown imap <buffer> <LocalLeader>r <Esc>A - **Radar**
 autocmd FileType markdown nmap <buffer> <LocalLeader>v A - **Review**<Esc>
 autocmd FileType markdown imap <buffer> <LocalLeader>v <Esc>A - **Review**
+autocmd FileType markdown nmap <buffer> <LocalLeader>m A - **Merge**<Esc>
+autocmd FileType markdown imap <buffer> <LocalLeader>m <Esc>A - **Merge**
+autocmd FileType markdown nmap <buffer> <LocalLeader>f A - **Feedback**<Esc>
+autocmd FileType markdown imap <buffer> <LocalLeader>f <Esc>A - **Feedback**
 
 
 " Taken from Gary Bernhardt's vimrc [1]
@@ -325,3 +329,9 @@ set smartcase
 " Better splits
 set splitbelow
 set splitright
+
+" Alt + arrow key to navigate splits
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
