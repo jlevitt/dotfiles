@@ -124,6 +124,11 @@ if ($vm_type -eq "aloha")
     }
 
     $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
+    
+    function aloha-cli
+    {
+        & $anzu\scripts\aloha\AlohaCLI\AlohaCLITest\bin\Debug\AlohaCLITest.exe
+    }
 }
 
 ### End Aloha specific
