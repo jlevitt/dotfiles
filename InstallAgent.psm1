@@ -1,3 +1,17 @@
+function programFilesPath
+{
+    if (Test-Path "C:\Program Files (x86)")
+    {
+        $programFiles = "C:\Program Files (x86)"
+    }
+    else
+    {
+        $programFiles = "C:\Program Files"
+    }
+    
+    return $programFiles
+}
+
 function Install-Agent
 {
     param(
@@ -23,9 +37,9 @@ function Install-Agent
     }
 
 
-    Start-Process -NoNewWindow -FilePath $output -ArgumentList "/SKIPACTIVATION" -Wait
+    Start-Process -NoNewWindow -FilePath $output -ArgumentList "/SKIPACTIVATION /SKIPNETTEST" -Wait
 
-    cp $IniPath "$($env:ProgramFiles)\POS Agent"
+    cp $IniPath "$(programFilesPath)\POS Agent"
 
     Get-Service POSAgent | Start-Service
 
@@ -36,15 +50,7 @@ function Uninstall-Agent
 {
     Write-Output "Uninstalling POSAgent..."
 
-	if (Test-Path "C:\Program Files (x86)")
-	{
-		$programFiles = "C:\Program Files (x86)"
-	}
-    else
-	{
-		$programFiles = "C:\Program Files"
-	}
-
-    & "$programFiles\POS Agent\unins000.exe"
+    & "$(programFilesPath)\POS Agent\unins000.exe"
 }
 
+Export-ModuleMember -function *-*
