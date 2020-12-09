@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2020-07-06 23:51:08" build="200615">
+		<key name=".Vanilla" modified="2020-12-09 15:05:50" build="200615">
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
@@ -306,16 +306,21 @@
 			<value name="JumpListAutoUpdate" type="hex" data="01"/>
 			<value name="SaveCmdHistory" type="hex" data="01"/>
 			<value name="CmdLineHistory" type="multi">
+				<line data="{Bash::Git bash}"/>
+				<line data="{Shells::PowerShell}"/>
+				<line data='"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe" -cur_console:t:ps'/>
+				<line data='"C:\WINDOWS\system32\bash.exe" -cur_console:p5 -cur_console:t:dev-box -cur_console:C:C:\Users\jlevitt\AppData\Local\lxss\bash.ico -cur_console:m:/mnt'/>
+				<line data='"C:\Program Files\ConEmu\..\Git\git-cmd.exe"  --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe /usr/bin/bash.exe -l -i'/>
+				<line data='"C:\WINDOWS\system32\bash.exe" -cur_console:p5 -cur_console:C:C:\Users\jlevitt\AppData\Local\lxss\bash.ico -cur_console:m:/mnt'/>
+				<line data='"C:\Program Files\ConEmu\..\Git\git-cmd.exe"   --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe /usr/bin/bash.exe -l -i'/>
 				<line data="{Work}"/>
 				<line data="{Shells::cmd}"/>
 				<line data='"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe" -cur_console:f -cur_console:t:ps'/>
-				<line data="{Bash::Git bash}"/>
 				<line data="{Shells::cmd (Admin)}"/>
 				<line data='"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe" -cur_console:b -cur_console:t:ps'/>
 				<line data="{Bash::bash-working}"/>
 				<line data='"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe" -cur_console:b -cur_console:t:build'/>
 				<line data='"C:\WINDOWS\system32\bash.exe" -cur_console:p5 -cur_console:t:jlevitt -cur_console:C:C:\Users\jlevitt\AppData\Local\lxss\bash.ico -cur_console:m:/mnt'/>
-				<line data='"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe" -cur_console:t:ps'/>
 				<line data='"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe"'/>
 				<line data="{Bash::bash}"/>
 				<line data="{Bash::oldbash}"/>
@@ -372,12 +377,12 @@
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
 			<value name="Cascaded" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
-			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd X" type="long" data="-2003"/>
+			<value name="WindowMode" type="dword" data="0000051f"/>
+			<value name="ConWnd X" type="long" data="-1921"/>
 			<value name="ConWnd Y" type="long" data="0"/>
 			<value name="LastMonitor" type="string" data="-1920,0,0,1040"/>
-			<value name="ConWnd Width" type="dword" data="000000e4"/>
-			<value name="ConWnd Height" type="dword" data="00000034"/>
+			<value name="ConWnd Width" type="dword" data="000000d5"/>
+			<value name="ConWnd Height" type="dword" data="0000002d"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="Restore2ActiveMon" type="hex" data="00"/>
 			<value name="QuakeAnimation" type="ulong" data="300"/>
@@ -570,7 +575,7 @@
 			<value name="MinimizeOnLoseFocus" type="hex" data="00"/>
 			<value name="DisableFarFlashing" type="hex" data="00"/>
 			<value name="DisableAllFlashing" type="hex" data="00"/>
-			<value name="FindText" type="string" data="zoom"/>
+			<value name="FindText" type="string" data="lavu"/>
 			<value name="FindMatchCase" type="hex" data="00"/>
 			<value name="FindMatchWholeWords" type="hex" data="00"/>
 			<value name="FindTransparent" type="hex" data="01"/>
@@ -782,16 +787,17 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" &amp; %ConEmuBaseDirShort%\conemu-cyg-64.exe --wsl -cur_console:pm:/mnt'/>
 				</key>
-				<key name="Task17" modified="2020-07-06 23:51:08" build="200615">
+				<key name="Task17" modified="2020-12-09 15:05:50" build="200615">
 					<value name="Name" type="string" data="{Work}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="80808074"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="3"/>
-					<value name="Cmd1" type="string" data='powershell.exe -NoExit -Command "Start-Omniprox; Start-MySqlTunnelDev; Start-SftpTunnel;" -new_console:t:tunnels'/>
-					<value name="Cmd2" type="string" data='powershell.exe -Command "use-agent-env; python;" -new_console:t:py27'/>
-					<value name="Cmd3" type="string" data='-cur_console:p5 -cur_console:d:C:\Users\jlevitt -cur_console:t:dev-box -cur_console:C:C:\Users\jlevitt\AppData\Local\lxss\bash.ico -cur_console:m:/mnt "C:\WINDOWS\system32\bash.exe"'/>
+					<value name="Count" type="long" data="4"/>
+					<value name="Cmd1" type="string" data='set "PATH=%ConEmuDir%\..\Git\usr\bin;%PATH%" &amp; "%ConEmuDir%\..\Git\git-cmd.exe" --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe /usr/bin/bash.exe -l -i -new_console:a:d:C:\projects\go\src\github.com\omnivore\giganto -new_console:t:giganto'/>
+					<value name="Cmd2" type="string" data='powershell.exe -NoExit -Command "Start-Omniprox; Start-MySqlTunnelDev; Start-SftpTunnel;" -new_console:t:tunnels'/>
+					<value name="Cmd3" type="string" data='powershell.exe -Command "use-agent-env; python;" -new_console:t:py27'/>
+					<value name="Cmd4" type="string" data='-cur_console:p5 -cur_console:d:C:\Users\jlevitt -cur_console:t:dev-box -cur_console:C:C:\Users\jlevitt\AppData\Local\lxss\bash.ico -cur_console:m:/mnt "C:\WINDOWS\system32\bash.exe"'/>
 				</key>
 			</key>
 			<key name="Apps" modified="2018-06-19 17:28:47" build="170622">
