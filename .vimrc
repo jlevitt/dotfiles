@@ -25,6 +25,7 @@ Plugin 'fatih/vim-go'
 Plugin 'sk1418/Join'
 Plugin 'tpope/vim-surround'
 Plugin 'robhurring/todo.vim'
+Plugin 'PProvost/vim-ps1'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -335,3 +336,6 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+
+" gx workaround: https://github.com/vim/vim/issues/4738
+nmap gx yiW:!start <cWORD><CR> <C-r>" & <CR><CR>
