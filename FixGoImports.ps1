@@ -6,7 +6,7 @@ param(
 $lines = gc $path
 $foundImports = $false
 $output = @()
-    
+
 foreach ($line in $lines)
 {
     if ($foundImports)
@@ -33,3 +33,4 @@ foreach ($line in $lines)
 $output | sc $path
 
 goimports -local github.com/omnivore/giganto -w $path
+gofmt -w $path
