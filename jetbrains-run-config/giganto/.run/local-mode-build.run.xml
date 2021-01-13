@@ -13,8 +13,6 @@
     <directory value="$PROJECT_DIR$/om/agent/bridge/cmd/bridge" />
     <output_directory value="$PROJECT_DIR$/../../../../../anzu/src/bridge" />
     <option name="run" value="false" />
-    <method v="2">
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Kill agent processes" />
-    </method>
+    <method v="2" />
   </configuration>
 </component>
