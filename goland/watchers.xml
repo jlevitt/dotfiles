@@ -1,0 +1,22 @@
+<TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="-NoProfile &quot; C:\projects\personal\dotfiles\FixGoImports.ps1 '$FilePath$'&quot;" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="go" />
+    <option name="immediateSync" value="false" />
+    <option name="name" value="goimports-fix" />
+    <option name="output" value="$FilePath$" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="powershell" />
+    <option name="runOnExternalChanges" value="false" />
+    <option name="scopeName" value="Project Files" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="" />
+    <envs />
+  </TaskOptions>
+</TaskOptions>
