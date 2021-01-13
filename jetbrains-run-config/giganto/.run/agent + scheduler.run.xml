@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="agent + scheduler" type="CompoundRunConfigurationType">
+    <toRun name="agent-scheduler" type="GoApplicationRunConfiguration" />
+    <toRun name="agent" type="GoApplicationRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>

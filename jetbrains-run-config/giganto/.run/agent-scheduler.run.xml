@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="agent-scheduler" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="giganto" />
+    <working_directory value="$PROJECT_DIR$/" />
+    <go_parameters value="-i" />
+    <parameters value="run" />
+    <envs>
+      <env name="OM_DEV" value="1" />
+      <env name="OM_MYSQL_AGENT_PORT" value="3310" />
+      <env name="OM_REDIS_AGENT_HOSTS" value="127.0.0.1:6375" />
+      <env name="OM_REDIS_AGENT_TYPE" value="instance" />
+    </envs>
+    <kind value="DIRECTORY" />
+    <filePath value="$PROJECT_DIR$/|$PROJECT_DIR$/om/agent/agent/schedule/scheduler/scheduler.go|$PROJECT_DIR$/om/agent/agent/cmd/agent-schedule/main.go|$PROJECT_DIR$/om/agent/agent/cmd/agent-schedule/main.go" />
+    <package value="github.com/omnivore/giganto" />
+    <directory value="$PROJECT_DIR$/om/agent/agent/cmd/agent-schedule" />
+    <method v="2" />
+  </configuration>
+</component>
