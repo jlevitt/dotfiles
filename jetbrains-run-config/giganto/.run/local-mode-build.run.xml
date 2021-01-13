@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="local-mode-build" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="giganto" />
+    <working_directory value="$PROJECT_DIR$" />
+    <go_parameters value="-i -o C:\projects\anzu\src\bridge\bridge.exe" />
+    <envs>
+      <env name="GOOS" value="windows" />
+      <env name="CGO_ENABLED" value="1" />
+    </envs>
+    <kind value="DIRECTORY" />
+    <filePath value="$PROJECT_DIR$" />
+    <package value="github.com/omnivore/giganto" />
+    <directory value="$PROJECT_DIR$/om/agent/bridge/cmd/bridge" />
+    <output_directory value="$PROJECT_DIR$/../../../../../anzu/src/bridge" />
+    <option name="run" value="false" />
+    <method v="2">
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Kill agent processes" />
+    </method>
+  </configuration>
+</component>
