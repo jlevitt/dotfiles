@@ -237,3 +237,5 @@ set smartcase
 
 " Add ideaput to clipboard option to perform a put via the IDE
 set clipboard+=ideaput
+
+set scrolloff=10

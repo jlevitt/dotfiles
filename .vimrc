@@ -339,3 +339,5 @@ nmap <silent> <A-Right> :wincmd l<CR>
 
 " gx workaround: https://github.com/vim/vim/issues/4738
 nmap gx yiW:!start <cWORD><CR> <C-r>" & <CR><CR>
+
+set scrolloff=10
