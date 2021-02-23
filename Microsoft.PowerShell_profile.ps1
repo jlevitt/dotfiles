@@ -600,3 +600,21 @@ function retro
 
     start "https://omnivore.atlassian.net/issues/?jql=project%20%3D%20AGENT%20AND%20status%20changed%20to%20%22Pending%20Release%22%20during%20($(($date - [timespan]::FromDays(14)).ToString('yyyy-MM-dd'))%2C%20$(($date - [timespan]::FromDays(1)).ToString('yyyy-MM-dd')))"
 }
+
+function join
+{
+    param(
+        $prefix = $null,
+        $sep = ", ",
+        [switch]$surround = $false
+    )
+
+    $joined = [string]::Join($sep, $($input |% { "$prefix$_" }) )
+
+    if ($surround)
+    {
+        $joined = "($joined)"
+    }
+
+    $joined
+}
