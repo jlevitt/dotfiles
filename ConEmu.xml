@@ -761,14 +761,14 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='set "PATH=%ConEmuDir%\..\Git\usr\bin;%PATH%" &amp; "%ConEmuDir%\..\Git\git-cmd.exe" --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe /usr/bin/bash.exe -l -i -new_console:a'/>
 				</key>
-				<key name="Task14" modified="2021-02-23 14:36:42" build="200615">
+				<key name="Task14" modified="2021-02-23 14:42:53" build="200615">
 					<value name="Name" type="string" data="{Bash::Git bash (tty)}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00101147"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='"C:\Program Files\Git\bin\bash.exe" -new_console:a'/>
+					<value name="Cmd1" type="string" data='"C:\Program Files\Git\bin\bash.exe" -new_console:a:d:C:\projects\go\src\github.com\omnivore\giganto -new_console:t:giganto'/>
 				</key>
 				<key name="Task15" modified="2021-02-23 14:36:42" build="200615">
 					<value name="Name" type="string" data="{SDK::VS 15.0 x86 tools prompt}"/>
@@ -797,14 +797,14 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" &amp; %ConEmuBaseDirShort%\conemu-cyg-64.exe --wsl -cur_console:pm:/mnt'/>
 				</key>
-				<key name="Task18" modified="2021-02-23 14:36:42" build="200615">
+				<key name="Task18" modified="2021-02-23 14:42:53" build="200615">
 					<value name="Name" type="string" data="{Work}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="80808074"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="4"/>
-					<value name="Cmd1" type="string" data='set "PATH=%ConEmuDir%\..\Git\usr\bin;%PATH%" &amp; "%ConEmuDir%\..\Git\git-cmd.exe" --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe /usr/bin/bash.exe -l -i -new_console:a:d:C:\projects\go\src\github.com\omnivore\giganto -new_console:t:giganto'/>
+					<value name="Cmd1" type="string" data='"C:\Program Files\Git\bin\bash.exe" -new_console:a:d:C:\projects\go\src\github.com\omnivore\giganto -new_console:t:giganto'/>
 					<value name="Cmd2" type="string" data='powershell.exe -NoExit -Command "Start-Omniprox; Start-MySqlTunnelDev; Start-SftpTunnel;" -new_console:t:tunnels'/>
 					<value name="Cmd3" type="string" data='powershell.exe -Command "use-agent-env; python;" -new_console:t:py27'/>
 					<value name="Cmd4" type="string" data='-cur_console:p5 -cur_console:d:C:\Users\jlevitt -cur_console:t:dev-box -cur_console:C:C:\Users\jlevitt\AppData\Local\lxss\bash.ico -cur_console:m:/mnt "C:\WINDOWS\system32\bash.exe"'/>
