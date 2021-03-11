@@ -127,7 +127,9 @@ if ($vm_type -eq "aloha")
     
     function aloha-cli
     {
+        $env:TERM = "5"
         & $anzu\scripts\aloha\AlohaCLI\AlohaCLITest\bin\Debug\AlohaCLITest.exe
+        $env:TERM = "xterm"
     }
 }
 
