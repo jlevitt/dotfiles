@@ -124,7 +124,7 @@ if ($vm_type -eq "aloha")
     }
 
     $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
-    
+
     function aloha-cli
     {
         $env:TERM = "5"
@@ -305,6 +305,18 @@ $titanoboa = "$projectsDir\titanoboa"
 function titanoboa
 {
     cd $titanoboa
+}
+
+$personal = "$projectsDir\personal"
+function personal
+{
+    cd $personal
+}
+
+$scripts = "$personal\scripts"
+function scripts
+{
+    cd $scripts
 }
 
 function edit-profile
@@ -607,11 +619,14 @@ function join
 {
     param(
         $prefix = $null,
+        $postfix = $null,
         $sep = ", ",
         [switch]$surround = $false
     )
 
-    $joined = [string]::Join($sep, $($input |% { "$prefix$_" }) )
+    $lines = $input | Split-String -NewLine -RemoveEmptyStrings
+
+    $joined = [string]::Join($sep, $($lines |% { "$prefix$_$postfix" }) )
 
     if ($surround)
     {
