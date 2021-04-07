@@ -410,6 +410,12 @@ if ($mtx.WaitOne(0))
             pageant $(Resolve-Path ~\.ssh\id_rsa.ppk)
         }
 
+        ssh-add -l
+        if (-not $?)
+        {
+            ssh-add $(Resolve-Path ~\.ssh\id_rsa.winopenssh) | Out-Null
+        }
+
         if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
         {
             # Ignore if file not found.
@@ -427,6 +433,7 @@ if ($mtx.WaitOne(0))
         $mtx.ReleaseMutex()
     }
 }
+
 
 
 $env:GOPATH = "$projectsDir\go"
@@ -599,20 +606,7 @@ function zoom()
 
 function retro
 {
-    param(
-        $date = $null
-    )
-
-    if ($date -eq $null)
-    {
-        $date = [datetime]::now.Date
-    }
-    else
-    {
-        $date = ([datetime]$date).Date
-    }
-
-    start "https://omnivore.atlassian.net/issues/?jql=project%20%3D%20AGENT%20AND%20status%20changed%20to%20%22Pending%20Release%22%20during%20($(($date - [timespan]::FromDays(14)).ToString('yyyy-MM-dd'))%2C%20$(($date - [timespan]::FromDays(1)).ToString('yyyy-MM-dd')))"
+    start "https://omnivoreio.atlassian.net/issues/?filter=10013"
 }
 
 function join
