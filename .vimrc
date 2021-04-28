@@ -22,9 +22,9 @@ Plugin 'godlygeek/tabular'
 Plugin 'fatih/vim-go'
 "Plugin 'chrisbra/Recover.vim'
 "Plugin 'gioele/vim-autoswap'
+Plugin 'jlevitt/todo.vim'
 Plugin 'sk1418/Join'
 Plugin 'tpope/vim-surround'
-Plugin 'robhurring/todo.vim'
 Plugin 'PProvost/vim-ps1'
 
 " All of your Plugins must be added before the following line
@@ -42,6 +42,8 @@ autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
 
 autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
 autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+autocmd FileType markdown imap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+autocmd FileType markdown imap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
 autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 
@@ -341,3 +343,4 @@ nmap <silent> <A-Right> :wincmd l<CR>
 nmap gx yiW:!start <cWORD><CR> <C-r>" & <CR><CR>
 
 set scrolloff=10
+
