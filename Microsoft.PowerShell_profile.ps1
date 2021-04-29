@@ -563,6 +563,21 @@ function Stop-SftpTunnel
     Get-Job -Name "Tunnel - Sftp" | Remove-Job -Force
 }
 
+function Start-DelveTunnel
+{
+    Start-Job -Name "Tunnel - Delve" -ScriptBlock {
+        while ($true)
+        {
+            ssh -N -L 2345:jlevitt:2345 jlevitt
+        }
+    } | Out-Null
+}
+
+function Stop-DelveTunnel
+{
+    Get-Job -Name "Tunnel - Delve" | Remove-Job -Force
+}
+
 function Start-DashTunnelDev
 {
     Start-Job -Name "Tunnel - Dash (Dev)" -ScriptBlock {
