@@ -499,6 +499,21 @@ function Stop-MySqlTunnelDev
     Get-Job -Name "Tunnel - MySql (Dev)" | Remove-Job -Force
 }
 
+function Start-MySqlTunnelDevCloudPOS
+{
+    Start-Job -Name "Tunnel - MySql (DevCloudPOS)" -ScriptBlock {
+        while ($true)
+        {
+            ssh -N -L 8765:localhost:3310 jlevitt
+        }
+    } | Out-Null
+}
+
+function Stop-MySqlTunnelDevCloudPOS
+{
+    Get-Job -Name "Tunnel - MySql (DevCloudPOS)" | Remove-Job -Force
+}
+
 function Start-MySqlTunnelStageBrink
 {
     Start-Job -Name "Tunnel - MySql (Stage - Brink)" -ScriptBlock {
