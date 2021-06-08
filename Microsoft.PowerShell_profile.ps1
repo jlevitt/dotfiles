@@ -277,6 +277,12 @@ function ChangeDirHaskellKatas
 
 Set-Alias hs ChangeDirHaskell
 
+$infra = "$projectsDir\infra"
+function infra
+{
+    cd $infra
+}
+
 $giganto = "$projectsDir\giganto"
 function giganto
 {
