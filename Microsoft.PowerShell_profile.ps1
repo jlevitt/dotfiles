@@ -277,7 +277,7 @@ function ChangeDirHaskellKatas
 
 Set-Alias hs ChangeDirHaskell
 
-$giganto = "$($env:GOPATH)\src\github.com\omnivore\giganto"
+$giganto = "$projectsDir\giganto"
 function giganto
 {
     cd $giganto
