@@ -357,6 +357,13 @@ function off
     Stop-Computer -Force -AsJob
 }
 
+function Get-UnixNow {
+   $utc = [DateTime]::UTCNow
+   $timespan = $utc - ([datetime]'1/1/1970')
+   [Math]::Round($timespan.TotalSeconds)
+}
+
+
 function Convert-FromUnixdate ($unixDate) {
    $utc = ([datetime]'1/1/1970').AddSeconds($unixDate)
    $utc.ToLocalTime()
@@ -614,6 +621,20 @@ function Stop-DashTunnelDev
     Get-Job -Name "Tunnel - Dash (Dev)" | Remove-Job -Force
 }
 
+function Start-MarketPlaceUITunnelDev
+{
+    Start-Job -Name "Tunnel - MarketPlaceUI (Dev)" -ScriptBlock {
+        while ($true)
+        {
+            ssh -N -L 6501:localhost:6501 jlevitt
+        }
+    } | Out-Null
+}
+
+function Stop-MarketPlaceUITunnelDev
+{
+    Get-Job -Name "Tunnel - MarketPlaceUI (Dev)" | Remove-Job -Force
+}
 
 function Get-DebugBuild
 {
@@ -664,4 +685,10 @@ function join
     }
 
     $joined
+}
+
+# Fix Network Shares
+function rlm
+{
+    gsv LanMan* | Restart-Service -Force
 }

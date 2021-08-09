@@ -239,3 +239,7 @@ set smartcase
 set clipboard+=ideaput
 
 set scrolloff=10
+
+
+" Jump to end of function
+map <F> f{%
