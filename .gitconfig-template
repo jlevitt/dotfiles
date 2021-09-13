@@ -16,6 +16,8 @@
   su = submodule update
   save = stash save
   pop = stash pop
+  skip = update-index --skip-worktree
+  unskip = update-index --no-skip-worktree
 [color]
   ui = auto
 [push]

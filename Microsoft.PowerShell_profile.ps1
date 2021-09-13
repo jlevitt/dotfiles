@@ -72,16 +72,6 @@ function Copy-Branch($pattern)
 }
 Set-Alias cbr Copy-Branch
 
-function git-skip($path)
-{
-    git update-index --skip-worktree $path
-}
-
-function git-unskip($path)
-{
-    git update-index --no-skip-worktree $path
-}
-
 function git-pop-ini
 {
 	git pop

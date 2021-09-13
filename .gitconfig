@@ -17,12 +17,14 @@
   su = submodule update
   save = stash save
   pop = stash pop
+  skip = update-index --skip-worktree
+  unskip = update-index --no-skip-worktree
 [color]
   ui = auto
 [push]
   default = simple
 [core]
   editor = vim
-	autocrlf = true
+  autocrlf = true
 [credential]
   helper = cache --timeout=3600
