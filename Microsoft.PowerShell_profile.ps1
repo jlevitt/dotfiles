@@ -682,3 +682,27 @@ function rlm
 {
     gsv LanMan* | Restart-Service -Force
 }
+
+function Get-SiteIni
+{
+    $(gcb).Replace('"', '').Replace(' ', '').Replace(',', '').Replace(':', ' = ').Replace('host', 'Host').Replace('password', 'Password').Replace('port', 'Port').Replace('username', 'Username') | clip
+}
+
+function Sync-AgentData
+{
+    [CmdletBinding()]
+    Param(
+        [ValidateSet('menu', 'tickets_sync', 'labor', 'discounts', 'service_charges', 'basic_types', 'layout')]
+        $DataType = $null
+    )
+
+    if ($DataType)
+    {
+        sqlite3 'C:\ProgramData\POS Agent\db\agent_master.db' "update store_scheduled_tasks set start_time=null, next_run=CURRENT_TIMESTAMP where name = '$DataType';"
+    }
+    else
+    {
+        sqlite3 'C:\ProgramData\POS Agent\db\agent_master.db' "update store_scheduled_tasks set start_time=null, next_run=CURRENT_TIMESTAMP;"
+    }
+}
+    
