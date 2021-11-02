@@ -1,11 +1,11 @@
 ### Profile params
 
-$usePoshGit = __USE_POSH_GIT__
-$projectsDir = "__PROJECTS_DIR__"
-$homeDir = "__HOME_DIR__"
-$editor = "__EDITOR__"
-$vm_type = "__VM_TYPE__"
-$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
+$usePoshGit = $true
+$projectsDir = "C:\projects"
+$homeDir = "C:\Users\jlevitt"
+$editor = "gvim"
+$vm_type = "laptop"
+$zoom_room_password = "VkNOQklKNjZSb3hYZ29MMm5kZ2gvdz09"
 
 ### End params
 
@@ -74,16 +74,16 @@ Set-Alias cbr Copy-Branch
 
 function git-pop-ini
 {
-	git pop
-	git-skip src/positronics_agent/general.ini
-	git-skip src/positronics_agent/site.ini
+    git pop
+    git skip src/positronics_agent/general.ini
+    git skip src/positronics_agent/site.ini
 }
 
 function git-stash-ini
 {
-	git-unskip src/positronics_agent/general.ini
-	git-unskip src/positronics_agent/site.ini
-	git save
+    git unskip src/positronics_agent/general.ini
+    git unskip src/positronics_agent/site.ini
+    git save
 }
 
 ### End git helpers
@@ -637,13 +637,19 @@ if ($usePoshGit)
     Import-Module posh-git
 }
 
-function UnEscape-Html
+function Decode-Html
 {
-    param(
-        [Parameter(ValueFromPipeline=$true)]
-        $pipedStr
-    )
-    $pipedStr | python36 -c"import html, sys;print(html.unescape(sys.stdin.read()), end='')"
+    [System.Net.WebUtility]::HtmlDecode($input)
+}
+
+function Encode-Html
+{
+    [System.Net.WebUtility]::HtmlEncode($input)
+}
+
+function Format-Xml
+{
+    $input | xmllint --format -
 }
 
 function zoom()
@@ -705,4 +711,4 @@ function Sync-AgentData
         sqlite3 'C:\ProgramData\POS Agent\db\agent_master.db' "update store_scheduled_tasks set start_time=null, next_run=CURRENT_TIMESTAMP;"
     }
 }
-    
+
