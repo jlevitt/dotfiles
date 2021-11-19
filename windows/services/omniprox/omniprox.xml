@@ -1,0 +1,12 @@
+<service>
+    <id>omniprox</id>
+    <name>Omniprox</name>
+    <executable>%USERPROFILE%\.raxvm\omniprox.exe</executable>
+    <startmode>Automatic</startmode>
+    <delayedAutoStart>true</delayedAutoStart>
+    <log mode="roll"></log>
+    <onfailure action="restart" />
+    <serviceaccount>
+        <prompt>console</prompt>
+    </serviceaccount>
+</service>

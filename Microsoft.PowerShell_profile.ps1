@@ -20,7 +20,7 @@ New-Alias pc Get-Clipboard
 ### Environment variables
 
 Set-Location $projectsDir
-Remove-Variable -Force HOME
+Remove-Variable -Force HOME -ErrorAction SilentlyContinue
 Set-Variable HOME $homeDir
 $env:HOMEDRIVE = Split-Path -Path $homeDir -Qualifier
 $env:HOMEPATH = Split-Path -Path $homeDir -NoQualifier
@@ -31,6 +31,12 @@ $env:GIT_SSH = "$((which plink).Definition)"
 ### PS Modules
 
 Import-Module InstallAgent
+
+if ($usePoshGit)
+{
+    Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
+}
+
 
 ### End PS Modules
 
@@ -55,16 +61,6 @@ function ViewMergedLocal()
 }
 
 Set-Alias vml ViewMergedLocal
-
-function msave()
-{
-    mgitp agent save
-}
-
-function mpop()
-{
-    mgitp agent pop
-}
 
 function Copy-Branch($pattern)
 {
@@ -404,6 +400,7 @@ function use-mgit-env()
 
 # One time setup - only one profile script can enter this block at a time
 $mtx = New-Object System.Threading.Mutex($false, "ps-profile")
+
 if ($mtx.WaitOne(0))
 {
     try
@@ -411,12 +408,6 @@ if ($mtx.WaitOne(0))
         if (-not $(ps pageant -ErrorAction SilentlyContinue))
         {
             pageant $(Resolve-Path ~\.ssh\id_rsa.ppk)
-        }
-
-        ssh-add -l
-        if (-not $?)
-        {
-            ssh-add $(Resolve-Path ~\.ssh\id_rsa.winopenssh) | Out-Null
         }
 
         if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
@@ -438,27 +429,9 @@ if ($mtx.WaitOne(0))
 }
 
 
-
 $env:GOPATH = "$projectsDir\go"
 $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
 
-function Start-Omniprox
-{
-    Start-Job -Name "Tunnel - Omniprox" -ScriptBlock {
-        C:\Users\jlevitt\.raxvm\omniprox.exe
-    } | Out-Null
-}
-
-function Stop-Omniprox
-{
-    Get-Job |? { $_.Name -eq "Tunnel - Omniprox" } | Remove-Job -Force
-}
-
-function Restart-Omniprox
-{
-    Stop-Omniprox
-    Start-Omniprox
-}
 
 function Start-AzureHVTunnels
 {
@@ -631,12 +604,6 @@ function Get-DebugBuild
     "$([DateTime]::Today.ToString("yy.M.d")).$(Get-Random -Minimum 1 -Maximum 1000)"
 }
 
-
-if ($usePoshGit)
-{
-    Import-Module posh-git
-}
-
 function Decode-Html
 {
     [System.Net.WebUtility]::HtmlDecode($input)
@@ -671,7 +638,7 @@ function join
         [switch]$surround = $false
     )
 
-    $lines = $input | Split-String -NewLine -RemoveEmptyStrings
+    $lines = $input -Split "`r`n" |? { -not [string]::IsNullOrWhiteSpace($_) }
 
     $joined = [string]::Join($sep, $($lines |% { "$prefix$_$postfix" }) )
 
