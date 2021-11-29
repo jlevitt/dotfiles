@@ -321,6 +321,11 @@ function update-profile
     cp $PROFILE $projectsDir\personal\dotfiles\Microsoft.PowerShell_profile.ps1
 }
 
+function update-terminal-settings
+{
+   cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
+}
+
 function update-vscode
 {
     cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\personal\dotfiles\vscode-user-settings.json
