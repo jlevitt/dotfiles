@@ -70,30 +70,6 @@
         "list": 
         [
             {
-                "commandline": "powershell.exe",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Command Prompt"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "bellStyle": "none",
@@ -115,29 +91,6 @@
                 "startingDirectory": "C:\\projects",
                 "suppressApplicationTitle": true,
                 "tabTitle": "ps",
-                "useAcrylic": false
-            },
-            {
-                "altGrAliasing": true,
-                "antialiasingMode": "grayscale",
-                "closeOnExit": "graceful",
-                "colorScheme": "Campbell",
-                "commandline": "powershell.exe",
-                "cursorShape": "bar",
-                "font": 
-                {
-                    "face": "Cascadia Mono",
-                    "size": 12
-                },
-                "guid": "{14ba536c-8c89-4c65-bafd-a55628b76bf8}",
-                "historySize": 9001,
-                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
-                "name": "Tunnels",
-                "padding": "8, 8, 8, 8",
-                "snapOnInput": true,
-                "startingDirectory": "c:\\projects",
-                "suppressApplicationTitle": true,
-                "tabTitle": "tunnels",
                 "useAcrylic": false
             },
             {
@@ -186,6 +139,53 @@
                 "startingDirectory": "C:\\projects",
                 "suppressApplicationTitle": true,
                 "tabTitle": "jlevitt",
+                "useAcrylic": false
+            },
+            {
+                "commandline": "powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "commandline": "cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": false,
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "powershell.exe",
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{14ba536c-8c89-4c65-bafd-a55628b76bf8}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "Tunnels",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "c:\\projects",
+                "suppressApplicationTitle": true,
+                "tabTitle": "tunnels",
                 "useAcrylic": false
             }
         ]
@@ -400,5 +400,6 @@
             "yellow": "#808000"
         }
     ],
-    "startupActions": "new-tab -p PS ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0"
+    "startupActions": "new-tab -p PS ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0",
+    "wordDelimiters": " ()\"',:;<>~!@#$%^&*|+=[]{}~?\u2502"
 }
