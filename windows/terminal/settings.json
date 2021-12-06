@@ -3,10 +3,6 @@
     "actions": 
     [
         {
-            "command": "unbound",
-            "keys": "ctrl+shift+w"
-        },
-        {
             "command": 
             {
                 "action": "copy",
@@ -15,8 +11,8 @@
             "keys": "ctrl+c"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
+            "command": "unbound",
+            "keys": "ctrl+shift+w"
         },
         {
             "command": 
@@ -25,6 +21,10 @@
                 "direction": "backward"
             },
             "keys": "ctrl+comma"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
         },
         {
             "command": "find",
@@ -46,18 +46,18 @@
         {
             "command": 
             {
-                "action": "moveTab",
-                "direction": "forward"
-            },
-            "keys": "ctrl+period"
-        },
-        {
-            "command": 
-            {
                 "action": "openSettings",
                 "target": "settingsUI"
             },
             "keys": "alt+f7"
+        },
+        {
+            "command": 
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "keys": "ctrl+period"
         }
     ],
     "confirmCloseAllTabs": false,
@@ -401,5 +401,5 @@
         }
     ],
     "startupActions": "new-tab -p PS ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0",
-    "wordDelimiters": " ()\"',:;<>~!@#$%^&*|+=[]{}~?\u2502"
+    "wordDelimiters": " ()\"',;<>~!@#$%^&*|+=[]{}~?\u2502"
 }
