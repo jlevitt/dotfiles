@@ -465,21 +465,6 @@ function Stop-AwsLinuxTest1Tunnel
     Get-Job -Name "Tunnel - AwsLinuxTest1" | Remove-Job -Force
 }
 
-function Start-MySqlTunnelDev
-{
-    Start-Job -Name "Tunnel - MySql (Dev)" -ScriptBlock {
-        while ($true)
-        {
-            ssh -N -L 3307:localhost:3306 jlevitt
-        }
-    } | Out-Null
-}
-
-function Stop-MySqlTunnelDev
-{
-    Get-Job -Name "Tunnel - MySql (Dev)" | Remove-Job -Force
-}
-
 function Start-MySqlTunnelDevCloudPOS
 {
     Start-Job -Name "Tunnel - MySql (DevCloudPOS)" -ScriptBlock {

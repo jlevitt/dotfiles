@@ -1,7 +1,8 @@
 <service>
-    <id>Omniprox</id>
-    <name>Omniprox</name>
-    <executable>%USERPROFILE%\.raxvm\omniprox.exe</executable>
+    <id>MySqlDevTunnel</id>
+    <name>MySql Dev Tunnel Omniprox (jlevitt.dev-ca1.internal.pos-api.com)</name>
+    <executable>ssh</executable>
+    <arguments>-N -L 3307:localhost:3306 jlevitt</arguments>
     <startmode>Automatic</startmode>
     <delayedAutoStart>true</delayedAutoStart>
     <log mode="roll"></log>

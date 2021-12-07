@@ -1,2 +1,5 @@
-gsv omniprox | spsv
-winsw uninstall $PSScriptRoot\omniprox\omniprox.xml
+gsv Omniprox | spsv
+winsw uninstall $PSScriptRoot\Omniprox\Omniprox.xml
+
+gsv MySqlDevTunnel | spsv
+winsw uninstall $PSScriptRoot\MySqlDevTunnel\MySqlDevTunnel.xml
