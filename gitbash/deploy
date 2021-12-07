@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cp .bash* ~
+ln -s -T /c/Python36/python.exe /c/Python36/scripts/python36
