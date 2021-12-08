@@ -316,19 +316,14 @@ function edit-profile
     & $editor $PROFILE
 }
 
-function update-profile
+function Sync-Dotfiles
 {
     cp $PROFILE $projectsDir\personal\dotfiles\Microsoft.PowerShell_profile.ps1
-}
-
-function update-terminal-settings
-{
-   cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
-}
-
-function update-vscode
-{
+    cp ~\default.ahk $dotfiles\default.akh
+    cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
     cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\personal\dotfiles\vscode-user-settings.json
+
+    tgit commit $dotfiles
 }
 
 function edit($path)
