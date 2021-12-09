@@ -322,6 +322,7 @@ function Sync-Dotfiles
     cp ~\default.ahk $dotfiles\default.akh
     cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
     cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\personal\dotfiles\vscode-user-settings.json
+    cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
 
     tgit commit $dotfiles
 }
