@@ -1,13 +1,13 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
             "command": "unbound",
             "keys": "ctrl+shift+w"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -19,7 +19,7 @@
             "keys": "ctrl+v"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "moveTab",
                 "direction": "backward"
@@ -31,7 +31,7 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -44,7 +44,7 @@
             "keys": "ctrl+w"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "moveTab",
                 "direction": "forward"
@@ -52,7 +52,7 @@
             "keys": "ctrl+period"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "openSettings",
                 "target": "settingsUI"
@@ -64,10 +64,11 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
-    "profiles": 
+    "launchMode": "maximized",
+    "profiles":
     {
         "defaults": {},
-        "list": 
+        "list":
         [
             {
                 "altGrAliasing": true,
@@ -77,7 +78,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe",
                 "cursorShape": "bar",
-                "font": 
+                "font":
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -94,6 +95,20 @@
                 "useAcrylic": false
             },
             {
+                "colorScheme": "Campbell",
+                "commandline": "wsl.exe -d Ubuntu",
+                "guid": "{24531aef-390f-4a8b-acf8-205f4949adfb}",
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "wsl",
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "bellStyle": "none",
@@ -101,7 +116,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
                 "cursorShape": "bar",
-                "font": 
+                "font":
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -125,7 +140,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe -c \"ssh jlevitt\"",
                 "cursorShape": "bar",
-                "font": 
+                "font":
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -160,19 +175,13 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe",
                 "cursorShape": "bar",
-                "font": 
+                "font":
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -190,7 +199,7 @@
             }
         ]
     },
-    "schemes": 
+    "schemes":
     [
         {
             "background": "#0C0C0C",
@@ -400,6 +409,6 @@
             "yellow": "#808000"
         }
     ],
-    "startupActions": "new-tab -p PS ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0",
+    "startupActions": "new-tab -p PS ; new-tab -p wsl ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0",
     "wordDelimiters": " ()\"',;<>~!@#$^&*|+=[]{}~?\u2502"
 }
