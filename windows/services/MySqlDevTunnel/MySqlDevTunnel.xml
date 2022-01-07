@@ -1,6 +1,6 @@
 <service>
     <id>MySqlDevTunnel</id>
-    <name>MySql Dev Tunnel Omniprox (jlevitt.dev-ca1.internal.pos-api.com)</name>
+    <name>MySql Dev Tunnel (jlevitt.dev-ca1.internal.pos-api.com)</name>
     <executable>ssh</executable>
     <arguments>-N -L 3307:localhost:3306 jlevitt</arguments>
     <startmode>Automatic</startmode>

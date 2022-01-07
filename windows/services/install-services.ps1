@@ -9,3 +9,7 @@ gsv Omniprox | sasv
 
 winsw install $PSScriptRoot\MySqlDevTunnel\MySqlDevTunnel.xml
 gsv MySqlDevTunnel | sasv
+
+winsw install $PSScriptRoot\MySqlDevCloudPOSTunnel\MySqlDevCloudPOSTunnel.xml
+gsv MySqlDevCloudPOSTunnel | sasv
+
