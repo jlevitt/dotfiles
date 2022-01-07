@@ -311,6 +311,12 @@ function scripts
     cd $scripts
 }
 
+$agentDevConfig = "$projectsDir\agent-dev-config"
+function agent-dev-config
+{
+    pushd $agentDevConfig
+}
+
 function edit-profile
 {
     & $editor $PROFILE
