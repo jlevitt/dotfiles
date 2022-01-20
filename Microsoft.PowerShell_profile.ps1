@@ -671,3 +671,22 @@ function Sync-AgentData
     }
 }
 
+function Restore-Ini
+{
+    git unskip $anzu\src\positronics_agent\general.ini
+    git restore $anzu\src\positronics_agent\general.ini
+
+    git unskip $anzu\src\positronics_agent\site.ini
+    git restore $anzu\src\positronics_agent\site.ini
+}
+
+function Link-Ini
+{
+    rm $anzu\src\positronics_agent\general.ini
+    New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\general.ini -Target $agentDevConfig\general.ini
+    git skip $anzu\src\positronics_agent\general.ini
+
+    rm $anzu\src\positronics_agent\site.ini
+    New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\site.ini -Target $agentDevConfig\general.ini
+    git skip $anzu\src\positronics_agent\site.ini
+}
