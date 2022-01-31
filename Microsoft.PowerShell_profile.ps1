@@ -687,6 +687,11 @@ function Link-Ini
     git skip $anzu\src\positronics_agent\general.ini
 
     rm $anzu\src\positronics_agent\site.ini
-    New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\site.ini -Target $agentDevConfig\general.ini
+    New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\site.ini -Target $agentDevConfig\site.ini
     git skip $anzu\src\positronics_agent\site.ini
+}
+
+function Activate-Venv
+{
+    . .\env\scripts\activate.ps1
 }
