@@ -682,6 +682,7 @@ function Restore-Ini
 
 function Link-Ini
 {
+    pushd $anzu
     rm $anzu\src\positronics_agent\general.ini
     New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\general.ini -Target $agentDevConfig\general.ini
     git skip $anzu\src\positronics_agent\general.ini
@@ -689,6 +690,7 @@ function Link-Ini
     rm $anzu\src\positronics_agent\site.ini
     New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\site.ini -Target $agentDevConfig\site.ini
     git skip $anzu\src\positronics_agent\site.ini
+    popd
 }
 
 function Activate-Venv
