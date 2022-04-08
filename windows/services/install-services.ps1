@@ -13,3 +13,5 @@ gsv MySqlDevTunnel | sasv
 winsw install $PSScriptRoot\MySqlDevCloudPOSTunnel\MySqlDevCloudPOSTunnel.xml
 gsv MySqlDevCloudPOSTunnel | sasv
 
+winsw install $PSScriptRoot\SFTPTunnel\SFTPTunnel.xml
+gsv SFTPTunnel | sasv

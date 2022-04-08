@@ -329,6 +329,7 @@ function Sync-Dotfiles
     cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
     cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\personal\dotfiles\vscode-user-settings.json
     cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
+    cp $homeDir\_vimrc $dotfiles\.vimrc -Force
 
     tgit commit $dotfiles
 }
@@ -529,21 +530,6 @@ function Start-MySqlTunnelStageAgentMaster
 function Stop-MySqlTunnelStageAgentMaster
 {
     Get-Job -Name "Tunnel - MySql (Stage - Agent Master)" | Remove-Job -Force
-}
-
-function Start-SftpTunnel
-{
-    Start-Job -Name "Tunnel - Sftp" -ScriptBlock {
-        while ($true)
-        {
-            ssh -N -L 2020:jlevitt:22 jlevitt
-        }
-    } | Out-Null
-}
-
-function Stop-SftpTunnel
-{
-    Get-Job -Name "Tunnel - Sftp" | Remove-Job -Force
 }
 
 function Start-DelveTunnel
