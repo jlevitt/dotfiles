@@ -5,22 +5,23 @@ set nocompatible              " be iMproved, required
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-sensible'
-Plug 'flazz/vim-colorschemes'
-Plug 'scrooloose/nerdtree'
+Plug 'PProvost/vim-ps1'
 Plug 'b4winckler/vim-angry'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-commentary'
+Plug 'fatih/vim-go'
+Plug 'flazz/vim-colorschemes'
+Plug 'godlygeek/tabular'
+Plug 'hashivim/vim-terraform'
+Plug 'jlevitt/todo.vim'
+Plug 'mbrc12/vim-autoswap'
 Plug 'nvie/vim-flake8'
 Plug 'othree/html5.vim'
-Plug 'godlygeek/tabular'
-Plug 'fatih/vim-go'
-Plug 'mbrc12/vim-autoswap'
-Plug 'jlevitt/todo.vim'
+Plug 'scrooloose/nerdtree'
 Plug 'sk1418/Join'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'PProvost/vim-ps1'
+Plug 'vim-airline/vim-airline'
 
 " Initialize plugin system
 call plug#end()
