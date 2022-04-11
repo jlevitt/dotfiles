@@ -28,7 +28,7 @@ fi
 
 # Customized
 
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
+/usr/bin/keychain -q --nogui ~/.ssh/id_rsa
+source ~/.keychain/$HOSTNAME-sh
 
 cd $DEV_ROOT
