@@ -1,13 +1,14 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
+    "actions": 
     [
         {
             "command": "unbound",
             "keys": "ctrl+shift+w"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "copy",
                 "singleLine": false
@@ -15,11 +16,7 @@
             "keys": "ctrl+c"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "moveTab",
                 "direction": "backward"
@@ -27,11 +24,23 @@
             "keys": "ctrl+comma"
         },
         {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
             "command": "find",
             "keys": "ctrl+shift+f"
         },
         {
-            "command":
+            "command": 
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "keys": "ctrl+period"
+        },
+        {
+            "command": 
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -44,15 +53,7 @@
             "keys": "ctrl+w"
         },
         {
-            "command":
-            {
-                "action": "moveTab",
-                "direction": "forward"
-            },
-            "keys": "ctrl+period"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "openSettings",
                 "target": "settingsUI"
@@ -65,10 +66,10 @@
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
     "launchMode": "maximized",
-    "profiles":
+    "profiles": 
     {
         "defaults": {},
-        "list":
+        "list": 
         [
             {
                 "altGrAliasing": true,
@@ -78,7 +79,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -110,7 +111,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe -c \"ssh jlevitt\"",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -134,7 +135,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -157,13 +158,11 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
-                "commandline": "powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
             },
             {
-                "commandline": "cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
@@ -181,7 +180,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -196,10 +195,28 @@
                 "suppressApplicationTitle": true,
                 "tabTitle": "tunnels",
                 "useAcrylic": false
+            },
+            {
+                "guid": "{e592a77e-d569-502f-bb7c-ffc3310ce4e5}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{6ec6d46c-b05b-5a2f-9449-6d4fea6f83bc}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{5eb319cb-bfcd-5c04-814f-97865969e9cc}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2017",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#0C0C0C",

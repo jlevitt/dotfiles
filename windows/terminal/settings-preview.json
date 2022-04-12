@@ -1,14 +1,14 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
-            "command": "paste",
-            "keys": "ctrl+v"
+            "command": "unbound",
+            "keys": "ctrl+shift+w"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -16,38 +16,140 @@
             "keys": "ctrl+c"
         },
         {
+            "command":
+            {
+                "action": "moveTab",
+                "direction": "backward"
+            },
+            "keys": "ctrl+comma"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
             "command": "find",
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
+            "command":
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "keys": "ctrl+period"
+        },
+        {
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command": "closePane",
+            "keys": "ctrl+w"
+        },
+        {
+            "command":
+            {
+                "action": "openSettings",
+                "target": "settingsUI"
+            },
+            "keys": "alt+f7"
         }
     ],
+    "confirmCloseAllTabs": false,
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-    "profiles": 
+    "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
+    "launchMode": "maximized",
+    "profiles":
     {
         "defaults": {},
-        "list": 
+        "list":
         [
             {
-                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "bellStyle": "none",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "powershell.exe",
+                "cursorShape": "bar",
+                "font":
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "PS",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\projects",
+                "suppressApplicationTitle": true,
+                "tabTitle": "ps",
+                "useAcrylic": false
             },
             {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Command Prompt"
+                "colorScheme": "Campbell",
+                "commandline": "wsl.exe -d Ubuntu",
+                "guid": "{24531aef-390f-4a8b-acf8-205f4949adfb}",
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "wsl",
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "bellStyle": "none",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "powershell.exe -c \"ssh jlevitt\"",
+                "cursorShape": "bar",
+                "font":
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{9bfe930b-d0c5-44e2-a453-cf38ac83080f}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "jlevitt",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\projects",
+                "suppressApplicationTitle": true,
+                "tabTitle": "jlevitt",
+                "useAcrylic": false
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "bellStyle": "none",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+                "cursorShape": "bar",
+                "font":
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{17c6469c-09b5-4308-92be-2007f36c26b1}",
+                "historySize": 9001,
+                "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+                "name": "Bash",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\projects\\giganto",
+                "suppressApplicationTitle": true,
+                "tabTitle": "bash",
+                "useAcrylic": false
             },
             {
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
@@ -56,10 +158,43 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
                 "hidden": false,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "powershell.exe",
+                "cursorShape": "bar",
+                "font":
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{14ba536c-8c89-4c65-bafd-a55628b76bf8}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "Tunnels",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "c:\\projects",
+                "suppressApplicationTitle": true,
+                "tabTitle": "tunnels",
+                "useAcrylic": false
             },
             {
                 "guid": "{e592a77e-d569-502f-bb7c-ffc3310ce4e5}",
@@ -81,7 +216,7 @@
             }
         ]
     },
-    "schemes": 
+    "schemes":
     [
         {
             "background": "#0C0C0C",
@@ -290,5 +425,7 @@
             "white": "#C0C0C0",
             "yellow": "#808000"
         }
-    ]
+    ],
+    "startupActions": "new-tab -p PS ; new-tab -p wsl ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0",
+    "wordDelimiters": " ()\"',;<>~!@#$^&*|+=[]{}~?\u2502"
 }
