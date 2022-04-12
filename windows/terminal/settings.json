@@ -103,10 +103,28 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "bellStyle": "none",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "powershell.exe -c \"ssh jlevitt\"",
+                "cursorShape": "bar",
+                "font":
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{9bfe930b-d0c5-44e2-a453-cf38ac83080f}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "jlevitt",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\projects",
+                "suppressApplicationTitle": true,
+                "tabTitle": "jlevitt",
+                "useAcrylic": false
             },
             {
                 "altGrAliasing": true,
@@ -133,28 +151,10 @@
                 "useAcrylic": false
             },
             {
-                "altGrAliasing": true,
-                "antialiasingMode": "grayscale",
-                "bellStyle": "none",
-                "closeOnExit": "graceful",
-                "colorScheme": "Campbell",
-                "commandline": "powershell.exe -c \"ssh jlevitt\"",
-                "cursorShape": "bar",
-                "font":
-                {
-                    "face": "Cascadia Mono",
-                    "size": 12
-                },
-                "guid": "{9bfe930b-d0c5-44e2-a453-cf38ac83080f}",
-                "historySize": 9001,
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "jlevitt",
-                "padding": "8, 8, 8, 8",
-                "snapOnInput": true,
-                "startingDirectory": "C:\\projects",
-                "suppressApplicationTitle": true,
-                "tabTitle": "jlevitt",
-                "useAcrylic": false
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl"
             },
             {
                 "commandline": "powershell.exe",
