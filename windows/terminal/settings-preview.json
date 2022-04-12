@@ -4,6 +4,17 @@
     "actions":
     [
         {
+            "command": {
+                "action": "multipleActions",
+                "actions": [
+                    "closeTab",
+                    "restoreLastClosed"
+                ]
+            },
+            "name": "Restart tab",
+            "keys": "ctrl+shift+r"
+        },
+        {
             "command": "unbound",
             "keys": "ctrl+shift+w"
         },
