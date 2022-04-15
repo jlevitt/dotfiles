@@ -327,6 +327,7 @@ function Sync-Dotfiles
     cp $PROFILE $projectsDir\personal\dotfiles\Microsoft.PowerShell_profile.ps1
     cp ~\default.ahk $dotfiles\default.akh
     cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
+    cp ~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal\settings-preview.json
     cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\personal\dotfiles\vscode-user-settings.json
     cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
     cp $homeDir\_vimrc $dotfiles\.vimrc -Force
@@ -636,7 +637,7 @@ function rlm
 
 function Get-SiteIni
 {
-    $(gcb).Replace('"', '').Replace(' ', '').Replace(',', '').Replace(':', ' = ').Replace('host', 'Host').Replace('password', 'Password').Replace('port', 'Port').Replace('username', 'Username') | clip
+    $(gcb).Replace('"', '').Replace(' ', '').Replace(',', '').Replace(':', ' = ').Replace('host', 'Host').Replace('password', 'Password').Replace('port', 'Port').Replace('username', 'Username').Replace('bridge', 'Bridge').Replace('443', '8443') | clip
 }
 
 function Sync-AgentData
