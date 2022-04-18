@@ -637,7 +637,15 @@ function rlm
 
 function Get-SiteIni
 {
-    $(gcb).Replace('"', '').Replace(' ', '').Replace(',', '').Replace(':', ' = ').Replace('host', 'Host').Replace('password', 'Password').Replace('port', 'Port').Replace('username', 'Username').Replace('bridge', 'Bridge').Replace('443', '8443') | clip
+    $activeResponse = $(gcb)
+    $siteIni = $activeResponse.Replace('"', '').Replace(' ', '').Replace(',', '').Replace(':', ' = ').Replace('host', 'Host').Replace('password', 'Password').Replace('port', 'Port').Replace('username', 'Username').Replace('bridge', 'Bridge')
+
+    if ($($activeResponse |? { $_.Contains("dev-ca1.internal.pos-api.com") }).Count -gt 0)
+    {
+        $siteIni = $siteIni.Replace('443', '8443')
+    }
+
+    $siteIni # | clip
 }
 
 function Sync-AgentData
