@@ -31,6 +31,6 @@ fi
 /usr/bin/keychain -q --nogui ~/.ssh/id_rsa
 source ~/.keychain/$HOSTNAME-sh
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin:~/projects/go/bin
 
 cd $DEV_ROOT
