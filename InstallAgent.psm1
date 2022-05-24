@@ -8,7 +8,7 @@ function programFilesPath
     {
         $programFiles = "C:\Program Files"
     }
-    
+
     return $programFiles
 }
 
@@ -36,8 +36,7 @@ function Install-Agent
         }
     }
 
-
-    Start-Process -NoNewWindow -FilePath $output -ArgumentList "/SKIPACTIVATION /SKIPNETTEST" -Wait
+    Start-Process -NoNewWindow -FilePath $output -ArgumentList "/SKIPACTIVATION /SKIPNETTEST /VERYSILENT" -Wait
 
     cp $IniPath "$(programFilesPath)\POS Agent"
 
@@ -50,7 +49,7 @@ function Uninstall-Agent
 {
     Write-Output "Uninstalling POSAgent..."
 
-    & "$(programFilesPath)\POS Agent\unins000.exe"
+    Start-Process -NoNewWindow -FilePath "$(programFilesPath)\POS Agent\unins000.exe" -ArgumentList "/VERYSILENT" -Wait
 }
 
 Export-ModuleMember -function *-*
