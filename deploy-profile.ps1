@@ -6,7 +6,8 @@ $expectedParams = @(
     'PROJECTS_DIR',
     'EDITOR',
     'VM_TYPE',
-    'ZOOM_ROOM_PASSWORD'
+    'ZOOM_ROOM_PASSWORD',
+    'GITHUB_SSH_KEY'
 )
 
 if (Test-Path $deployParamsPath)

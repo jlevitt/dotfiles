@@ -6,6 +6,7 @@ $homeDir = "__HOME_DIR__"
 $editor = "__EDITOR__"
 $vm_type = "__VM_TYPE__"
 $zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
+$github_ssh_key = "__GITHUB_SSH_KEY__"
 
 ### End params
 
@@ -416,7 +417,7 @@ if ($mtx.WaitOne(0))
     {
         if (-not $(ps pageant -ErrorAction SilentlyContinue))
         {
-            pageant $(Resolve-Path ~\.ssh\id_rsa.ppk)
+            pageant $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
 
         if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
