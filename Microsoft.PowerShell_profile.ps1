@@ -1,11 +1,11 @@
 ### Profile params
 
-$usePoshGit = $true
-$projectsDir = "C:\projects"
-$homeDir = "C:\Users\jlevitt"
-$editor = "gvim"
-$vm_type = "laptop"
-$zoom_room_password = "VkNOQklKNjZSb3hYZ29MMm5kZ2gvdz09"
+$usePoshGit = __USE_POSH_GIT__
+$projectsDir = "__PROJECTS_DIR__"
+$homeDir = "__HOME_DIR__"
+$editor = "__EDITOR__"
+$vm_type = "__VM_TYPE__"
+$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
 
 ### End params
 
