@@ -1,11 +1,12 @@
 [user]
-  name = <NAME>
-  email = <EMAIL>
+  name = __GIT_NAME__
+  email = __GIT_EMAIL__
 [alias]
   co = checkout
   ci = commit
   st = status
   br = branch
+  recent = branch --sort=-committerdate --format="%(committerdate:relative)%09%(refname:short)"
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
@@ -24,5 +25,6 @@
   default = simple
 [core]
   editor = vim
+  autocrlf = true
 [credential]
   helper = cache --timeout=3600

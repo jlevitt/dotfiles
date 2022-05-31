@@ -7,7 +7,9 @@ $expectedParams = @(
     'EDITOR',
     'VM_TYPE',
     'ZOOM_ROOM_PASSWORD',
-    'GITHUB_SSH_KEY'
+    'GITHUB_SSH_KEY',
+    'GIT_EMAIL',
+    'GIT_NAME'
 )
 
 if (Test-Path $deployParamsPath)
@@ -93,6 +95,9 @@ function Merge-Tokens() {
 
 Get-Content .\Microsoft.PowerShell_profile.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $PROFILE
 Write-Host "Profile written [OK]"
+
+Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content ~\.gitconfig
+Write-Host "Git config written [OK]"
 
 if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
 {
