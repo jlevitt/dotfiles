@@ -341,3 +341,6 @@ set scrolloff=10
 
 " Jump to end of function
 map <F> f{%
+
+" Check all TODO boxes
+noremap <silent> <Leader>ax :%s/\[ \]/[x]/g<CR>
