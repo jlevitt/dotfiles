@@ -1,0 +1,12 @@
+<service>
+    <id>RabbitMQAdminTunnel</id>
+    <name>RabbitMQ Admin Tunnel (jlevitt.dev-ca1.internal.pos-api.com)</name>
+    <executable>ssh</executable>
+    <arguments>-N -L 15672:localhost:15672 jlevitt</arguments>
+    <startmode>Manual</startmode>
+    <log mode="roll"></log>
+    <onfailure action="restart" />
+    <serviceaccount>
+        <prompt>console</prompt>
+    </serviceaccount>
+</service>

@@ -15,3 +15,7 @@ gsv MySqlDevCloudPOSTunnel | sasv
 
 winsw install $PSScriptRoot\SFTPTunnel\SFTPTunnel.xml
 gsv SFTPTunnel | sasv
+
+winsw install $PSScriptRoot\RabbitMQAdminTunnel\RabbitMQAdminTunnel.xml
+gsv RabbitMQAdminTunnel | sasv
+

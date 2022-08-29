@@ -10,3 +10,6 @@ winsw uninstall $PSScriptRoot\MySqlDevCloudPOSTunnel\MySqlDevCloudPOSTunnel.xml
 gsv SFTPTunnel | spsv
 winsw uninstall $PSScriptRoot\SFTPTunnel\SFTPTunnel.xml
 
+gsv RabbitMQAdminTunnel | spsv
+winsw uninstall $PSScriptRoot\RabbitMQAdminTunnel\RabbitMQAdminTunnel.xml
+
