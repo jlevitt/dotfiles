@@ -288,7 +288,7 @@ function migrations
     cd $migrations
 }
 
-$dotfiles = "$projectsDir\personal\dotfiles"
+$dotfiles = "$projectsDir\dotfiles"
 function dotfiles
 {
     cd $dotfiles
@@ -325,13 +325,28 @@ function edit-profile
 
 function Sync-Dotfiles
 {
-    cp $PROFILE $projectsDir\personal\dotfiles\Microsoft.PowerShell_profile.ps1
+    cp $PROFILE $projectsDir\dotfiles\Microsoft.PowerShell_profile.ps1
     cp ~\default.ahk $dotfiles\default.akh
-    cp ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal
-    cp ~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json $dotfiles\windows\terminal\settings-preview.json
-    cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\personal\dotfiles\vscode-user-settings.json
     cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
     cp $homeDir\_vimrc $dotfiles\.vimrc -Force
+
+    $vscodePath = "$homeDir\AppData\Roaming\Code\User\settings.json"
+    if (Test-Path $vscodePath)
+    {
+        cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\dotfiles\vscode-user-settings.json
+    }
+
+    $windowsTerminalPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+    if (Test-Path $windowsTerminalPath)
+    {
+        cp $windowsTerminalPath $dotfiles\windows\terminal\settings.json
+    }
+
+    $windowsTerminalPreviewPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
+    if (Test-Path $windowsTerminalPreviewPath)
+    {
+        cp $windowsTerminalPreviewPath $dotfiles\windows\terminal\settings-preview.json
+    }
 
     tgit commit $dotfiles
 }
