@@ -113,3 +113,6 @@ if (-not $(Test-Path $installAgentModulePath))
 }
 cp .\InstallAgent.psm1 $installAgentModulePath\InstallAgent.psm1
 Write-Host "InstallAgent module written [OK]"
+
+cp $dotfiles\windows\laptop\.vimlayout $homeDir\.vimlayout -Force
+Write-Host ".vimlayout written [OK]"
