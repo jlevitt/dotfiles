@@ -13,3 +13,5 @@ winsw uninstall $PSScriptRoot\SFTPTunnel\SFTPTunnel.xml
 gsv RabbitMQAdminTunnel | spsv
 winsw uninstall $PSScriptRoot\RabbitMQAdminTunnel\RabbitMQAdminTunnel.xml
 
+gsv DashDevTunnel | spsv
+winsw uninstall $PSScriptRoot\DashDevTunnel\DashDevTunnel.xml

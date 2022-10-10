@@ -1,0 +1,13 @@
+<service>
+    <id>DashDevTunnel</id>
+    <name>Dash Dev Tunnel (jlevitt.dev-ca1.internal.pos-api.com)</name>
+    <executable>ssh</executable>
+    <arguments>-N -L 5050:localhost:5050 jlevitt</arguments>
+    <startmode>Automatic</startmode>
+    <delayedAutoStart>true</delayedAutoStart>
+    <log mode="roll"></log>
+    <onfailure action="restart" />
+    <serviceaccount>
+        <prompt>console</prompt>
+    </serviceaccount>
+</service>

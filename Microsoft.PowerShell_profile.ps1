@@ -564,21 +564,6 @@ function Stop-DelveTunnel
     Get-Job -Name "Tunnel - Delve" | Remove-Job -Force
 }
 
-function Start-DashTunnelDev
-{
-    Start-Job -Name "Tunnel - Dash (Dev)" -ScriptBlock {
-        while ($true)
-        {
-            ssh -N -L 5050:localhost:5050 jlevitt
-        }
-    } | Out-Null
-}
-
-function Stop-DashTunnelDev
-{
-    Get-Job -Name "Tunnel - Dash (Dev)" | Remove-Job -Force
-}
-
 function Start-MarketPlaceUITunnelDev
 {
     Start-Job -Name "Tunnel - MarketPlaceUI (Dev)" -ScriptBlock {

@@ -19,3 +19,6 @@ gsv SFTPTunnel | sasv
 winsw install $PSScriptRoot\RabbitMQAdminTunnel\RabbitMQAdminTunnel.xml
 gsv RabbitMQAdminTunnel | sasv
 
+winsw install $PSScriptRoot\DashDevTunnel\DashDevTunnel.xml
+gsv DashDevTunnel | sasv
+
