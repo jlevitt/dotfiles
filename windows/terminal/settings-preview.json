@@ -1,33 +1,22 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
+    "actions": 
     [
         {
-            "command": {
-                "action": "multipleActions",
-                "actions": [
-                    "closeTab",
-                    "restoreLastClosed"
-                ]
-            },
-            "name": "Restart tab",
-            "keys": "ctrl+shift+r"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+shift+w"
-        },
-        {
-            "command":
+            "command": 
             {
-                "action": "copy",
-                "singleLine": false
+                "action": "moveTab",
+                "direction": "forward"
             },
-            "keys": "ctrl+c"
+            "keys": "ctrl+period"
         },
         {
-            "command":
+            "command": "closePane",
+            "keys": "ctrl+w"
+        },
+        {
+            "command": 
             {
                 "action": "moveTab",
                 "direction": "backward"
@@ -39,19 +28,22 @@
             "keys": "ctrl+v"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command":
+            "command": 
             {
-                "action": "moveTab",
-                "direction": "forward"
+                "action": "multipleActions",
+                "actions": 
+                [
+                    {
+                        "action": "closeTab"
+                    },
+                    "restoreLastClosed"
+                ]
             },
-            "keys": "ctrl+period"
+            "keys": "ctrl+shift+r",
+            "name": "Restart tab"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -60,11 +52,23 @@
             "keys": "alt+shift+d"
         },
         {
-            "command": "closePane",
-            "keys": "ctrl+w"
+            "command": "unbound",
+            "keys": "ctrl+shift+w"
         },
         {
-            "command":
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": 
             {
                 "action": "openSettings",
                 "target": "settingsUI"
@@ -77,10 +81,10 @@
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
     "launchMode": "maximized",
-    "profiles":
+    "profiles": 
     {
         "defaults": {},
-        "list":
+        "list": 
         [
             {
                 "altGrAliasing": true,
@@ -90,7 +94,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -122,7 +126,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe -c \"ssh jlevitt\"",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -146,7 +150,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -191,7 +195,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "powershell.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -227,7 +231,7 @@
             }
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#0C0C0C",
@@ -438,5 +442,7 @@
         }
     ],
     "startupActions": "new-tab -p PS ; new-tab -p wsl ; new-tab -p Bash ; new-tab -p jlevitt ; focus-tab -t 0",
+    "theme": "light",
+    "themes": [],
     "wordDelimiters": " ()\"',;<>~!@#$^&*|+=[]{}~?\u2502"
 }
