@@ -7,7 +7,15 @@
     },
     {
       "pattern": "https?://calendar.google.com/*",
-      "passKeys": "mwd"
+      "passKeys": "mwdg"
+    },
+    {
+      "pattern": "https?://playclassic.games/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://github.com/*",
+      "passKeys": "?"
     }
   ],
   "filterLinkHints": false,
