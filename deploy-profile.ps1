@@ -120,3 +120,7 @@ Write-Host "InstallAgent module written [OK]"
 
 cp $dotfiles\windows\laptop\.vimlayout $homeDir\.vimlayout -Force
 Write-Host ".vimlayout written [OK]"
+
+reg import $dotfiles\TortoiseGit.reg | Out-Null
+reg import $dotfiles\TortoiseGitMerge.reg | Out-Null
+Write-Host "TortoiseGit settings installed to registry [OK]"
