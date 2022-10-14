@@ -350,6 +350,8 @@ function Sync-Dotfiles
         cp $windowsTerminalPreviewPath $dotfiles\windows\terminal\settings-preview.json
     }
 
+    cp $homeDir\.wslconfig $dotfiles\wsl\.wslconfig
+
     tgit commit $dotfiles
 }
 

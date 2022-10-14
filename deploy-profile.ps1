@@ -138,3 +138,6 @@ if (Test-Path $windowsTerminalPreviewPath)
     cp $dotfiles\windows\terminal\settings-preview.json $windowsTerminalPreviewPath
     Write-Host "Windows Terminal Preview settings.json written [OK]"
 }
+
+cp $dotfiles\wsl\.wslconfig $homeDir\.wslconfig
+Write-Host ".wslconfig written [OK]"
