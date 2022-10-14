@@ -325,7 +325,7 @@ function edit-profile
 
 function Sync-Dotfiles
 {
-    cp $PROFILE $projectsDir\dotfiles\Microsoft.PowerShell_profile.ps1
+    cp $PROFILE $dotfiles\Microsoft.PowerShell_profile.ps1
     cp ~\default.ahk $dotfiles\default.akh
     cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
     cp $homeDir\_vimrc $dotfiles\.vimrc -Force
@@ -333,7 +333,7 @@ function Sync-Dotfiles
     $vscodePath = "$homeDir\AppData\Roaming\Code\User\settings.json"
     if (Test-Path $vscodePath)
     {
-        cp $homeDir\AppData\Roaming\Code\User\settings.json $projectsDir\dotfiles\vscode-user-settings.json
+        cp $homeDir\AppData\Roaming\Code\User\settings.json $dotfiles\vscode-user-settings.json
     }
 
     $windowsTerminalPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
