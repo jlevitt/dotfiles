@@ -329,6 +329,8 @@ function Sync-Dotfiles
     cp ~\default.ahk $dotfiles\default.akh
     cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
     cp $homeDir\_vimrc $dotfiles\.vimrc -Force
+    reg export "HKCU\Software\TortoiseGit" $dotfiles\TortoiseGit.reg /y | Out-Null
+    reg export "HKCU\Software\TortoiseGitMerge" $dotfiles\TortoiseGitMerge.reg /y | Out-Null
 
     $vscodePath = "$homeDir\AppData\Roaming\Code\User\settings.json"
     if (Test-Path $vscodePath)
