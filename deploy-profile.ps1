@@ -124,3 +124,17 @@ Write-Host ".vimlayout written [OK]"
 reg import $dotfiles\TortoiseGit.reg | Out-Null
 reg import $dotfiles\TortoiseGitMerge.reg | Out-Null
 Write-Host "TortoiseGit settings installed to registry [OK]"
+
+$windowsTerminalPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+if (Test-Path $windowsTerminalPath)
+{
+    cp $dotfiles\windows\terminal\settings.json $windowsTerminalPath
+    Write-Host "Windows Terminal settings.json written [OK]"
+}
+
+$windowsTerminalPreviewPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
+if (Test-Path $windowsTerminalPreviewPath)
+{
+    cp $dotfiles\windows\terminal\settings-preview.json $windowsTerminalPreviewPath
+    Write-Host "Windows Terminal Preview settings.json written [OK]"
+}
