@@ -4,6 +4,7 @@ $expectedParams = @(
     'HOME_DIR',
     'USE_POSH_GIT',
     'PROJECTS_DIR',
+    'DOTFILES_DIR',
     'EDITOR',
     'VM_TYPE',
     'ZOOM_ROOM_PASSWORD',
@@ -24,6 +25,9 @@ foreach($param in $expectedParams)
         $profileParams[$param] = Read-Host "Value for $($param)?"
     }
 }
+
+$homeDir = $profileParams["HOME_DIR"]
+$dotfiles = $profileParams["DOTFILES_DIR"]
 
 $profileParams | Export-Clixml -Path $deployParamsPath
 

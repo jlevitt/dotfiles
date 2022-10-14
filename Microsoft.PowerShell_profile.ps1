@@ -2,6 +2,7 @@
 
 $usePoshGit = __USE_POSH_GIT__
 $projectsDir = "__PROJECTS_DIR__"
+$dotfiles = "__DOTFILES_DIR__"
 $homeDir = "__HOME_DIR__"
 $editor = "__EDITOR__"
 $vm_type = "__VM_TYPE__"
@@ -288,7 +289,6 @@ function migrations
     cd $migrations
 }
 
-$dotfiles = "$projectsDir\dotfiles"
 function dotfiles
 {
     cd $dotfiles
