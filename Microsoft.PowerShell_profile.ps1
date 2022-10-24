@@ -326,6 +326,7 @@ function edit-profile
 function Sync-Dotfiles
 {
     cp $PROFILE $dotfiles\Microsoft.PowerShell_profile.ps1
+    cp $homeDir\.bashrc $dotfiles\windows\laptop\.bashrc
     cp ~\default.ahk $dotfiles\default.akh
     cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
     cp $homeDir\_vimrc $dotfiles\.vimrc -Force
@@ -436,7 +437,8 @@ if ($mtx.WaitOne(0))
     {
         if (-not $(ps pageant -ErrorAction SilentlyContinue))
         {
-            pageant $(Resolve-Path ~\.ssh\$github_ssh_key)
+            # --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
+            pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
 
         if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))

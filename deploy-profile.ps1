@@ -141,3 +141,7 @@ if (Test-Path $windowsTerminalPreviewPath)
 
 cp $dotfiles\wsl\.wslconfig $homeDir\.wslconfig
 Write-Host ".wslconfig written [OK]"
+
+cp $dotfiles\windows\laptop\.bashrc $homeDir\.bashrc
+Write-Host "Windows .bashrc written [OK]"
+
