@@ -673,18 +673,25 @@ function Sync-AgentData
     }
 }
 
-function Restore-Ini
+function Unlink-Ini
 {
+    pushd $anzu
     git unskip $anzu\src\positronics_agent\general.ini
     git restore $anzu\src\positronics_agent\general.ini
 
     git unskip $anzu\src\positronics_agent\site.ini
     git restore $anzu\src\positronics_agent\site.ini
+
+    rm $giganto\om\agent\bridge\cmd\bridge\general.ini -ErrorAction SilentlyContinue
+    rm $giganto\om\agent\bridge\cmd\bridge\site.ini -ErrorAction SilentlyContinue
+
+    popd
 }
 
 function Link-Ini
 {
     pushd $anzu
+
     rm $anzu\src\positronics_agent\general.ini
     New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\general.ini -Target $agentDevConfig\general.ini
     git skip $anzu\src\positronics_agent\general.ini
@@ -692,6 +699,13 @@ function Link-Ini
     rm $anzu\src\positronics_agent\site.ini
     New-Item -Type SymbolicLink -Path $anzu\src\positronics_agent\site.ini -Target $agentDevConfig\site.ini
     git skip $anzu\src\positronics_agent\site.ini
+
+    rm $giganto\om\agent\bridge\cmd\bridge\general.ini -ErrorAction SilentlyContinue
+    New-Item -Type SymbolicLink -Path $giganto\om\agent\bridge\cmd\bridge\general.ini -Target $agentDevConfig\general.ini
+
+    rm $giganto\om\agent\bridge\cmd\bridge\site.ini -ErrorAction SilentlyContinue
+    New-Item -Type SymbolicLink -Path $giganto\om\agent\bridge\cmd\bridge\site.ini -Target $agentDevConfig\site.ini
+
     popd
 }
 
