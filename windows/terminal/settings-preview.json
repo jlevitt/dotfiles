@@ -7,9 +7,9 @@
             "command": 
             {
                 "action": "moveTab",
-                "direction": "forward"
+                "direction": "backward"
             },
-            "keys": "ctrl+period"
+            "keys": "ctrl+comma"
         },
         {
             "command": "closePane",
@@ -19,13 +19,17 @@
             "command": 
             {
                 "action": "moveTab",
-                "direction": "backward"
+                "direction": "forward"
             },
-            "keys": "ctrl+comma"
+            "keys": "ctrl+period"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
         },
         {
             "command": 
@@ -43,13 +47,8 @@
             "name": "Restart tab"
         },
         {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "keys": "alt+shift+d"
+            "command": "paste",
+            "keys": "ctrl+v"
         },
         {
             "command": "unbound",
@@ -58,10 +57,11 @@
         {
             "command": 
             {
-                "action": "copy",
-                "singleLine": false
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
             },
-            "keys": "ctrl+c"
+            "keys": "alt+shift+d"
         },
         {
             "command": "find",
@@ -92,12 +92,12 @@
                 "bellStyle": "none",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell",
-                "commandline": "powershell.exe",
+                "commandline": "pwsh",
                 "cursorShape": "bar",
                 "font": 
                 {
                     "face": "Cascadia Mono",
-                    "size": 12
+                    "size": 12.0
                 },
                 "guid": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
                 "historySize": 9001,
@@ -105,18 +105,18 @@
                 "name": "PS",
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
-                "startingDirectory": "C:\\projects",
+                "startingDirectory": "C:\\code",
                 "suppressApplicationTitle": true,
                 "tabTitle": "ps",
                 "useAcrylic": false
             },
             {
-                "colorScheme": "Campbell",
-                "commandline": "wsl.exe -d Ubuntu",
-                "guid": "{24531aef-390f-4a8b-acf8-205f4949adfb}",
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "wsl",
-                "startingDirectory": "%USERPROFILE%"
+              "colorScheme": "Campbell",
+              "commandline": "wsl.exe -d Ubuntu-20.04",
+              "guid": "{24531aef-390f-4a8b-acf8-205f4949adfb}",
+              "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+              "name": "wsl",
+              "startingDirectory": "%USERPROFILE%"
             },
             {
                 "altGrAliasing": true,
@@ -124,12 +124,12 @@
                 "bellStyle": "none",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell",
-                "commandline": "powershell.exe -c \"ssh jlevitt\"",
+                "commandline": "pwsh -c \"ssh jlevitt\"",
                 "cursorShape": "bar",
                 "font": 
                 {
                     "face": "Cascadia Mono",
-                    "size": 12
+                    "size": 12.0
                 },
                 "guid": "{9bfe930b-d0c5-44e2-a453-cf38ac83080f}",
                 "historySize": 9001,
@@ -137,7 +137,7 @@
                 "name": "jlevitt",
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
-                "startingDirectory": "C:\\projects",
+                "startingDirectory": "C:\\code",
                 "suppressApplicationTitle": true,
                 "tabTitle": "jlevitt",
                 "useAcrylic": false
@@ -153,7 +153,7 @@
                 "font": 
                 {
                     "face": "Cascadia Mono",
-                    "size": 12
+                    "size": 12.0
                 },
                 "guid": "{17c6469c-09b5-4308-92be-2007f36c26b1}",
                 "historySize": 9001,
@@ -161,16 +161,10 @@
                 "name": "Bash",
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
-                "startingDirectory": "C:\\projects\\giganto",
+                "startingDirectory": "C:\\code\\giganto",
                 "suppressApplicationTitle": true,
                 "tabTitle": "bash",
                 "useAcrylic": false
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
             },
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -193,12 +187,12 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell",
-                "commandline": "powershell.exe",
+                "commandline": "pwsh",
                 "cursorShape": "bar",
                 "font": 
                 {
                     "face": "Cascadia Mono",
-                    "size": 12
+                    "size": 12.0
                 },
                 "guid": "{14ba536c-8c89-4c65-bafd-a55628b76bf8}",
                 "historySize": 9001,
@@ -206,28 +200,40 @@
                 "name": "Tunnels",
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
-                "startingDirectory": "c:\\projects",
+                "startingDirectory": "c:\\code",
                 "suppressApplicationTitle": true,
                 "tabTitle": "tunnels",
                 "useAcrylic": false
             },
             {
-                "guid": "{e592a77e-d569-502f-bb7c-ffc3310ce4e5}",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
-                "name": "Developer Command Prompt for VS 2019",
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{470fd5f6-b404-5cf2-a741-73dc09a7f8b8}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{6ec6d46c-b05b-5a2f-9449-6d4fea6f83bc}",
+                "guid": "{25f4013f-e479-5eee-847d-00d645da7132}",
                 "hidden": false,
-                "name": "Developer PowerShell for VS 2019",
+                "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{5eb319cb-bfcd-5c04-814f-97865969e9cc}",
+                "guid": "{59b72ad2-09f7-55ec-af87-65d062af8472}",
+                "hidden": false,
+                "name": "Ubuntu 20.04.5 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu20.04LTS_79rhkp1fndgsc"
+            },
+            {
+                "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
                 "hidden": true,
-                "name": "Developer Command Prompt for VS 2017",
-                "source": "Windows.Terminal.VisualStudio"
+                "name": "Ubuntu-20.04",
+                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
@@ -416,6 +422,29 @@
             "selectionBackground": "#FFFFFF",
             "white": "#D3D7CF",
             "yellow": "#C4A000"
+        },
+        {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-20.04-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
         },
         {
             "background": "#000000",
