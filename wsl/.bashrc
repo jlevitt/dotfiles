@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 # Customized
-export DEV_ROOT=~/projects
+export DEV_ROOT=~/code
 export GOPATH=$DEV_ROOT/go
 export EDITOR=vim
 

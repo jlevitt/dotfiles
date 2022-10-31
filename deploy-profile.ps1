@@ -145,3 +145,5 @@ Write-Host ".wslconfig written [OK]"
 cp $dotfiles\windows\laptop\.bashrc $homeDir\.bashrc
 Write-Host "Windows .bashrc written [OK]"
 
+gci $dotfiles\wsl -Exclude .gitattributes | cp -Destination \\wsl$\Ubuntu-20.04\home\jlevitt
+Write-Host "WSL dotfiles written [OK]"
