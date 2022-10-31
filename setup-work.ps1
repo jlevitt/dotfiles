@@ -3,7 +3,7 @@ choco install slack -y
 choco install git -params '"/GitAndUnixToolsOnPath"' -y
 choco install goland -y
 choco install pycharm -y
-choco install golang --version 1.16.7 -y
+choco install golang --version go1.17.10 -y
 choco pin add --name=golang
 choco install tortoisegit -y
 choco install notepadplusplus -y
@@ -75,5 +75,24 @@ choco install openoffice -y
 
 
 # Non-Choco
-# * viscosity
-# * wsl --install
+if ((wsl) -ne $null )
+{
+    wsl --install
+}
+
+iwr https://github.com/jmeubank/tdm-gcc/releases/download/v1.2105.1/tdm-gcc-webdl.exe -OutFile C:\tmp\tdm-gcc-webdl.exe
+& C:\tmp\tdm-gcc-webdl.exe
+
+
+
+
+<#
+Manual
+
+- [ ] viscosity
+- [ ] wsl --install
+- [ ] Vimium + settings in dotfiles
+- [ ] TGit Merge settings
+- [ ] TDM GCC: https://jmeubank.github.io/tdm-gcc/articles/2021-05/10.3.0-release
+
+#>
