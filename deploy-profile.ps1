@@ -28,6 +28,7 @@ foreach($param in $expectedParams)
 
 $homeDir = $profileParams["HOME_DIR"]
 $dotfiles = $profileParams["DOTFILES_DIR"]
+$projects = $profileParams["PROJECTS_DIR"]
 
 $profileParams | Export-Clixml -Path $deployParamsPath
 
@@ -101,6 +102,7 @@ Get-Content .\Microsoft.PowerShell_profile.ps1 | Merge-Tokens -tokens $profilePa
 Write-Host "Profile written [OK]"
 
 Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content ~\.gitconfig
+Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content \\wsl$\Ubuntu-20.04\home\jlevitt\.gitconfig
 Write-Host "Git config written [OK]"
 
 if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
@@ -147,3 +149,9 @@ Write-Host "Windows .bashrc written [OK]"
 
 gci $dotfiles\wsl -Exclude .gitattributes | cp -Destination \\wsl$\Ubuntu-20.04\home\jlevitt
 Write-Host "WSL dotfiles written [OK]"
+
+$gopath = "$projects\go"
+[Environment]::SetEnvironmentVariable('GOPATH', $gopath, [EnvironmentVariableTarget]::Machine)
+$env:GOPATH = $gopath
+Write-Host "GOPATH written ($gopath) [OK]"
+
