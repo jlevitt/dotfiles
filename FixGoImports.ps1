@@ -30,7 +30,7 @@ foreach ($line in $lines)
     $output += $line
 }
 
-$output | sc $path
+$output | Set-Content $path
 
 goimports -local github.com/omnivore/giganto -w $path
 gofmt -w $path

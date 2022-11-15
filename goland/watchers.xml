@@ -1,6 +1,6 @@
 <TaskOptions>
   <TaskOptions>
-    <option name="arguments" value="-NoProfile &quot; C:\projects\personal\dotfiles\FixGoImports.ps1 '$FilePath$'&quot;" />
+    <option name="arguments" value="-NoProfile &quot;C:\code\dotfiles\FixGoImports.ps1 '$FilePath$'&quot;" />
     <option name="checkSyntaxErrors" value="true" />
     <option name="description" />
     <option name="exitCodeBehavior" value="ERROR" />
