@@ -352,6 +352,7 @@ function Sync-Dotfiles
     }
 
     cp $homeDir\.wslconfig $dotfiles\wsl\.wslconfig
+    gci \\wsl$\Ubuntu-20.04\home\jlevitt\* -Include .bash_aliases,.bash_functions,.bashrc,.profile | cp -Destination $dotfiles\wsl
 
     tgit commit $dotfiles
 }
@@ -460,7 +461,6 @@ if ($mtx.WaitOne(0))
 }
 
 
-$env:GOPATH = "$projectsDir\go"
 $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
 
 
@@ -712,4 +712,9 @@ function Link-Ini
 function Activate-Venv
 {
     . .\env\scripts\activate.ps1
+}
+
+function List-COMComponents
+{
+    gci HKLM:\Software\Classes -ea 0| ? {$_.PSChildName -match '^\w+\.\w+$' -and (gp "$($_.PSPath)\CLSID" -ea 0)} | ft PSChildName
 }
