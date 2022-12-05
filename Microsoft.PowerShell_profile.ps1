@@ -445,9 +445,6 @@ if ($mtx.WaitOne(0))
                 $p | kill
             }
 
-            $proc = Get-Process -Id $pid
-            Write-Output "$([datetime]::Now) $($MyInvocation.MyCommand.Path) session=$($proc.SessionID) processpath=$($proc.Path)" >> C:\tmp\powershell-log.txt
-
             # --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
             pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
