@@ -436,8 +436,18 @@ if ($mtx.WaitOne(0))
 {
     try
     {
-        if (-not $(ps pageant -ErrorAction SilentlyContinue))
+        $p = $(ps pageant -ErrorAction SilentlyContinue)
+        if (-not $p -or -not $p.CommandLine.Contains("--openssh-config"))
         {
+            # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
+            if ($p)
+            {
+                $p | kill
+            }
+
+            $proc = Get-Process -Id $pid
+            Write-Output "$([datetime]::Now) $($MyInvocation.MyCommand.Path) session=$($proc.SessionID) processpath=$($proc.Path)" >> C:\tmp\powershell-log.txt
+
             # --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
             pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
