@@ -97,14 +97,26 @@ if ($vm_type -eq "aloha")
 
     function copy-intercept()
     {
+        pushd C:\BootDrv\Aloha\BIN
+        
         kiber
         sleep 3
-        C:\BootDrv\Aloha\bin\Omnivore.Unregister.bat
-        cp $projectsDir\aloha-foh-intercept\Artifacts\* C:\BootDrv\Aloha\BIN\
-        C:\BootDrv\Aloha\bin\Omnivore.Register.bat
+        .\Omnivore.Unregister.bat
+        cp $projectsDir\aloha-foh-intercept\Artifacts\* .
+        .\Omnivore.Register.bat
         $env:TERM=5
         C:\BootDrv\Aloha\IBERCFG.BAT
+        
+        # The first time iber starts it will update dlls and exit
+        while (ps iber  -ErrorAction SilentlyContinue)
+        {
+            sleep 1
+        }
+        
+        C:\BootDrv\Aloha\IBERCFG.BAT
         $env:TERM="xterm"
+        
+        popd
     }
 
     $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
