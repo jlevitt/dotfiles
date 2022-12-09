@@ -102,7 +102,7 @@ if ($vm_type -eq "aloha")
         kiber
         sleep 3
         .\Omnivore.Unregister.bat
-        cp $projectsDir\aloha-foh-intercept\Artifacts\* .
+        cp $projectsDir\anzu\src\agent_aloha\intercepts\Artifacts\* .
         .\Omnivore.Register.bat
         $env:TERM=5
         C:\BootDrv\Aloha\IBERCFG.BAT
