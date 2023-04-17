@@ -101,23 +101,36 @@ if ($vm_type -eq "aloha")
         
         kiber
         sleep 3
-        .\Omnivore.Unregister.bat
+
+        .\Olo.AlohaIntercepts.Unregister.bat
         cp $projectsDir\anzu\src\agent_aloha\intercepts\Artifacts\* .
-        .\Omnivore.Register.bat
+        .\Olo.AlohaIntercepts.Register.bat
         $env:TERM=5
+        Write-Host "Starting iber (1st try)..."
         C:\BootDrv\Aloha\IBERCFG.BAT
         
-        # The first time iber starts it will update dlls and exit
+        # The first time iber starts it may update dlls and exit. If it stays up for a while, assume it doesn't need to restart.
+        $aliveForSec = 0
         while (ps iber  -ErrorAction SilentlyContinue)
         {
             sleep 1
+            $aliveForSec++
+            
+            if ($aliveForSec -ge 20)
+            {
+                $env:TERM="xterm"
+                popd
+                return
+            }                
         }
         
-        C:\BootDrv\Aloha\IBERCFG.BAT
+        Write-Host "Starting iber (2nd try)..."
+        Start-Job -ScriptBlock { C:\BootDrv\Aloha\IBERCFG.BAT }
         $env:TERM="xterm"
         
         popd
     }
+
 
     $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
 
@@ -445,7 +458,7 @@ if ($mtx.WaitOne(0))
     try
     {
         $p = $(ps pageant -ErrorAction SilentlyContinue)
-        if (-not $p -or -not $p.CommandLine.Contains("--openssh-config"))
+        if (-not $p -or ($p.CommandLine -and -not $p.CommandLine.Contains("--openssh-config")))
         {
             # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
             if ($p)
