@@ -27,6 +27,9 @@ function Install-Agent
     {
         try
         {
+            # Enable TLS 1.2 (needed for Win7/.NET 3.5). May also need this: https://support.microsoft.com/en-us/topic/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-winhttp-in-windows-c4bd73d2-31d7-761e-0178-11268bb10392
+            [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType][System.Security.Authentication.SslProtocols]0x00000C00
+
             $wc = New-Object System.Net.WebClient
             $wc.DownloadFile($url, $output)
         }
