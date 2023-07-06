@@ -16,6 +16,7 @@ $github_ssh_key = "__GITHUB_SSH_KEY__"
 New-Alias which Get-Command
 New-Alias rsv Restart-Service
 New-Alias pc Get-Clipboard
+New-Alias tp telepresence
 
 ### End cmdlet Aliases
 
@@ -237,13 +238,6 @@ function OpenSolutions($path)
 
 Set-Alias sln OpenSolutions
 
-function OpenAtom
-{
-    atom .
-}
-
-Set-Alias atm OpenAtom
-
 function nunit($path, $Version = "cwd")
 {
     $dll = $path
@@ -458,7 +452,7 @@ if ($mtx.WaitOne(0))
     try
     {
         $p = $(ps pageant -ErrorAction SilentlyContinue)
-        if (-not $p -or ($p.CommandLine -and -not $p.CommandLine.Contains("--openssh-config")))
+        if (-not $p -or -not $p.CommandLine.Contains("--openssh-config"))
         {
             # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
             if ($p)
