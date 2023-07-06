@@ -3,8 +3,10 @@ choco install slack -y
 choco install git -params '"/GitAndUnixToolsOnPath"' -y
 choco install goland -y
 choco install pycharm -y
-choco install golang --version go1.17.10 -y
+choco install golang --version go1.19.3 -y
 choco pin add --name=golang
+go install golang.org/x/tools/cmd/goimports@latest
+
 choco install tortoisegit -y
 choco install notepadplusplus -y
 choco install 7zip.install -y
@@ -34,6 +36,7 @@ choco install vscode -y
 choco install windbg -y
 choco install adobereader -y
 choco install k6 -y
+choco install powertoys -y
 
 choco install vim -y
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | ni $HOME/vimfiles/autoload/plug.vim -Force

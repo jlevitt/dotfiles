@@ -8,12 +8,30 @@ cd ~
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
-set shortmess=aoO
+let s:shortmess_save = &shortmess
+if &shortmess =~ 'A'
+  set shortmess=aoOA
+else
+  set shortmess=aoO
+endif
+badd +1 Documents\work\notes\todo\today.md
+badd +1 Documents\work\conversations\conversations.md
+badd +1 Documents\work\notes\notes.md
+badd +259 Documents\work\notes\scratch.md
+badd +0 Documents\work\notes\todo\Documents\work\notes\todo\today.md
+badd +1 Documents\work\notes\todo\done.md
+badd +1 Documents\work\notes\todo\admin.md
+badd +0 Documents\work\notes\todo\radar.md
+badd +12 Documents\work\conversations\1-1s\kevin.md
+badd +1 Documents\work\notes\todo\followup.md
+badd +1 Documents\work\notes\todo\goals.md
+badd +13 Documents\work\notes\azure-vm-migration.md
+badd +327 _vimrc
 argglobal
 %argdel
-tabnew
-tabnew
-tabnew
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit Documents\work\notes\todo\today.md
 let s:save_splitbelow = &splitbelow
@@ -41,15 +59,15 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe '1resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 1resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 1resize ' . ((&columns * 117 + 118) / 237)
 exe '2resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 2resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 2resize ' . ((&columns * 117 + 118) / 237)
 exe '3resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 3resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 3resize ' . ((&columns * 117 + 118) / 237)
 exe '4resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 4resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 4resize ' . ((&columns * 117 + 118) / 237)
 argglobal
-balt Documents\work\notes\todo\today.md
+balt Documents\work\notes\todo\Documents\work\notes\todo\today.md
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -69,7 +87,7 @@ normal! 0
 lcd ~\Documents\work\notes\todo
 wincmd w
 argglobal
-if bufexists("~\Documents\work\notes\todo\done.md") | buffer ~\Documents\work\notes\todo\done.md | else | edit ~\Documents\work\notes\todo\done.md | endif
+if bufexists(fnamemodify("~\Documents\work\notes\todo\done.md", ":p")) | buffer ~\Documents\work\notes\todo\done.md | else | edit ~\Documents\work\notes\todo\done.md | endif
 balt ~\Documents\work\notes\todo\today.md
 setlocal fdm=manual
 setlocal fde=0
@@ -81,16 +99,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 11) / 23)
+let s:l = 7 - ((5 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 7
-normal! 021|
+normal! 05|
 lcd ~\Documents\work\notes\todo
 wincmd w
 argglobal
-if bufexists("~\Documents\work\notes\todo\admin.md") | buffer ~\Documents\work\notes\todo\admin.md | else | edit ~\Documents\work\notes\todo\admin.md | endif
+if bufexists(fnamemodify("~\Documents\work\notes\todo\admin.md", ":p")) | buffer ~\Documents\work\notes\todo\admin.md | else | edit ~\Documents\work\notes\todo\admin.md | endif
 balt ~\Documents\work\notes\todo\today.md
 setlocal fdm=manual
 setlocal fde=0
@@ -111,7 +129,7 @@ normal! 03|
 lcd ~\Documents\work\notes\todo
 wincmd w
 argglobal
-if bufexists("~\Documents\work\notes\todo\radar.md") | buffer ~\Documents\work\notes\todo\radar.md | else | edit ~\Documents\work\notes\todo\radar.md | endif
+if bufexists(fnamemodify("~\Documents\work\notes\todo\radar.md", ":p")) | buffer ~\Documents\work\notes\todo\radar.md | else | edit ~\Documents\work\notes\todo\radar.md | endif
 balt ~\Documents\work\notes\todo\admin.md
 setlocal fdm=manual
 setlocal fde=0
@@ -131,35 +149,16 @@ keepjumps 1
 normal! 0
 lcd ~\Documents\work\notes\todo
 wincmd w
-4wincmd w
 exe '1resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 1resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 1resize ' . ((&columns * 117 + 118) / 237)
 exe '2resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 2resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 2resize ' . ((&columns * 117 + 118) / 237)
 exe '3resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 3resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 3resize ' . ((&columns * 117 + 118) / 237)
 exe '4resize ' . ((&lines * 23 + 25) / 50)
-exe 'vert 4resize ' . ((&columns * 117 + 117) / 235)
+exe 'vert 4resize ' . ((&columns * 117 + 118) / 237)
 tabnext
 edit ~\Documents\work\conversations\conversations.md
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe '1resize ' . ((&lines * 23 + 25) / 50)
-exe '2resize ' . ((&lines * 23 + 25) / 50)
 argglobal
 balt ~\Documents\work\conversations\1-1s\kevin.md
 setlocal fdm=manual
@@ -172,37 +171,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 11) / 23)
+let s:l = 41 - ((36 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 41
+normal! $
 lcd ~\Documents\work\conversations
-wincmd w
-argglobal
-if bufexists("~\Documents\work\conversations\1-1s\kevin.md") | buffer ~\Documents\work\conversations\1-1s\kevin.md | else | edit ~\Documents\work\conversations\1-1s\kevin.md | endif
-balt ~\Documents\work\conversations\conversations.md
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 12 - ((11 * winheight(0) + 11) / 23)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 12
-normal! 0
-lcd ~\Documents\work\conversations\1-1s
-wincmd w
-exe '1resize ' . ((&lines * 23 + 25) / 50)
-exe '2resize ' . ((&lines * 23 + 25) / 50)
 tabnext
 edit ~\Documents\work\notes\notes.md
 argglobal
@@ -238,31 +213,22 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 20 - ((19 * winheight(0) + 23) / 47)
+let s:l = 7 - ((6 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 20
+keepjumps 7
 normal! 0
 lcd ~\Documents\work\notes
-tabnext 1
-badd +1 ~\Documents\work\notes\todo\today.md
-badd +12 ~\Documents\work\conversations\1-1s\kevin.md
-badd +1 ~\Documents\work\notes\notes.md
-badd +259 ~\Documents\work\notes\scratch.md
-badd +0 ~\Documents\work\notes\todo\done.md
-badd +0 ~\Documents\work\notes\todo\followup.md
-badd +1 ~\Documents\work\notes\todo\admin.md
-badd +0 ~\Documents\work\notes\todo\goals.md
-badd +1 ~\Documents\work\notes\todo\radar.md
-badd +1 ~\Documents\work\conversations\conversations.md
-badd +13 ~\Documents\work\notes\azure-vm-migration.md
-badd +327 ~\_vimrc
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filnxtToO
+set winheight=1 winwidth=20
+let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

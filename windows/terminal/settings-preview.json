@@ -24,12 +24,8 @@
             "keys": "ctrl+period"
         },
         {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+c"
+            "command": "paste",
+            "keys": "ctrl+v"
         },
         {
             "command": 
@@ -47,8 +43,12 @@
             "name": "Restart tab"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
         },
         {
             "command": "unbound",
@@ -81,6 +81,12 @@
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
     "launchMode": "maximized",
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
     "profiles": 
     {
         "defaults": {},
@@ -111,12 +117,12 @@
                 "useAcrylic": false
             },
             {
-              "colorScheme": "Campbell",
-              "commandline": "wsl.exe -d Ubuntu-20.04 -u jlevitt",
-              "guid": "{24531aef-390f-4a8b-acf8-205f4949adfb}",
-              "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-              "name": "wsl",
-              "startingDirectory": "%USERPROFILE%"
+                "colorScheme": "Campbell",
+                "commandline": "wsl.exe -d Ubuntu-20.04 -u jlevitt",
+                "guid": "{24531aef-390f-4a8b-acf8-205f4949adfb}",
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "wsl",
+                "startingDirectory": "%USERPROFILE%"
             },
             {
                 "altGrAliasing": true,
@@ -224,16 +230,22 @@
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{59b72ad2-09f7-55ec-af87-65d062af8472}",
-                "hidden": false,
-                "name": "Ubuntu 20.04.5 LTS",
-                "source": "CanonicalGroupLimited.Ubuntu20.04LTS_79rhkp1fndgsc"
-            },
-            {
                 "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
                 "hidden": true,
                 "name": "Ubuntu-20.04",
                 "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "guid": "{4dd1e689-b517-5f39-947d-78e8a8bdf958}",
+                "hidden": false,
+                "name": "Ubuntu 20.04.6 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu20.04LTS_79rhkp1fndgsc"
+            },
+            {
+                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+                "hidden": false,
+                "name": "Git Bash",
+                "source": "Git"
             }
         ]
     },

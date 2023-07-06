@@ -153,5 +153,9 @@ Write-Host "WSL dotfiles written [OK]"
 $gopath = "$projects\go"
 [Environment]::SetEnvironmentVariable('GOPATH', $gopath, [EnvironmentVariableTarget]::Machine)
 $env:GOPATH = $gopath
+if (-not $(Test-Path $gopath))
+{
+    mkdir $gopath | Out-Null
+}
 Write-Host "GOPATH written ($gopath) [OK]"
 

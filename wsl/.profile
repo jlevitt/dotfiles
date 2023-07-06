@@ -29,6 +29,6 @@ fi
 # Customized
 
 export GIT_SSH=/mnt/c/ProgramData/chocolatey/bin/PLINK.EXE
-export PATH=$PATH:/usr/local/go/bin:~/projects/go/bin
+export PATH=$PATH:/usr/local/go/bin:~/code/go/bin
 
 cd $DEV_ROOT

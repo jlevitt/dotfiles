@@ -1,13 +1,13 @@
 ### Profile params
 
-$usePoshGit = __USE_POSH_GIT__
-$projectsDir = "__PROJECTS_DIR__"
-$dotfiles = "__DOTFILES_DIR__"
-$homeDir = "__HOME_DIR__"
-$editor = "__EDITOR__"
-$vm_type = "__VM_TYPE__"
-$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
-$github_ssh_key = "__GITHUB_SSH_KEY__"
+$usePoshGit = $true
+$projectsDir = "C:\code"
+$dotfiles = "C:\code\dotfiles"
+$homeDir = "C:\Users\jake.levitt"
+$editor = "vim"
+$vm_type = "laptop"
+$zoom_room_password = "unused"
+$github_ssh_key = "local.thinkpad.ppk"
 
 ### End params
 
@@ -96,42 +96,21 @@ if ($vm_type -eq "aloha")
         ps *iber* | kill
     }
 
-    function copy-intercept()
+    function copy-como()
     {
-        pushd C:\BootDrv\Aloha\BIN
-        
         kiber
         sleep 3
-
-        .\Olo.AlohaIntercepts.Unregister.bat
-        cp $projectsDir\anzu\src\agent_aloha\intercepts\Artifacts\* .
-        .\Olo.AlohaIntercepts.Register.bat
-        $env:TERM=5
-        Write-Host "Starting iber (1st try)..."
+        copy C:\Users\aloha\dev\como-aloha\Artifacts\*.* C:\BootDrv\Aloha\BIN
+        copy C:\Users\aloha\dev\como-ui\Artifacts\*.* C:\Como\ComoApp
+        $env:TERM=17
         C:\BootDrv\Aloha\IBERCFG.BAT
-        
-        # The first time iber starts it may update dlls and exit. If it stays up for a while, assume it doesn't need to restart.
-        $aliveForSec = 0
-        while (ps iber  -ErrorAction SilentlyContinue)
-        {
-            sleep 1
-            $aliveForSec++
-            
-            if ($aliveForSec -ge 20)
-            {
-                $env:TERM="xterm"
-                popd
-                return
-            }                
-        }
-        
-        Write-Host "Starting iber (2nd try)..."
-        Start-Job -ScriptBlock { C:\BootDrv\Aloha\IBERCFG.BAT }
         $env:TERM="xterm"
-        
-        popd
     }
 
+    function copy-ui()
+    {
+        copy C:\Users\aloha\dev\como-ui\Artifacts\*.* C:\Como\ComoApp
+    }
 
     $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_stackdumpfile-dumping-stack-trace-to-less-exe-stackdump-gitcygwin/
 
