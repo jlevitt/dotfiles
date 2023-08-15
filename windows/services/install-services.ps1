@@ -19,6 +19,9 @@ gsv SFTPTunnelFocal | sasv
 winsw install $PSScriptRoot\RabbitMQAdminTunnel\RabbitMQAdminTunnel.xml --user $env:WINSW_USERNAME --password $env:WINSW_PASSWORD
 gsv RabbitMQAdminTunnel | sasv
 
+winsw install $PSScriptRoot\RabbitMQAdminTunnel-Focal\RabbitMQAdminTunnel-Focal.xml --user $env:WINSW_USERNAME --password $env:WINSW_PASSWORD
+gsv RabbitMQAdminTunnelFocal | sasv
+
 winsw install $PSScriptRoot\DashDevTunnel\DashDevTunnel.xml --user $env:WINSW_USERNAME --password $env:WINSW_PASSWORD
 gsv DashDevTunnel | sasv
 
