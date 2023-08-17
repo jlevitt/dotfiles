@@ -724,3 +724,13 @@ function ivr
 {
     [System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest @args).Content)
 }
+
+function Encode-Base64
+{
+    [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($input))
+}
+
+function Decode-Base64
+{
+    [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($input))
+}
