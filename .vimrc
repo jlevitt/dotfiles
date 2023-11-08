@@ -133,6 +133,7 @@ nnoremap <C-j> :join<CR>
 nnoremap <C-f> :let @/ = @"<CR>|  " Find yanked text
 set pastetoggle=<F2>
 
+
 " Insert current date header in markdown files
 nnoremap <F5> "=strftime("## %Y-%m-%d")<CR>P
 inoremap <F5> <C-R>=strftime("## %Y-%m-%d")<CR>
@@ -351,3 +352,27 @@ map <F> f{%
 
 " Check all TODO boxes
 noremap <silent> <Leader>ax :%s/\[ \]/[x]/g<CR>
+
+"" Remove all text except what matches the current search result. Will put each
+"" match on its own line. This is the opposite of :%s///g (which clears all
+"" instances of the current search).
+function! s:ClearAllButMatches() range
+    let is_whole_file = a:firstline == 1 && a:lastline == line('$')
+
+    let old_c = @c
+
+    let @c=""
+    exec a:firstline .','. a:lastline .'sub//\=setreg("C", submatch(0), "l")/g'
+    exec a:firstline .','. a:lastline .'delete _'
+    put! c
+
+    "" I actually want the above to replace the whole selection with c, but I'll
+    "" settle for removing the blank line that's left when deleting the file
+    "" contents.
+    if is_whole_file
+        $delete _
+    endif
+
+    let @c = old_c
+endfunction
+command! -range=% ClearAllButMatches <line1>,<line2>call s:ClearAllButMatches()
