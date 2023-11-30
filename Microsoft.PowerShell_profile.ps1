@@ -17,6 +17,7 @@ New-Alias which Get-Command
 New-Alias rsv Restart-Service
 New-Alias pc Get-Clipboard
 New-Alias tp telepresence
+New-Alias wm WinMergeU
 
 ### End cmdlet Aliases
 
@@ -727,10 +728,10 @@ function ivr
 
 function Encode-Base64
 {
-    [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($input))
+    [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($input))
 }
 
 function Decode-Base64
 {
-    [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($input))
+    [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($input))
 }
