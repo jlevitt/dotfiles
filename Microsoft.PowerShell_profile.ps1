@@ -18,6 +18,7 @@ New-Alias rsv Restart-Service
 New-Alias pc Get-Clipboard
 New-Alias tp telepresence
 New-Alias wm WinMergeU
+del alias:diff -Force   # Remove built in alias to Compare-Object, which allows a real diff command to be invoked.
 
 ### End cmdlet Aliases
 
