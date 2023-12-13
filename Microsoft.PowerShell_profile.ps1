@@ -736,3 +736,18 @@ function Decode-Base64
 {
     [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($input))
 }
+
+function Get-VMPort
+{
+    $ip = $(gcb)
+
+    [int]$ip.Split(".")[3] + 9996
+}
+
+function Get-VMIP
+{
+    $port = $(gcb)
+
+    "10.1.64." + ([int]$port - 9996)
+}
+
