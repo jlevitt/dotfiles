@@ -1,13 +1,13 @@
 ### Profile params
 
-$usePoshGit = $true
-$projectsDir = "C:\code"
-$dotfiles = "C:\code\dotfiles"
-$homeDir = "C:\Users\jake.levitt"
-$editor = "vim"
-$vm_type = "laptop"
-$zoom_room_password = "unused"
-$github_ssh_key = "local.thinkpad.ppk"
+$usePoshGit = __USE_POSH_GIT__
+$projectsDir = "__PROJECTS_DIR__"
+$dotfiles = "__DOTFILES_DIR__"
+$homeDir = "__HOME_DIR__"
+$editor = "__EDITOR__"
+$vm_type = "__VM_TYPE__"
+$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
+$github_ssh_key = "__GITHUB_SSH_KEY__"
 
 ### End params
 
@@ -433,16 +433,25 @@ if ($mtx.WaitOne(0))
     try
     {
         $p = $(ps pageant -ErrorAction SilentlyContinue)
-        if (-not $p -or -not $p.CommandLine.Contains("--openssh-config"))
+		if ($vm_type -eq "laptop" -and $p -and -not $p.CommandLine.Contains("--openssh-config"))
+		{
+		    # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
+            $p | kill
+		}
+		
+		
+		$p = $(ps pageant -ErrorAction SilentlyContinue)
+        if (-not $p)
         {
-            # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
-            if ($p)
-            {
-                $p | kill
-            }
-
-            # --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
-            pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
+			if ($vm_type -eq "laptop")
+			{
+				# --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
+				pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
+			}
+			else
+			{
+				pageant $(Resolve-Path ~\.ssh\$github_ssh_key)
+			}
         }
 
         if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
