@@ -7,3 +7,8 @@ WinActivate, ahk_group Zoom
 Send, !a
 WinActivate, ahk_id %active_window%
 return
+
+^!+d::
+SendInput, /dnd 25 minutes`n
+SendInput, /remind me dnd in 25 minutes`n
+return
