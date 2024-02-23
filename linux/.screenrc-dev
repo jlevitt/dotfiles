@@ -1,0 +1,33 @@
+source ~/.screenrc
+
+stuff "cd ~/dev^M"
+
+screen -t 'api' 1
+stuff "cd ~/dev/titanoboa^M"
+stuff "./bin/api^M"
+
+screen -t 'tasks' 2
+stuff "cd ~/dev/titanoboa^M"
+stuff "./bin/tasks^M"
+
+screen -t 'dash' 3
+stuff "cd ~/dev/titanoboa^M"
+stuff "./bin/internal-dash^M"
+
+screen -t 'panel' 4
+stuff "cd ~/dev/panel^M"
+stuff "./run.sh^M"
+
+screen -t 'locations' 5
+stuff "cd ~/dev/go/src/github.com/omnivore/giganto^M"
+stuff "./bin/backend/locations -B^M"
+
+screen -t 'connect' 6
+stuff "cd ~/dev/go/src/github.com/omnivore/giganto^M"
+stuff "./bin/backend/connect -B^M"
+
+screen -t 'broker' 7
+stuff "cd ~/dev/go/src/github.com/omnivore/giganto^M"
+stuff "./bin/backend/broker -B^M"
+
+select 0
