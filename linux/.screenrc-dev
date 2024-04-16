@@ -30,4 +30,8 @@ screen -t 'broker' 7
 stuff "cd ~/dev/go/src/github.com/omnivore/giganto^M"
 stuff "./bin/backend/broker -B^M"
 
+screen -t 'go-tasks' 8
+stuff "cd ~/dev/go/src/github.com/omnivore/giganto^M"
+stuff "./bin/backend/tasks"
+
 select 0
