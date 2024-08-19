@@ -39,6 +39,7 @@ choco install sqlite.shell -y
 choco install visualstudio2017professional -y
 choco install powershell -y
 choco install poshgit -y
+choco install difftastic -y
 
 # DBFs
 choco install libreoffice-still -y  # OR http://www.alexnolan.net/software/dbf.htm
