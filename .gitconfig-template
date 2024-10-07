@@ -23,6 +23,7 @@
   ui = auto
 [push]
   default = simple
+  autoSetupRemote = true
 [core]
   editor = vim
   autocrlf = true
