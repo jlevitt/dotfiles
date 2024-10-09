@@ -18,7 +18,12 @@ alias giganto="cd $GOPATH/src/github.com/omnivore/giganto"
 alias flush-redis="redis-cli -p 16390 flushdb"
 alias a=". ./env/bin/activate"
 alias d=deactivate
+
+# Titanoboa
 alias api="cd om/api-v1.0"
 alias tasks="cd om/tasks"
+alias t="cd ../.."
+alias idt="pip install pipdeptree"
+alias dt="pipdeptree"
 
 function c() { curl -vvv $@; echo; }
