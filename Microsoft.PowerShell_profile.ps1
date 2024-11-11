@@ -1,13 +1,13 @@
 ### Profile params
 
-$usePoshGit = __USE_POSH_GIT__
-$projectsDir = "__PROJECTS_DIR__"
-$dotfiles = "__DOTFILES_DIR__"
-$homeDir = "__HOME_DIR__"
-$editor = "__EDITOR__"
-$vm_type = "__VM_TYPE__"
-$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
-$github_ssh_key = "__GITHUB_SSH_KEY__"
+$usePoshGit = $true
+$projectsDir = "C:\code"
+$dotfiles = "C:\code\dotfiles"
+$homeDir = "C:\Users\jake.levitt"
+$editor = "vim"
+$vm_type = "laptop"
+$zoom_room_password = "unused"
+$github_ssh_key = "local.thinkpad.ppk"
 
 ### End params
 
@@ -18,6 +18,8 @@ New-Alias rsv Restart-Service
 New-Alias pc Get-Clipboard
 New-Alias tp telepresence
 New-Alias wm WinMergeU
+New-Alias a .\env\Scripts\activate.ps1
+New-Alias d deactivate
 del alias:diff -Force   # Remove built in alias to Compare-Object, which allows a real diff command to be invoked.
 
 ### End cmdlet Aliases
@@ -433,25 +435,16 @@ if ($mtx.WaitOne(0))
     try
     {
         $p = $(ps pageant -ErrorAction SilentlyContinue)
-		if ($vm_type -eq "laptop" -and $p -and -not $p.CommandLine.Contains("--openssh-config"))
-		{
-		    # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
-            $p | kill
-		}
-		
-		
-		$p = $(ps pageant -ErrorAction SilentlyContinue)
-        if (-not $p)
+        if (-not $p -or -not $p.CommandLine.Contains("--openssh-config"))
         {
-			if ($vm_type -eq "laptop")
-			{
-				# --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
-				pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
-			}
-			else
-			{
-				pageant $(Resolve-Path ~\.ssh\$github_ssh_key)
-			}
+            # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
+            if ($p)
+            {
+                $p | kill
+            }
+
+            # --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
+            pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
 
         if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
@@ -760,3 +753,8 @@ function Get-VMIP
     "10.1.64." + ([int]$port - 9996)
 }
 
+function Alias-Agent-Dev-Config
+{
+    # Must be done outside of administrator prompt
+    subst A: $projectsDir\agent-dev-config
+}
