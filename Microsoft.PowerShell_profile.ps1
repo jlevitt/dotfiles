@@ -18,7 +18,7 @@ New-Alias rsv Restart-Service
 New-Alias pc Get-Clipboard
 New-Alias tp telepresence
 New-Alias wm WinMergeU
-New-Alias a .\env\Scripts\activate.ps1
+New-Alias a .\.venv\Scripts\activate.ps1
 New-Alias d deactivate
 del alias:diff -Force   # Remove built in alias to Compare-Object, which allows a real diff command to be invoked.
 
@@ -46,6 +46,28 @@ if ($usePoshGit)
 
 
 ### End PS Modules
+
+### AzureCLI Autocomplete
+Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
+    param($commandName, $wordToComplete, $cursorPosition)
+    $completion_file = New-TemporaryFile
+    $env:ARGCOMPLETE_USE_TEMPFILES = 1
+    $env:_ARGCOMPLETE_STDOUT_FILENAME = $completion_file
+    $env:COMP_LINE = $wordToComplete
+    $env:COMP_POINT = $cursorPosition
+    $env:_ARGCOMPLETE = 1
+    $env:_ARGCOMPLETE_SUPPRESS_SPACE = 0
+    $env:_ARGCOMPLETE_IFS = "`n"
+    $env:_ARGCOMPLETE_SHELL = 'powershell'
+    az 2>&1 | Out-Null
+    Get-Content $completion_file | Sort-Object | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, "ParameterValue", $_)
+    }
+    Remove-Item $completion_file, Env:\_ARGCOMPLETE_STDOUT_FILENAME, Env:\ARGCOMPLETE_USE_TEMPFILES, Env:\COMP_LINE, Env:\COMP_POINT, Env:\_ARGCOMPLETE, Env:\_ARGCOMPLETE_SUPPRESS_SPACE, Env:\_ARGCOMPLETE_IFS, Env:\_ARGCOMPLETE_SHELL
+}
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+
+## End AzureCLI Autocomplete
 
 ### Git helpers
 function Grepout($pattern)
