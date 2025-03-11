@@ -457,7 +457,7 @@ if ($mtx.WaitOne(0))
     try
     {
         $p = $(ps pageant -ErrorAction SilentlyContinue)
-        if (-not $p -or -not $p.CommandLine -or -not $p.CommandLine.Contains("--openssh-config"))
+        if (-not $p -or -not (Get-CimInstance Win32_Process -Filter 'Name = "pageant.exe"' | select -ExpandProperty CommandLine).Contains("--openssh-config"))
         {
             # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
             if ($p)
