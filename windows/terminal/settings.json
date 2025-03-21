@@ -1,16 +1,30 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
+    "actions": 
     [
+        {
+            "command": 
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "id": "User.moveTab.793E2350",
+            "keys": "shift+right"
+        },
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
         {
             "command": "unbound",
             "id": "User.find",
             "keys": "ctrl+shift+f"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+v"
         },
         {
             "command": "unbound",
@@ -19,10 +33,6 @@
         {
             "command": "unbound",
             "keys": "ctrl+w"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+c"
         },
         {
             "command": "unbound",
@@ -37,24 +47,15 @@
             "keys": "shift+period"
         },
         {
-            "command":
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "id": "User.copy.644BA8F2"
+            "command": "unbound",
+            "keys": "ctrl+shift+c"
         },
         {
-            "command":
-            {
-                "action": "moveTab",
-                "direction": "forward"
-            },
-            "id": "User.moveTab.793E2350",
-            "keys": "shift+right"
+            "command": "unbound",
+            "keys": "shift+insert"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -63,15 +64,7 @@
             "id": "User.splitPane.A6751878"
         },
         {
-            "command":
-            {
-                "action": "nextTab"
-            },
-            "id": "User.nextTab.0",
-            "keys": "ctrl+period"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "openSettings",
                 "target": "settingsUI"
@@ -79,18 +72,18 @@
             "id": "User.openSettings.6CD791B"
         },
         {
-            "command":
+            "command": 
             {
-                "action": "prevTab"
+                "action": "nextTab"
             },
-            "id": "User.prevTab.0",
-            "keys": "ctrl+comma"
+            "id": "User.nextTab.0",
+            "keys": "ctrl+period"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "multipleActions",
-                "actions":
+                "actions": 
                 [
                     {
                         "action": "closeTab"
@@ -102,11 +95,19 @@
             "name": "Restart tab"
         },
         {
+            "command": 
+            {
+                "action": "prevTab"
+            },
+            "id": "User.prevTab.0",
+            "keys": "ctrl+comma"
+        },
+        {
             "command": "find",
             "id": "User.find"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "moveTab",
                 "direction": "backward"
@@ -116,7 +117,8 @@
         },
         {
             "command": "paste",
-            "id": "User.paste"
+            "id": "User.paste",
+            "keys": "ctrl+v"
         },
         {
             "command": "closePane",
@@ -128,19 +130,19 @@
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
     "launchMode": "maximized",
-    "newTabMenu":
+    "newTabMenu": 
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles":
+    "profiles": 
     {
-        "defaults":
+        "defaults": 
         {
             "elevate": false
         },
-        "list":
+        "list": 
         [
             {
                 "altGrAliasing": true,
@@ -151,7 +153,7 @@
                 "commandline": "pwsh",
                 "cursorShape": "bar",
                 "elevate": true,
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -183,7 +185,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "pwsh -c \"ssh jlevitt-focal\"",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -208,7 +210,7 @@
                 "commandline": "pwsh -c \"ssh jlevitt\"",
                 "cursorShape": "bar",
                 "elevate": true,
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -233,7 +235,7 @@
                 "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
                 "cursorShape": "bar",
                 "elevate": true,
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
@@ -273,7 +275,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "pwsh",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 12
