@@ -371,6 +371,12 @@ function Sync-Dotfiles
         cp $windowsTerminalPreviewPath $dotfiles\windows\terminal\settings-preview.json
     }
 
+    $ideavimrcPath = "~\.ideavimrc"
+    if (Test-Path $ideavimrcPath)
+    {
+        cp $ideavimrcPath $dotfiles\.ideavimrc
+    }
+
     cp $homeDir\.wslconfig $dotfiles\wsl\.wslconfig
     gci \\wsl$\Ubuntu-20.04\home\jlevitt\* -Include .bash_aliases,.bash_functions,.bashrc,.profile | cp -Destination $dotfiles\wsl
 
