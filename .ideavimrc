@@ -160,7 +160,6 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set textwidth=100
 set nowrap
 
 " ##### Backup, swap and undo file settings #####
