@@ -22,12 +22,14 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
+Plug 'will133/vim-dirdiff'
 
 " Initialize plugin system
 call plug#end()
 
 " Plugin Config
 let g:go_version_warning = 0
+let g:DirDiffExcludes = "*.pyc"
 
 "" todo.vim
 autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
@@ -330,13 +332,15 @@ set smartcase
 set splitbelow
 set splitright
 
-" Alt + arrow key to navigate splits
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
 set guioptions-=m " Hide the menubar so I can use alt without opening a menu
+
+" Windows terminal sends escape codes instead if 8 bit codes, need to remap
+" these before we can use them.
+nmap <Esc>k <A-k>
+nmap <Esc>j <A-j>
+nmap <Esc>h <A-h>
+nmap <Esc>l <A-l>
+
 nmap <silent> <A-k> :wincmd k<CR>
 nmap <silent> <A-j> :wincmd j<CR>
 nmap <silent> <A-h> :wincmd h<CR>
