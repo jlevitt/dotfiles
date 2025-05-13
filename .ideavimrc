@@ -1,27 +1,37 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" Set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
-" Let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-sensible'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'txt.vim'
-"Plugin 'Syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'b4winckler/vim-angry'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'tpope/vim-commentary'
-Plugin 'nvie/vim-flake8'
-Plugin 'othree/html5.vim'
+Plug 'FooSoft/vim-argwrap'
+Plug 'PProvost/vim-ps1'
+Plug 'b4winckler/vim-angry'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'fatih/vim-go'
+Plug 'flazz/vim-colorschemes'
+Plug 'godlygeek/tabular'
+Plug 'hashivim/vim-terraform'
+Plug 'jlevitt/todo.vim'
+Plug 'mbrc12/vim-autoswap'
+Plug 'nvie/vim-flake8'
+Plug 'othree/html5.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'sk1418/Join'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'will133/vim-dirdiff'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Initialize plugin system
+call plug#end()
+
+" Plugin Config
+let g:go_version_warning = 0
+let g:DirDiffExcludes = "*.pyc"
 
 " Aliases/Helpers
 :command! Reload so %

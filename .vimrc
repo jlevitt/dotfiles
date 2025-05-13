@@ -5,6 +5,7 @@ set nocompatible              " be iMproved, required
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+Plug 'FooSoft/vim-argwrap'
 Plug 'PProvost/vim-ps1'
 Plug 'b4winckler/vim-angry'
 Plug 'ctrlpvim/ctrlp.vim'
