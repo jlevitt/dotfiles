@@ -1,13 +1,13 @@
 ### Profile params
 
-$usePoshGit = __USE_POSH_GIT__
-$projectsDir = "__PROJECTS_DIR__"
-$dotfiles = "__DOTFILES_DIR__"
-$homeDir = "__HOME_DIR__"
-$editor = "__EDITOR__"
-$vm_type = "__VM_TYPE__"
-$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
-$github_ssh_key = "__GITHUB_SSH_KEY__"
+$usePoshGit = $true
+$projectsDir = "C:\code"
+$dotfiles = "C:\code\dotfiles"
+$homeDir = "C:\Users\jake.levitt"
+$editor = "vim"
+$vm_type = "laptop"
+$zoom_room_password = "unused"
+$github_ssh_key = "local.thinkpad.ppk"
 
 ### End params
 
@@ -32,6 +32,7 @@ Set-Variable HOME $homeDir
 $env:HOMEDRIVE = Split-Path -Path $homeDir -Qualifier
 $env:HOMEPATH = Split-Path -Path $homeDir -NoQualifier
 $env:GIT_SSH = "$((which plink).Definition)"
+[Environment]::SetEnvironmentVariable("GIT_SSH", $env:GIT_SSH, "Machine")
 
 ### End environment variables
 
@@ -41,7 +42,7 @@ Import-Module InstallAgent
 
 if ($usePoshGit)
 {
-    Import-Module posh-git
+    Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
 }
 
 
@@ -463,7 +464,7 @@ if ($mtx.WaitOne(0))
     try
     {
         $p = $(ps pageant -ErrorAction SilentlyContinue)
-        if (-not $p -or -not (Get-CimInstance Win32_Process -Filter 'Name = "pageant.exe"' | select -ExpandProperty CommandLine).Contains("--openssh-config"))
+        if (-not $p -or -not $p.CommandLine.Contains("--openssh-config"))
         {
             # Something is starting pageant before powershell. Don't know what it is, but kill it and restart if it wasn't started with the arguments given here.
             if ($p)
@@ -770,9 +771,13 @@ function Decode-Base64
 function Get-VMPort
 {
     $ip = $(gcb)
-
-    [int]$ip.Split(".")[3] + 9996
+    $port = [int]$ip.Split(".")[3] + 9996
+    $server = "localhost:$port"
+    Write-Host $server
+    $server | clip
 }
+
+New-Alias gvp Get-VMPort
 
 function Get-VMIP
 {
