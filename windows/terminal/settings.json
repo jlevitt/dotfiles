@@ -9,8 +9,7 @@
                 "action": "moveTab",
                 "direction": "forward"
             },
-            "id": "User.moveTab.793E2350",
-            "keys": "shift+right"
+            "id": "User.moveTab.793E2350"
         },
         {
             "command": 
@@ -18,41 +17,7 @@
                 "action": "copy",
                 "singleLine": false
             },
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
-        },
-        {
-            "command": "unbound",
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+shift+r"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+w"
-        },
-        {
-            "command": "unbound",
-            "keys": "alt+shift+d"
-        },
-        {
-            "command": "unbound",
-            "keys": "alt+f7"
-        },
-        {
-            "command": "unbound",
-            "keys": "shift+period"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+shift+c"
-        },
-        {
-            "command": "unbound",
-            "keys": "shift+insert"
+            "id": "User.copy.644BA8F2"
         },
         {
             "command": 
@@ -62,6 +27,32 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
+        },
+        {
+            "command": 
+            {
+                "action": "multipleActions",
+                "actions": 
+                [
+                    "duplicateTab",
+                    {
+                        "action": "prevTab"
+                    },
+                    {
+                        "action": "closeTab"
+                    },
+                    {
+                        "action": "nextTab"
+                    }
+
+                ]
+            },
+            "id": "User.multipleActions.D303711A",
+            "name": "Restart tab"
         },
         {
             "command": 
@@ -76,35 +67,14 @@
             {
                 "action": "nextTab"
             },
-            "id": "User.nextTab.0",
-            "keys": "ctrl+period"
-        },
-        {
-            "command": 
-            {
-                "action": "multipleActions",
-                "actions": 
-                [
-                    {
-                        "action": "closeTab"
-                    },
-                    "restoreLastClosed"
-                ]
-            },
-            "id": "User.multipleActions.28E6A5B7",
-            "name": "Restart tab"
+            "id": "User.nextTab.0"
         },
         {
             "command": 
             {
                 "action": "prevTab"
             },
-            "id": "User.prevTab.0",
-            "keys": "ctrl+comma"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
+            "id": "User.prevTab.0"
         },
         {
             "command": 
@@ -112,13 +82,11 @@
                 "action": "moveTab",
                 "direction": "backward"
             },
-            "id": "User.moveTab.EF07D31B",
-            "keys": "shift+left"
+            "id": "User.moveTab.EF07D31B"
         },
         {
             "command": "paste",
-            "id": "User.paste",
-            "keys": "ctrl+v"
+            "id": "User.paste"
         },
         {
             "command": "closePane",
@@ -129,6 +97,65 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
+    "keybindings": 
+    [
+        {
+            "id": "User.multipleActions.D303711A",
+            "keys": "ctrl+shift+r"
+        },
+        {
+            "id": null,
+            "keys": "shift+period"
+        },
+        {
+            "id": "User.moveTab.793E2350",
+            "keys": "shift+right"
+        },
+        {
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "User.paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "User.prevTab.0",
+            "keys": "ctrl+comma"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+w"
+        },
+        {
+            "id": null,
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": null,
+            "keys": "alt+f7"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+c"
+        },
+        {
+            "id": null,
+            "keys": "shift+insert"
+        },
+        {
+            "id": "User.nextTab.0",
+            "keys": "ctrl+period"
+        },
+        {
+            "id": "User.moveTab.EF07D31B",
+            "keys": "shift+left"
+        }
+    ],
     "launchMode": "maximized",
     "newTabMenu": 
     [
