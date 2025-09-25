@@ -24,6 +24,15 @@ del alias:diff -Force   # Remove built in alias to Compare-Object, which allows 
 
 ### End cmdlet Aliases
 
+### tsh aliases
+
+function positronics-stage
+{
+    tsh ssh oloadmin@96e0e914-aa9b-4c5d-9abb-abcd9090a8b7
+}
+
+### End tsh aliases
+
 ### Environment variables
 
 Set-Location $projectsDir
@@ -66,7 +75,7 @@ Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
     }
     Remove-Item $completion_file, Env:\_ARGCOMPLETE_STDOUT_FILENAME, Env:\ARGCOMPLETE_USE_TEMPFILES, Env:\COMP_LINE, Env:\COMP_POINT, Env:\_ARGCOMPLETE, Env:\_ARGCOMPLETE_SUPPRESS_SPACE, Env:\_ARGCOMPLETE_IFS, Env:\_ARGCOMPLETE_SHELL
 }
-Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler -Chord "Tab" -Function AcceptSuggestion
 
 ## End AzureCLI Autocomplete
 
@@ -803,7 +812,7 @@ function Grep-GitBranches($grep)
     }
 
     $selected = Read-Host "Enter branch number, 'q' to quit"
-    if ($selected = "q")
+    if ($selected -eq "q")
     {
         return
     }
