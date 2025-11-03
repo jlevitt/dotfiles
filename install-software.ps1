@@ -38,7 +38,6 @@ choco install sqlitebrowser -y
 choco install sqlite.shell -y
 choco install visualstudio2017professional -y
 choco install powershell -y
-choco install poshgit -y
 choco install difftastic -y
 choco install k9s -y
 
@@ -53,3 +52,10 @@ choco install mkvtoolnix -y
 
 # Privacy
 choco install gpg4win -y
+
+# Azure CLI
+winget install -e --id Microsoft.AzureCLI
+
+# PS Modules
+Install-Module -Name Az -Repository PSGallery -Force
+Install-Module posh-git -Scope CurrentUser -Force -Repository PSGallery
