@@ -1,8 +1,8 @@
 <service>
     <id>SFTPTunnel</id>
     <name>SFTP Tunnel (jlevitt.dev-ca1.internal.pos-api.com)</name>
-    <executable>ssh</executable>
-    <arguments>-N -L 2020:jlevitt:22 jlevitt</arguments>
+    <executable>tsh</executable>
+    <arguments>ssh -N -L 2020:jlevitt:22 oloadmin@jlevitt</arguments>
     <startmode>Automatic</startmode>
     <delayedAutoStart>true</delayedAutoStart>
     <log mode="roll"></log>
