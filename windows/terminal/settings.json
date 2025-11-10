@@ -4,6 +4,10 @@
     "actions": 
     [
         {
+            "command": "closePane",
+            "id": "User.closePane"
+        },
+        {
             "command": 
             {
                 "action": "moveTab",
@@ -20,6 +24,10 @@
             "id": "User.copy.644BA8F2"
         },
         {
+            "command": "find",
+            "id": "User.find"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
@@ -27,10 +35,6 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
         },
         {
             "command": 
@@ -48,7 +52,6 @@
                     {
                         "action": "nextTab"
                     }
-
                 ]
             },
             "id": "User.multipleActions.D303711A",
@@ -72,28 +75,23 @@
         {
             "command": 
             {
-                "action": "prevTab"
-            },
-            "id": "User.prevTab.0"
-        },
-        {
-            "command": 
-            {
                 "action": "moveTab",
                 "direction": "backward"
             },
             "id": "User.moveTab.EF07D31B"
         },
         {
-            "command": "paste",
-            "id": "User.paste"
+            "command": 
+            {
+                "action": "prevTab"
+            },
+            "id": "User.prevTab.0"
         },
         {
-            "command": "closePane",
-            "id": "User.closePane"
+            "command": "paste",
+            "id": "User.paste"
         }
     ],
-    "confirmCloseAllTabs": false,
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
@@ -210,31 +208,7 @@
                 "bellStyle": "none",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell",
-                "commandline": "pwsh -c \"ssh jlevitt-focal\"",
-                "cursorShape": "bar",
-                "font": 
-                {
-                    "face": "Cascadia Mono",
-                    "size": 12
-                },
-                "guid": "{79e20278-7ccf-4b52-8873-49693bba3d9d}",
-                "historySize": 9001,
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "jlevitt-focal",
-                "padding": "8, 8, 8, 8",
-                "snapOnInput": true,
-                "startingDirectory": "C:\\code",
-                "suppressApplicationTitle": true,
-                "tabTitle": "jlevitt-focal",
-                "useAcrylic": false
-            },
-            {
-                "altGrAliasing": true,
-                "antialiasingMode": "grayscale",
-                "bellStyle": "none",
-                "closeOnExit": "graceful",
-                "colorScheme": "Campbell",
-                "commandline": "pwsh -c \"ssh jlevitt\"",
+                "commandline": "pwsh -noprofile -c \"tsh ssh -t oloadmin@jlevitt \"\"sudo su - jlevitt -c 'screen -xr || /bin/bash'\"\"\"",
                 "cursorShape": "bar",
                 "elevate": true,
                 "font": 
@@ -360,5 +334,6 @@
     "schemes": [],
     "theme": "light",
     "themes": [],
+    "warning.confirmCloseAllTabs": false,
     "wordDelimiters": " ()\"',;<>~!@#$^&*|+=[]{}~?\u2502"
 }
