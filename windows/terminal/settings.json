@@ -4,10 +4,6 @@
     "actions": 
     [
         {
-            "command": "closePane",
-            "id": "User.closePane"
-        },
-        {
             "command": 
             {
                 "action": "moveTab",
@@ -18,14 +14,30 @@
         {
             "command": 
             {
+                "action": "sendInput",
+                "input": "\u001b\r"
+            },
+            "id": "User.sendInput.ShiftEnter"
+        },
+        {
+            "command": "closePane",
+            "id": "User.closePane"
+        },
+        {
+            "command": 
+            {
+                "action": "sendInput",
+                "input": "\u001b\r"
+            },
+            "id": "User.sendInput.8F63D3A9"
+        },
+        {
+            "command": 
+            {
                 "action": "copy",
                 "singleLine": false
             },
             "id": "User.copy.644BA8F2"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
         },
         {
             "command": 
@@ -35,6 +47,10 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
         },
         {
             "command": 
@@ -75,17 +91,17 @@
         {
             "command": 
             {
-                "action": "moveTab",
-                "direction": "backward"
+                "action": "prevTab"
             },
-            "id": "User.moveTab.EF07D31B"
+            "id": "User.prevTab.0"
         },
         {
             "command": 
             {
-                "action": "prevTab"
+                "action": "moveTab",
+                "direction": "backward"
             },
-            "id": "User.prevTab.0"
+            "id": "User.moveTab.EF07D31B"
         },
         {
             "command": "paste",
@@ -97,6 +113,10 @@
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
     "keybindings": 
     [
+        {
+            "id": "User.sendInput.8F63D3A9",
+            "keys": "shift+enter"
+        },
         {
             "id": "User.multipleActions.D303711A",
             "keys": "ctrl+shift+r"
@@ -328,6 +348,24 @@
                 "hidden": false,
                 "name": "Git Bash",
                 "source": "Git"
+            },
+            {
+                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+                "hidden": true,
+                "name": "Visual Studio Debug Console",
+                "source": "VSDebugConsole"
+            },
+            {
+                "guid": "{23fd9105-cbb5-5e75-b000-666c261ab61d}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{ca31ca50-c31d-5ea1-8aa1-1dc5f4b93b27}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
