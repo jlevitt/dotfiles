@@ -1,13 +1,13 @@
 ### Profile params
 
-$usePoshGit = $true
-$projectsDir = "C:\code"
-$dotfiles = "C:\code\dotfiles"
-$homeDir = "C:\Users\jake.levitt"
-$editor = "vim"
-$vm_type = "laptop"
-$zoom_room_password = "unused"
-$github_ssh_key = "local.thinkpad.ppk"
+$usePoshGit = __USE_POSH_GIT__
+$projectsDir = "__PROJECTS_DIR__"
+$dotfiles = "__DOTFILES_DIR__"
+$homeDir = "__HOME_DIR__"
+$editor = "__EDITOR__"
+$vm_type = "__VM_TYPE__"
+$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
+$github_ssh_key = "__GITHUB_SSH_KEY__"
 
 ### End params
 
@@ -42,6 +42,7 @@ $env:HOMEDRIVE = Split-Path -Path $homeDir -Qualifier
 $env:HOMEPATH = Split-Path -Path $homeDir -NoQualifier
 $env:GIT_SSH = "$((which plink).Definition)"
 [Environment]::SetEnvironmentVariable("GIT_SSH", $env:GIT_SSH, "Machine")
+$env:KUBE_EDITOR = "vim"
 
 ### End environment variables
 
@@ -834,7 +835,7 @@ function Parse-TodoList
     # Check if file exists
     if (-not (Test-Path $FilePath)) {
         Write-Error "File not found: $FilePath"
-        return
+        exit 1
     }
 
     # Import the CSV file
@@ -842,10 +843,11 @@ function Parse-TodoList
         $todos = Import-Csv -Path $FilePath
     } catch {
         Write-Error "Failed to parse CSV file: $_"
-        return
+        exit 1
     }
 
     # Initialize counters
+    $triage = 0
     $notStarted = 0
     $blocked = 0
     $inProgress = 0
@@ -857,6 +859,7 @@ function Parse-TodoList
         }
 
         switch ($todo.Status) {
+            "Triage" { $triage++ }
             "Not Started" { $notStarted++ }
             "Blocked" { $blocked++ }
             "In Progress" { $inProgress++ }
@@ -865,8 +868,8 @@ function Parse-TodoList
     }
 
     # Output the results
-    Write-Output "$notStarted,$blocked,$inProgress,$done"
-    "$notStarted,$blocked,$inProgress,$done" | clip
+    Write-Output "$triage,$notStarted,$blocked,$inProgress,$done"
+    "$triage,$notStarted,$blocked,$inProgress,$done" | clip
 
     # Delete the file unless KeepFile is specified
     if (-not $KeepFile) {
