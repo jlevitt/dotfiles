@@ -38,8 +38,10 @@ choco install sqlitebrowser -y
 choco install sqlite.shell -y
 choco install visualstudio2017professional -y
 choco install powershell -y
+choco install powershell-core -y
 choco install difftastic -y
 choco install k9s -y
+choco install starship -y
 
 # DBFs
 choco install libreoffice-still -y  # OR http://www.alexnolan.net/software/dbf.htm
