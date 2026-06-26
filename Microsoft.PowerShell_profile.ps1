@@ -388,8 +388,26 @@ function Sync-Dotfiles
         cp $ideavimrcPath $dotfiles\.ideavimrc
     }
 
+    $starshipPath = "$homeDir\.config\starship.toml"
+    if (Test-Path $starshipPath)
+    {
+        cp $starshipPath $dotfiles\starship.toml -Force
+    }
+
     cp $homeDir\.wslconfig $dotfiles\wsl\.wslconfig
     gci \\wsl$\Ubuntu-20.04\home\jlevitt\* -Include .bash_aliases,.bash_functions,.bashrc,.profile | cp -Destination $dotfiles\wsl
+
+    $claudeSrc = "$homeDir\.claude"
+    $claudeDst = "$dotfiles\.claude"
+    if (Test-Path $claudeSrc)
+    {
+        foreach ($f in @('settings.json', 'keybindings.json', 'statusline.sh'))
+        {
+            if (Test-Path "$claudeSrc\$f") 
+            {
+                cp "$claudeSrc\$f" "$claudeDst\$f" -Force
+            }
+        }
 
     tgit commit $dotfiles
 }

@@ -1,0 +1,24 @@
+[cmd_duration]
+min_time = 10_000
+format = 'underwent [$duration](bold yellow)'
+
+[username]
+disabled = false
+
+[aws]
+disabled = true
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = 'white'
+conflicted = '[${count} conflict](bold red) '
+untracked = '[${count} untracked](red) '
+deleted = '[${count} deleted](red) '
+modified = '[${count} modified](yellow) '
+staged = '[${count} staged](green) '
+renamed = '[${count} renamed](cyan) '
+stashed = '[${count} stashed](blue) '
+ahead = '[ahead⇡${count}](green) '
+behind = '[behind⇣${count}](yellow) '
+diverged = '[⇡${ahead_count}](green)[⇣${behind_count}](yellow) '
+up_to_date = ''

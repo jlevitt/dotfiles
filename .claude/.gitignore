@@ -1,0 +1,14 @@
+# Defensive allowlist: ignore everything in .claude/ by default,
+# then explicitly un-ignore the files/dirs we want to track.
+# This prevents secrets, caches, sessions, and OAuth tokens from
+# ever being accidentally committed if dropped in this folder.
+*
+!.gitignore
+!CLAUDE.md
+!settings.json
+!keybindings.json
+!statusline.sh
+!commands/
+!commands/**
+!skills/
+!skills/**

@@ -157,6 +157,39 @@ if ($vm_type -eq "laptop")
 	Write-Host "WSL dotfiles written [OK]"
 }
 
+$starshipDst = "$homeDir\.config\starship.toml"
+if (Test-Path $dotfiles\starship.toml)
+{
+    $starshipDstDir = Split-Path $starshipDst -Parent
+    if (-not (Test-Path $starshipDstDir))
+    {
+        mkdir $starshipDstDir | Out-Null
+    }
+    cp $dotfiles\starship.toml $starshipDst -Force
+    Write-Host "starship.toml written [OK]"
+}
+
+# Claude Code config — copy safe, non-secret files into ~/.claude.
+$claudeSrc = "$dotfiles\.claude"
+$claudeDst = "$homeDir\.claude"
+if (Test-Path $claudeSrc)
+{
+    if (-not (Test-Path $claudeDst)) { mkdir $claudeDst | Out-Null }
+    foreach ($f in @('CLAUDE.md', 'settings.json', 'keybindings.json', 'statusline.sh'))
+    {
+        if (Test-Path "$claudeSrc\$f") { cp "$claudeSrc\$f" "$claudeDst\$f" -Force }
+    }
+    foreach ($d in @('commands', 'skills'))
+    {
+        if (Test-Path "$claudeSrc\$d")
+        {
+            if (-not (Test-Path "$claudeDst\$d")) { mkdir "$claudeDst\$d" | Out-Null }
+            cp "$claudeSrc\$d\*" "$claudeDst\$d\" -Recurse -Force
+        }
+    }
+    Write-Host "Claude Code config written [OK]"
+}
+
 $gopath = "$projects\go"
 [Environment]::SetEnvironmentVariable('GOPATH', $gopath, [EnvironmentVariableTarget]::Machine)
 $env:GOPATH = $gopath
