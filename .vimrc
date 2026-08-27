@@ -381,3 +381,8 @@ function! s:ClearAllButMatches() range
     let @c = old_c
 endfunction
 command! -range=% ClearAllButMatches <line1>,<line2>call s:ClearAllButMatches()
+
+" Disable backup files/enable direct write to file
+set nobackup
+set nowritebackup
+set backupcopy=yes
