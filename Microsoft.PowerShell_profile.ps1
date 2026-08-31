@@ -504,7 +504,7 @@ if ($mtx.WaitOne(0))
             pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
 
-        if (-not $(ps AutoHotkey -ErrorAction SilentlyContinue))
+        if (-not $(ps AutoHotkeyU64 -ErrorAction SilentlyContinue))
         {
             # Ignore if file not found.
             try
@@ -895,3 +895,5 @@ function Parse-TodoList
     }
 }
 New-Alias ptd Parse-TodoList
+
+Invoke-Expression (&starship init powershell)
