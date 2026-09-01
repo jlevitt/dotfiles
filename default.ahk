@@ -14,14 +14,6 @@
         WinActivate("ahk_id " active_window)
 }
 
-; PrintScreen : open Snipping Tool and start a new capture
-PrintScreen::
-{
-    Run("SnippingTool")
-    Sleep(200)
-    Send("^n")
-}
-
 ; --- Relisten media keys ---
 ; relisten.net plays through the Web Audio graph while its <audio> element
 ; stays paused, so Chrome never dispatches a "pause" media session action to
