@@ -1,13 +1,7 @@
 ### Profile params
 
-$usePoshGit = __USE_POSH_GIT__
-$projectsDir = "__PROJECTS_DIR__"
-$dotfiles = "__DOTFILES_DIR__"
-$homeDir = "__HOME_DIR__"
-$editor = "__EDITOR__"
-$vm_type = "__VM_TYPE__"
-$zoom_room_password = "__ZOOM_ROOM_PASSWORD__"
-$github_ssh_key = "__GITHUB_SSH_KEY__"
+# Machine-specific values live outside the repo; deploy-profile.ps1 generates this file.
+. "$env:USERPROFILE\.profile-params.ps1"
 
 ### End params
 
@@ -356,58 +350,9 @@ function edit-profile
 
 function Sync-Dotfiles
 {
-    cp $PROFILE $dotfiles\Microsoft.PowerShell_profile.ps1
-    cp $homeDir\.bashrc $dotfiles\windows\laptop\.bashrc
-    cp ~\default.ahk $dotfiles\default.akh
-    cp $homeDir\.vimlayout $dotfiles\windows\laptop\.vimlayout -Force
-    cp $homeDir\_vimrc $dotfiles\.vimrc -Force
+    # Everything else is symlinked into the repo by deploy-profile.ps1; only registry settings need exporting.
     reg export "HKCU\Software\TortoiseGit" $dotfiles\TortoiseGit.reg /y | Out-Null
     reg export "HKCU\Software\TortoiseGitMerge" $dotfiles\TortoiseGitMerge.reg /y | Out-Null
-
-    $vscodePath = "$homeDir\AppData\Roaming\Code\User\settings.json"
-    if (Test-Path $vscodePath)
-    {
-        cp $homeDir\AppData\Roaming\Code\User\settings.json $dotfiles\vscode-user-settings.json
-    }
-
-    $windowsTerminalPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-    if (Test-Path $windowsTerminalPath)
-    {
-        cp $windowsTerminalPath $dotfiles\windows\terminal\settings.json
-    }
-
-    $windowsTerminalPreviewPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
-    if (Test-Path $windowsTerminalPreviewPath)
-    {
-        cp $windowsTerminalPreviewPath $dotfiles\windows\terminal\settings-preview.json
-    }
-
-    $ideavimrcPath = "~\.ideavimrc"
-    if (Test-Path $ideavimrcPath)
-    {
-        cp $ideavimrcPath $dotfiles\.ideavimrc
-    }
-
-    $starshipPath = "$homeDir\.config\starship.toml"
-    if (Test-Path $starshipPath)
-    {
-        cp $starshipPath $dotfiles\starship.toml -Force
-    }
-
-    cp $homeDir\.wslconfig $dotfiles\wsl\.wslconfig
-    gci \\wsl$\Ubuntu-20.04\home\jlevitt\* -Include .bash_aliases,.bash_functions,.bashrc,.profile | cp -Destination $dotfiles\wsl
-
-    $claudeSrc = "$homeDir\.claude"
-    $claudeDst = "$dotfiles\.claude"
-    if (Test-Path $claudeSrc)
-    {
-        foreach ($f in @('settings.json', 'keybindings.json', 'statusline.sh'))
-        {
-            if (Test-Path "$claudeSrc\$f") 
-            {
-                cp "$claudeSrc\$f" "$claudeDst\$f" -Force
-            }
-        }
 
     tgit commit $dotfiles
 }

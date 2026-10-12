@@ -99,15 +99,58 @@ function Merge-Tokens() {
 
 }
 
-Get-Content .\Microsoft.PowerShell_profile.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $PROFILE
-Write-Host "Profile written [OK]"
+# Point $link at $target in the repo. A real file already at $link is moved aside, never deleted.
+function Link-Dotfile($target, $link)
+{
+    $existing = Get-Item $link -Force -ErrorAction SilentlyContinue
+    if ($existing -and $existing.LinkType -eq 'SymbolicLink')
+    {
+        if ($existing.Target -eq $target)
+        {
+            return
+        }
+        $existing.Delete()
+    }
+    elseif ($existing)
+    {
+        $backup = "$link.$(Get-Date -Format yyyyMMddHHmmss).bak"
+        Move-Item $link $backup
+        Write-Host "  Moved existing $link to $backup"
+    }
 
-Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content ~\.gitconfig
+    $parent = Split-Path $link -Parent
+    if (-not (Test-Path $parent))
+    {
+        mkdir $parent | Out-Null
+    }
+    New-Item -ItemType SymbolicLink -Path $link -Target $target | Out-Null
+    Write-Host "$link -> $target [OK]"
+}
+
+$wslDistro = "Ubuntu-20.04"
+$wslHome = "\\wsl$\$wslDistro\home\jlevitt"
+$wslLinuxHome = "/home/jlevitt"
+
+# Same as Link-Dotfile, but the link lives inside WSL so Linux tools see a real symlink.
+function Link-WslDotfile($target, $link)
+{
+    $wslTarget = wsl -d $wslDistro -- wslpath -a ($target -replace '\\', '/')
+    wsl -d $wslDistro -u jlevitt -- bash -c "if [ -e '$link' ] && [ ! -L '$link' ]; then mv '$link' '$link.`$(date +%Y%m%d%H%M%S).bak'; fi; ln -sfn '$wslTarget' '$link'"
+    Write-Host "WSL $link -> $wslTarget [OK]"
+}
+
+# Machine-specific values stay out of the repo so the tracked files can be linked directly.
+Get-Content $dotfiles\profile-params.template.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $env:USERPROFILE\.profile-params.ps1
+Write-Host "Profile params written [OK]"
+Link-Dotfile $dotfiles\Microsoft.PowerShell_profile.ps1 $PROFILE
+
+Get-Content $dotfiles\gitconfig-local.template | Merge-Tokens -tokens $profileParams | Set-Content $homeDir\.gitconfig.local
+Link-Dotfile $dotfiles\.gitconfig $homeDir\.gitconfig
 if ($vm_type -eq "laptop")
 {
-	Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content \\wsl$\Ubuntu-20.04\home\jlevitt\.gitconfig
+    Get-Content $dotfiles\gitconfig-local.template | Merge-Tokens -tokens $profileParams | Set-Content $wslHome\.gitconfig.local
+    Link-WslDotfile $dotfiles\.gitconfig "$wslLinuxHome/.gitconfig"
 }
-Write-Host "Git config written [OK]"
 
 if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
 {
@@ -116,78 +159,53 @@ if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
     Write-Host "PoshGit module installed [OK]"
 }
 
-$installAgentModulePath = "C:\Program Files\WindowsPowerShell\Modules\InstallAgent"
-if (-not $(Test-Path $installAgentModulePath))
-{
-    mkdir $installAgentModulePath | Out-Null
-}
-cp .\InstallAgent.psm1 $installAgentModulePath\InstallAgent.psm1
-Write-Host "InstallAgent module written [OK]"
+Link-Dotfile $dotfiles\InstallAgent.psm1 "C:\Program Files\WindowsPowerShell\Modules\InstallAgent\InstallAgent.psm1"
 
-cp $dotfiles\windows\laptop\.vimlayout $homeDir\.vimlayout -Force
-Write-Host ".vimlayout written [OK]"
+Link-Dotfile $dotfiles\windows\laptop\.vimlayout $homeDir\.vimlayout
+Link-Dotfile $dotfiles\.vimrc $homeDir\_vimrc
+Link-Dotfile $dotfiles\.ideavimrc $homeDir\.ideavimrc
+Link-Dotfile $dotfiles\default.ahk $homeDir\default.ahk
+Link-Dotfile $dotfiles\windows\laptop\.bashrc $homeDir\.bashrc
+Link-Dotfile $dotfiles\wsl\.wslconfig $homeDir\.wslconfig
+Link-Dotfile $dotfiles\starship.toml $homeDir\.config\starship.toml
 
 reg import $dotfiles\TortoiseGit.reg | Out-Null
 reg import $dotfiles\TortoiseGitMerge.reg | Out-Null
 Write-Host "TortoiseGit settings installed to registry [OK]"
 
-$windowsTerminalPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-if (Test-Path $windowsTerminalPath)
+$vscodeDir = "$homeDir\AppData\Roaming\Code\User"
+if (Test-Path $vscodeDir)
 {
-    cp $dotfiles\windows\terminal\settings.json $windowsTerminalPath
-    Write-Host "Windows Terminal settings.json written [OK]"
+    Link-Dotfile $dotfiles\vscode-user-settings.json $vscodeDir\settings.json
 }
 
-$windowsTerminalPreviewPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
-if (Test-Path $windowsTerminalPreviewPath)
+$windowsTerminalDir = "$homeDir\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+if (Test-Path $windowsTerminalDir)
 {
-    cp $dotfiles\windows\terminal\settings-preview.json $windowsTerminalPreviewPath
-    Write-Host "Windows Terminal Preview settings.json written [OK]"
+    Link-Dotfile $dotfiles\windows\terminal\settings.json $windowsTerminalDir\settings.json
 }
 
-cp $dotfiles\wsl\.wslconfig $homeDir\.wslconfig
-Write-Host ".wslconfig written [OK]"
-
-cp $dotfiles\windows\laptop\.bashrc $homeDir\.bashrc
-Write-Host "Windows .bashrc written [OK]"
+$windowsTerminalPreviewDir = "$homeDir\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState"
+if (Test-Path $windowsTerminalPreviewDir)
+{
+    Link-Dotfile $dotfiles\windows\terminal\settings-preview.json $windowsTerminalPreviewDir\settings.json
+}
 
 if ($vm_type -eq "laptop")
 {
-	gci $dotfiles\wsl -Exclude .gitattributes | cp -Destination \\wsl$\Ubuntu-20.04\home\jlevitt
-	Write-Host "WSL dotfiles written [OK]"
+    foreach ($f in @('.bash_aliases', '.bash_functions', '.bashrc', '.profile'))
+    {
+        Link-WslDotfile $dotfiles\wsl\$f "$wslLinuxHome/$f"
+    }
 }
 
-$starshipDst = "$homeDir\.config\starship.toml"
-if (Test-Path $dotfiles\starship.toml)
+# Claude Code config. Only the tracked, non-secret entries are linked; the rest of ~/.claude stays local.
+foreach ($f in @('CLAUDE.md', 'settings.json', 'keybindings.json', 'statusline.sh', 'commands', 'skills'))
 {
-    $starshipDstDir = Split-Path $starshipDst -Parent
-    if (-not (Test-Path $starshipDstDir))
+    if (Test-Path $dotfiles\.claude\$f)
     {
-        mkdir $starshipDstDir | Out-Null
+        Link-Dotfile $dotfiles\.claude\$f $homeDir\.claude\$f
     }
-    cp $dotfiles\starship.toml $starshipDst -Force
-    Write-Host "starship.toml written [OK]"
-}
-
-# Claude Code config — copy safe, non-secret files into ~/.claude.
-$claudeSrc = "$dotfiles\.claude"
-$claudeDst = "$homeDir\.claude"
-if (Test-Path $claudeSrc)
-{
-    if (-not (Test-Path $claudeDst)) { mkdir $claudeDst | Out-Null }
-    foreach ($f in @('CLAUDE.md', 'settings.json', 'keybindings.json', 'statusline.sh'))
-    {
-        if (Test-Path "$claudeSrc\$f") { cp "$claudeSrc\$f" "$claudeDst\$f" -Force }
-    }
-    foreach ($d in @('commands', 'skills'))
-    {
-        if (Test-Path "$claudeSrc\$d")
-        {
-            if (-not (Test-Path "$claudeDst\$d")) { mkdir "$claudeDst\$d" | Out-Null }
-            cp "$claudeSrc\$d\*" "$claudeDst\$d\" -Recurse -Force
-        }
-    }
-    Write-Host "Claude Code config written [OK]"
 }
 
 $gopath = "$projects\go"
