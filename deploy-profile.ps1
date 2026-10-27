@@ -1,103 +1,47 @@
-$deployParamsPath = ".deploy-profile-params.xml"
-$profileParams = @{}
-$expectedParams = @(
-    'HOME_DIR',
-    'USE_POSH_GIT',
-    'PROJECTS_DIR',
-    'DOTFILES_DIR',
-    'EDITOR',
-    'VM_TYPE',
-    'ZOOM_ROOM_PASSWORD',
-    'GITHUB_SSH_KEY',
-    'GIT_EMAIL',
-    'GIT_NAME'
-)
-
-if (Test-Path $deployParamsPath)
-{
-   $profileParams = Import-Clixml $deployParamsPath
+# Machine-specific settings, dot-sourced by the profile. Edit by hand or delete a line to be re-prompted.
+$paramsPath = "$env:USERPROFILE\.profile-params.ps1"
+$expectedParams = [ordered]@{
+    homeDir = 'Home directory'
+    usePoshGit = 'Use posh-git? (y/n)'
+    projectsDir = 'Projects directory'
+    dotfiles = 'Dotfiles directory'
+    editor = 'Editor'
+    vm_type = 'VM type'
+    zoom_room_password = 'Zoom room password'
+    github_ssh_key = 'GitHub SSH key file name'
+    git_name = 'Git user name'
+    git_email = 'Git email'
 }
 
-foreach($param in $expectedParams)
+if (Test-Path $paramsPath)
 {
-    if (-not $profileParams.ContainsKey($param))
+    . $paramsPath
+}
+
+$lines = foreach ($name in $expectedParams.Keys)
+{
+    $value = Get-Variable $name -Scope Script -ValueOnly -ErrorAction SilentlyContinue
+    if ($null -eq $value)
     {
-        $profileParams[$param] = Read-Host "Value for $($param)?"
-    }
-}
-
-$homeDir = $profileParams["HOME_DIR"]
-$dotfiles = $profileParams["DOTFILES_DIR"]
-$projects = $profileParams["PROJECTS_DIR"]
-$vm_type = $profileParams["VM_TYPE"]
-
-$profileParams | Export-Clixml -Path $deployParamsPath
-
-# From: https://github.com/craibuc/PsTokens/blob/master/Merge-Tokens.ps1
-<#
-.SYNOPSIS
-Replaces tokens in a block of text with a specified value.
-.DESCRIPTION
-Replaces tokens in a block of text with a specified value.
-.PARAMETER template
-The block of text that contains text and tokens to be replaced.
-.PARAMETER tokens
-Token name/value hashtable.
-.EXAMPLE
- $content = Get-Content .\template.txt | Merge-Tokens -tokens @{FirstName: 'foo'; LastName: 'bar'}
-Pass template to function via pipeline.
-#>
-function Merge-Tokens() {
-
-    [CmdletBinding()]
-
-    param (
-        [Parameter(Mandatory=$True, ValueFromPipeline=$true)]
-        [AllowEmptyString()]
-        [String] $template,
-
-        [Parameter(Mandatory=$true)]
-        [HashTable] $tokens
-    )
-
-    # begin { Write-Debug "$($MyInvocation.MyCommand.Name)::Begin" }
-
-    process {
-        # Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
-
-        # adapted based on this Stackoverflow answer: http://stackoverflow.com/a/29041580/134367
-        try {
-
-            [regex]::Replace( $template, '__(?<tokenName>[\w\.]+)__', {
-              # __TOKEN__
-              param($match)
-
-              $tokenName = $match.Groups['tokenName'].Value
-              Write-Debug $tokenName
-
-              $tokenValue = Invoke-Expression "`$tokens.$tokenName"
-              Write-Debug $tokenValue
-
-              if ($tokenValue) {
-                # there was a value; return it
-                return $tokenValue
-              }
-              else {
-                # non-matching token; return token
-                return $match
-              }
-            })
-
+        $value = Read-Host $expectedParams[$name]
+        if ($name -eq 'usePoshGit')
+        {
+            $value = $value -like 'y*'
         }
-        catch {
-            Write-Error $_
-        }
-
+        Set-Variable $name $value -Scope Script
     }
 
-    # end { Write-Debug "$($MyInvocation.MyCommand.Name)::End" }
-
+    if ($value -is [bool])
+    {
+        "`$$name = `$$value"
+    }
+    else
+    {
+        "`$$name = '$($value -replace "'", "''")'"
+    }
 }
+$lines | Set-Content $paramsPath
+Write-Host "$paramsPath written [OK]"
 
 # Point $link at $target in the repo. A real file already at $link is moved aside, never deleted.
 function Link-Dotfile($target, $link)
@@ -139,20 +83,18 @@ function Link-WslDotfile($target, $link)
     Write-Host "WSL $link -> $wslTarget [OK]"
 }
 
-# Machine-specific values stay out of the repo so the tracked files can be linked directly.
-Get-Content $dotfiles\profile-params.template.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $env:USERPROFILE\.profile-params.ps1
-Write-Host "Profile params written [OK]"
 Link-Dotfile $dotfiles\Microsoft.PowerShell_profile.ps1 $PROFILE
 
-Get-Content $dotfiles\gitconfig-local.template | Merge-Tokens -tokens $profileParams | Set-Content $homeDir\.gitconfig.local
+$gitconfigLocal = "[user]`n  name = $git_name`n  email = $git_email"
+$gitconfigLocal | Set-Content $homeDir\.gitconfig.local
 Link-Dotfile $dotfiles\.gitconfig $homeDir\.gitconfig
 if ($vm_type -eq "laptop")
 {
-    Get-Content $dotfiles\gitconfig-local.template | Merge-Tokens -tokens $profileParams | Set-Content $wslHome\.gitconfig.local
+    $gitconfigLocal | Set-Content $wslHome\.gitconfig.local
     Link-WslDotfile $dotfiles\.gitconfig "$wslLinuxHome/.gitconfig"
 }
 
-if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
+if ($usePoshGit -and -not (Get-Module posh-git))
 {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
@@ -208,7 +150,7 @@ foreach ($f in @('CLAUDE.md', 'settings.json', 'keybindings.json', 'statusline.s
     }
 }
 
-$gopath = "$projects\go"
+$gopath = "$projectsDir\go"
 [Environment]::SetEnvironmentVariable('GOPATH', $gopath, [EnvironmentVariableTarget]::Machine)
 $env:GOPATH = $gopath
 if (-not $(Test-Path $gopath))
