@@ -4,8 +4,14 @@
     <executable>tsh</executable>
     <arguments>ssh -N -L 15672:localhost:15672 oloadmin@jlevitt</arguments>
     <startmode>Manual</startmode>
-    <log mode="roll"></log>
-    <onfailure action="restart" />
+    <log mode="roll-by-size">
+        <sizeThreshold>10240</sizeThreshold>
+        <keepFiles>4</keepFiles>
+    </log>
+    <onfailure action="restart" delay="30 sec" />
+    <onfailure action="restart" delay="5 min" />
+    <onfailure action="none" />
+    <resetfailure>1 hour</resetfailure>
     <serviceaccount>
         <prompt>console</prompt>
     </serviceaccount>

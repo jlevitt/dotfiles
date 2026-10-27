@@ -5,8 +5,14 @@
     <arguments>ssh -N -L 2020:jlevitt:22 oloadmin@jlevitt</arguments>
     <startmode>Automatic</startmode>
     <delayedAutoStart>true</delayedAutoStart>
-    <log mode="roll"></log>
-    <onfailure action="restart" />
+    <log mode="roll-by-size">
+        <sizeThreshold>10240</sizeThreshold>
+        <keepFiles>4</keepFiles>
+    </log>
+    <onfailure action="restart" delay="30 sec" />
+    <onfailure action="restart" delay="5 min" />
+    <onfailure action="none" />
+    <resetfailure>1 hour</resetfailure>
     <serviceaccount>
         <prompt>console</prompt>
     </serviceaccount>
