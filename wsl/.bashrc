@@ -116,6 +116,7 @@ fi
 export DEV_ROOT=~/code
 export GOPATH=$DEV_ROOT/go
 export EDITOR=vim
+export BROWSER=/usr/bin/wslview
 
 if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
@@ -124,3 +125,7 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

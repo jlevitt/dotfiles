@@ -111,6 +111,7 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
+    "firstWindowPreference": "defaultProfile",
     "keybindings": 
     [
         {
@@ -185,7 +186,12 @@
     {
         "defaults": 
         {
-            "elevate": false
+            "elevate": false,
+            "font": 
+            {
+                "face": "Cascadia Code NF"
+            },
+            "suppressApplicationTitle": false
         },
         "list": 
         [
@@ -200,7 +206,7 @@
                 "elevate": true,
                 "font": 
                 {
-                    "face": "Cascadia Mono",
+                    "face": "Cascadia Code NF",
                     "size": 12
                 },
                 "guid": "{57c7e7a9-c574-473b-aab0-ddd526ffaab9}",
@@ -210,7 +216,6 @@
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
                 "startingDirectory": "C:\\code",
-                "suppressApplicationTitle": true,
                 "tabTitle": "ps",
                 "useAcrylic": false
             },
@@ -366,6 +371,32 @@
                 "hidden": false,
                 "name": "Developer PowerShell for VS 18",
                 "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "bellStyle": "none",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell",
+                "commandline": "k9s",
+                "cursorShape": "bar",
+                "elevate": true,
+                "font": 
+                {
+                    "face": "Cascadia Mono",
+                    "size": 12
+                },
+                "guid": "{d733a205-c89c-4bc4-8fd5-dbed2588ccd3}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "k9s",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\code",
+                "suppressApplicationTitle": true,
+                "tabTitle": "k9s",
+                "useAcrylic": false
             }
         ]
     },

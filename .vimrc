@@ -333,6 +333,12 @@ set smartcase
 set splitbelow
 set splitright
 
+" Alt + arrow key to navigate splits
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+
 set guioptions-=m " Hide the menubar so I can use alt without opening a menu
 
 " Windows terminal sends escape codes instead if 8 bit codes, need to remap

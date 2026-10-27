@@ -6,18 +6,22 @@
         {
             "command":
             {
+                "action": "sendInput",
+                "input": "\u001b\r"
+            },
+            "id": "User.sendInput.8F63D3A9"
+        },
+        {
+            "command":
+            {
                 "action": "moveTab",
                 "direction": "backward"
             },
             "id": "User.moveTab.EF07D31B"
         },
         {
-            "command":
-            {
-                "action": "sendInput",
-                "input": "\u001b\r"
-            },
-            "keys": "shift+enter"
+            "command": "paste",
+            "id": "User.paste"
         },
         {
             "command":
@@ -35,20 +39,16 @@
             "name": "Restart tab"
         },
         {
-            "command": "paste",
-            "id": "User.paste"
-        },
-        {
-            "command": "closePane",
-            "id": "User.closePane"
-        },
-        {
             "command":
             {
                 "action": "moveTab",
                 "direction": "forward"
             },
             "id": "User.moveTab.793E2350"
+        },
+        {
+            "command": "closePane",
+            "id": "User.closePane"
         },
         {
             "command":
@@ -86,8 +86,8 @@
     "keybindings":
     [
         {
-            "id": null,
-            "keys": "ctrl+shift+w"
+            "id": "User.sendInput.8F63D3A9",
+            "keys": "shift+enter"
         },
         {
             "id": "User.find",
@@ -100,6 +100,10 @@
         {
             "id": "User.paste",
             "keys": "ctrl+v"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+w"
         },
         {
             "id": "User.multipleActions.28E6A5B7",
@@ -131,6 +135,22 @@
     [
         {
             "type": "remainingProfiles"
+        },
+        {
+            "allowEmpty": false,
+            "entries":
+            [
+                {
+                    "commandline": null,
+                    "name": null,
+                    "source": "Windows.Terminal.SSH",
+                    "type": "matchProfiles"
+                }
+            ],
+            "icon": "\ue969",
+            "inline": "auto",
+            "name": "SSH",
+            "type": "folder"
         }
     ],
     "profiles":
@@ -316,6 +336,42 @@
                 "hidden": false,
                 "name": "Git Bash",
                 "source": "Git"
+            },
+            {
+                "guid": "{23fd9105-cbb5-5e75-b000-666c261ab61d}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{ca31ca50-c31d-5ea1-8aa1-1dc5f4b93b27}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{f53b0a90-fa9d-580c-976c-865b333b53f2}",
+                "hidden": false,
+                "name": "SSH - jump-dev",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{d5716ec3-25f0-5482-9bb7-e744f8f38e41}",
+                "hidden": false,
+                "name": "SSH - jump-stage",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{4cd411d3-caa3-58b5-a8c8-366cd1a94369}",
+                "hidden": false,
+                "name": "SSH - jump-eng",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+                "hidden": true,
+                "name": "Visual Studio Debug Console",
+                "source": "VSDebugConsole"
             }
         ]
     },
