@@ -35,7 +35,6 @@ function positronics-stage
 
 ### Environment variables
 
-Set-Location $projectsDir
 Remove-Variable -Force HOME -ErrorAction SilentlyContinue
 Set-Variable HOME $homeDir
 $env:HOMEDRIVE = Split-Path -Path $homeDir -Qualifier
@@ -504,7 +503,7 @@ if ($mtx.WaitOne(0))
             pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
 
-        if (-not $(ps AutoHotkeyU64 -ErrorAction SilentlyContinue))
+        if (-not $(ps AutoHotkey64 -ErrorAction SilentlyContinue))
         {
             # Ignore if file not found.
             try

@@ -1,57 +1,55 @@
 {
-    "editor.insertSpaces": true,
-    "editor.rulers": [
-        120
-    ],
-    "editor.trimAutoWhitespace": true,
-    "eslint.workingDirectories": [
-        "./bin",
-        "./src",
-        "./tests"
-    ],
-    "explorer.confirmDelete": false,
-    "files.exclude": {
-        "**/.DS_Store": true,
-        "**/.git": true,
-        "**/env": true,
-        "**/node_modules": true,
-        "**/public": true,
-        "**/debug.test": true
-    },
-    "files.insertFinalNewline": true,
-    "[go]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        },
-        "editor.formatOnSave": true,
-    },
-    "go.autocompleteUnimportedPackages": true,
-    "go.formatFlags": [
-        "-local",
-        "github.com/omnivore/giganto/"
-    ],
-    "go.formatTool": "goimports",
-    "go.gopath": "C:\\projects\\go",
-    "go.liveErrors": {
-        "enabled": true,
-        "delay": 500
-    },
-    "go.lintTool": "golangci-lint",
-    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
-    "telemetry.enableTelemetry": false,
-    "terminal.integrated.env.windows": {
-        "GOPATH": "C:\\projects\\go"
-    },
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-    "vim.handleKeys": {
-        "<C-c>": false,
-        "<C-v>": false
-    },
-    "vim.useCtrlKeys": false,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
     "vim.useSystemClipboard": true,
-    "window.restoreWindows": "all",
-    "window.title": "${activeEditorLong}",
-    "window.zoomLevel": 0,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "d"
+            ],
+            "after": [
+                "d",
+                "d"
+            ]
+        },
+        {
+            "before": [
+                "<C-n>"
+            ],
+            "commands": [
+                ":nohl"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "lineBreakInsert"
+            ],
+            "silent": true
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    }
 }

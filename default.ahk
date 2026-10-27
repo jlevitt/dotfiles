@@ -31,9 +31,9 @@
 
 RELISTEN_DEBUG := false   ; true = tooltips showing which branch was taken
 
-$Media_Play_Pause:: RelistenRelay("{Space}", "{Media_Play_Pause}")
-$Media_Next::       RelistenRelay("{Right}", "{Media_Next}")
-$Media_Prev::       RelistenRelay("{Left}",  "{Media_Prev}")
+; $Media_Play_Pause:: RelistenRelay("{Space}", "{Media_Play_Pause}")
+; $Media_Next::       RelistenRelay("{Right}", "{Media_Next}")
+; $Media_Prev::       RelistenRelay("{Left}",  "{Media_Prev}")
 
 RelistenRelay(siteKey, rawKey) {
     SetTitleMatchMode(2)
