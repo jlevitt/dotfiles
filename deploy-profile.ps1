@@ -141,15 +141,6 @@ if ($vm_type -eq "laptop")
     }
 }
 
-# Claude Code config. Only the tracked, non-secret entries are linked; the rest of ~/.claude stays local.
-foreach ($f in @('CLAUDE.md', 'settings.json', 'keybindings.json', 'statusline.sh', 'commands', 'skills'))
-{
-    if (Test-Path $dotfiles\.claude\$f)
-    {
-        Link-Dotfile $dotfiles\.claude\$f $homeDir\.claude\$f
-    }
-}
-
 $gopath = "$projectsDir\go"
 [Environment]::SetEnvironmentVariable('GOPATH', $gopath, [EnvironmentVariableTarget]::Machine)
 $env:GOPATH = $gopath
