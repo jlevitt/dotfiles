@@ -1,0 +1,51 @@
+{
+  "$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+  "Sources": [
+    {
+      "Packages": [
+        { "PackageIdentifier": "Google.Chrome" },
+        { "PackageIdentifier": "Google.GoogleDrive" },
+        { "PackageIdentifier": "SlackTechnologies.Slack" },
+        { "PackageIdentifier": "Zoom.Zoom" },
+        { "PackageIdentifier": "Amazon.AWSCLI" },
+        { "PackageIdentifier": "Microsoft.AzureCLI" },
+        { "PackageIdentifier": "Gravitational.Teleport" },
+        { "PackageIdentifier": "Gravitational.TeleportConnect" },
+        { "PackageIdentifier": "Kubernetes.kubectl" },
+        { "PackageIdentifier": "Derailed.k9s" },
+        { "PackageIdentifier": "GrafanaLabs.k6" },
+        { "PackageIdentifier": "Google.Protobuf" },
+        { "PackageIdentifier": "Microsoft.SQLServer.2025.Developer" },
+        { "PackageIdentifier": "Microsoft.SQLServerManagementStudio.22" },
+        { "PackageIdentifier": "Microsoft.msodbcsql.17" },
+        { "PackageIdentifier": "Microsoft.msodbcsql.18" },
+        { "PackageIdentifier": "Microsoft.Sqlcmd" },
+        { "PackageIdentifier": "Microsoft.SqlPackage" },
+        { "PackageIdentifier": "PostgreSQL.PostgreSQL.17" },
+        { "PackageIdentifier": "Oracle.MySQL" },
+        { "PackageIdentifier": "Oracle.MySQLWorkbench" },
+        { "PackageIdentifier": "Microsoft.DotNet.SDK.6" },
+        { "PackageIdentifier": "Microsoft.DotNet.SDK.8" },
+        { "PackageIdentifier": "Microsoft.DotNet.SDK.9" },
+        { "PackageIdentifier": "Microsoft.DotNet.SDK.10" },
+        { "PackageIdentifier": "Microsoft.DotNet.HostingBundle.6" },
+        { "PackageIdentifier": "Microsoft.IIS.URLRewrite" },
+        { "PackageIdentifier": "mRemoteNG.mRemoteNG" },
+        { "PackageIdentifier": "Microsoft.Sysinternals.RDCMan" },
+        { "PackageIdentifier": "WinFsp.WinFsp" },
+        { "PackageIdentifier": "SSHFS-Win.SSHFS-Win" },
+        { "PackageIdentifier": "TeamViewer.TeamViewer" },
+        { "PackageIdentifier": "Microsoft.WinDbg" },
+        { "PackageIdentifier": "NSSM.NSSM" },
+        { "PackageIdentifier": "NimbleThingPtyLtd.NimbleText" },
+        { "PackageIdentifier": "HTACG.tidy" }
+      ],
+      "SourceDetails": {
+        "Argument": "https://cdn.winget.microsoft.com/cache",
+        "Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+        "Name": "winget",
+        "Type": "Microsoft.PreIndexed.Package"
+      }
+    }
+  ]
+}

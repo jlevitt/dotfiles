@@ -1,63 +1,122 @@
-Set-ExecutionPolicy Unrestricted
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+#Requires -RunAsAdministrator
+# New machine setup. Run before deploy-profile.ps1, from an admin Windows PowerShell:
+#   Set-ExecutionPolicy Bypass -Scope Process -Force; .\install-software.ps1 -Work
+# packages\both.json always installs; -Work and -Personal add their lists.
+# Olo-internal setup (local-devx, olo-builder, olo init, the C:\mobo junctions) stays with the
+# Ordering Platform Developer Setup guide:
+# https://ololabs.atlassian.net/wiki/spaces/LDE/pages/2170126489/Ordering+Platform+Developer+Setup+Windows
+param(
+    [switch]$Work,
+    [switch]$Personal
+)
 
-choco install devbox-rapidee -y
-choco install tortoisegit -y
-choco install git -params '"/GitAndUnixToolsOnPath /NoAutoCrlf"' -y
-choco install notepadplusplus -y
-choco install 7zip.install -y
-choco install conemu -y
-choco install postman -y
-choco install vim -y
-choco install rdcman -y
-choco install keepass -y
-choco install lockhunter -y
-choco install fiddler -y
-choco install NuGet.CommandLine -y
-choco install NugetPackageExplorer -y
-choco install pandoc -y
-choco install hxd -y
-choco install kdiff3 -y
-choco install haskellplatform -y
-choco install virtualbox -y
-choco install vagrant -y
-choco install logparser -y
-choco install mysql -y
-choco install mysql.workbench -y
-choco install shexview.portable -y
-choco install putty -y
-choco install windirstat -y
-choco install winscp -y
-choco install wireshark -y
-choco install baretail -y
-choco install autohotkey -y
-choco install jq -y
-choco install sysinternals -y
-choco install nssm -y # Service Manager - https://nssm.cc
-choco install sqlitebrowser -y
-choco install sqlite.shell -y
-choco install visualstudio2017professional -y
-choco install powershell -y
-choco install powershell-core -y
-choco install difftastic -y
-choco install k9s -y
-choco install starship -y
+function Update-SessionPath
+{
+    foreach ($name in 'NVM_HOME', 'NVM_SYMLINK')
+    {
+        $value = [Environment]::GetEnvironmentVariable($name, 'Machine')
+        if (-not $value)
+        {
+            $value = [Environment]::GetEnvironmentVariable($name, 'User')
+        }
+        if ($value)
+        {
+            Set-Item "env:$name" $value
+        }
+    }
+    $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
+}
 
-# DBFs
-choco install libreoffice-still -y  # OR http://www.alexnolan.net/software/dbf.htm
+# Windows settings
+Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock AllowDevelopmentWithoutDevLicense 1  # Developer Mode, for symlinks
+Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem LongPathsEnabled 1
+Set-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced HideFileExt 0
+Set-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced Hidden 1
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
-# Python
+# winget
+$lists = @('both')
+if ($Work)
+{
+    $lists += 'work'
+}
+if ($Personal)
+{
+    $lists += 'personal'
+}
+foreach ($list in $lists)
+{
+    winget import "$PSScriptRoot\packages\$list.json" --accept-package-agreements --accept-source-agreements --ignore-unavailable
+}
 
-# Media
-choco install makemkv -y
-choco install mkvtoolnix -y
+if ($Work)
+{
+    # Workloads from the Olo setup guide.
+    winget install --id Microsoft.VisualStudio.Professional -e --accept-package-agreements --override '--wait --quiet --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.Net.Component.4.8.TargetingPack'
+    # anzu needs 32-bit 3.13; 3.14 (both.json) is the default python.
+    winget install --id Python.Python.3.13 -e --architecture x86 --accept-package-agreements
+}
 
-# Privacy
-choco install gpg4win -y
+# Chocolatey, for what winget doesn't have
+if (-not (Get-Command choco -ErrorAction SilentlyContinue))
+{
+    Invoke-RestMethod https://community.chocolatey.org/install.ps1 | Invoke-Expression
+}
+choco install cascadia-code-nerd-font -y
+if ($Work)
+{
+    choco install baretail -y
+    choco install rabbitmqadmin -y
+    choco install mingw -y  # gcc for building the Go Agent (cgo)
+    choco install amazon-ecr-credential-helper -y
+    choco install terraform --version 1.9.5 -y  # version from the Olo setup guide
+    choco pin add --name=terraform
+}
+if ($Personal)
+{
+    choco install haskell-dev -y
+}
 
-# Azure CLI
-winget install -e --id Microsoft.AzureCLI
+Update-SessionPath
 
-# PS Modules
-Install-Module -Name Az -Repository PSGallery -Force
-Install-Module posh-git -Scope CurrentUser -Force -Repository PSGallery
+if ($Work)
+{
+    Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName IIS-WebServerRole, IIS-ManagementConsole, IIS-ASPNET45, TelnetClient | Out-Null
+
+    Install-Module Az, AWS.Tools.Installer, PsIni, DotNetVersionLister -Scope CurrentUser -Force -Repository PSGallery
+
+    nvm install lts
+    nvm use lts
+    npm install -g yarn@1
+
+    New-Item -ItemType Directory 'C:\Program Files\WinSW' -Force | Out-Null
+    Invoke-WebRequest https://github.com/winsw/winsw/releases/download/v3.0.0-alpha.10/WinSW-x64.exe -OutFile 'C:\Program Files\WinSW\WinSW.exe'
+    $machinePath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+    if ($machinePath -notlike '*C:\Program Files\WinSW*')
+    {
+        [Environment]::SetEnvironmentVariable('Path', "$machinePath;C:\Program Files\WinSW", 'Machine')
+    }
+}
+
+Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $HOME\vimfiles\autoload\plug.vim -Force | Out-Null
+
+wsl --status *> $null
+if ($LASTEXITCODE -ne 0)
+{
+    wsl --install
+}
+
+<#
+Manual
+
+- [ ] Reboot, then run deploy-profile.ps1
+- [ ] vim +PlugInstall +qall (after deploy links _vimrc)
+- [ ] JetBrains Toolbox: GoLand, PyCharm Pro, WebStorm, DataGrip, Fleet, Gateway
+- [ ] Telepresence (work): https://telepresence.io/docs/install/client (not on winget or choco)
+- [ ] Olo setup guide (work), from "Mobo Directory Junctions" onward
+- [ ] Vimium + vimium-options.json
+- [ ] Rsync for JetBrains remote run targets: install cygwin with openssh + rsync.
+      In GoLand, set rsync and ssh to C:\cygwin64\bin\rsync.exe and C:\cygwin64\bin\ssh.exe.
+      Add `db_home: windows` to C:\cygwin64\etc\nsswitch.conf so known_hosts works.
+
+#>
