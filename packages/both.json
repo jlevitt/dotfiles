@@ -1,0 +1,71 @@
+{
+  "$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+  "Sources": [
+    {
+      "Packages": [
+        { "PackageIdentifier": "Git.Git" },
+        { "PackageIdentifier": "TortoiseGit.TortoiseGit" },
+        { "PackageIdentifier": "GitHub.cli" },
+        { "PackageIdentifier": "7zip.7zip" },
+        { "PackageIdentifier": "Notepad++.Notepad++" },
+        { "PackageIdentifier": "vim.vim" },
+        { "PackageIdentifier": "DominikReichl.KeePass" },
+        { "PackageIdentifier": "MHNexus.HxD" },
+        { "PackageIdentifier": "KDE.KDiff3" },
+        { "PackageIdentifier": "WinMerge.WinMerge" },
+        { "PackageIdentifier": "WinDirStat.WinDirStat" },
+        { "PackageIdentifier": "Microsoft.Sysinternals.Suite" },
+        { "PackageIdentifier": "jqlang.jq" },
+        { "PackageIdentifier": "MikeFarah.yq" },
+        { "PackageIdentifier": "Microsoft.PowerShell" },
+        { "PackageIdentifier": "Microsoft.WindowsTerminal" },
+        { "PackageIdentifier": "Starship.Starship" },
+        { "PackageIdentifier": "AutoHotkey.AutoHotkey" },
+        { "PackageIdentifier": "Greenshot.Greenshot" },
+        { "PackageIdentifier": "Microsoft.PowerToys" },
+        { "PackageIdentifier": "Docker.DockerDesktop" },
+        { "PackageIdentifier": "JetBrains.Toolbox" },
+        { "PackageIdentifier": "Anthropic.Claude" },
+        { "PackageIdentifier": "Anthropic.ClaudeCode" },
+        { "PackageIdentifier": "openwong2kim.wmux" },
+        { "PackageIdentifier": "GoLang.Go" },
+        { "PackageIdentifier": "Python.Python.3.14" },
+        { "PackageIdentifier": "astral-sh.uv" },
+        { "PackageIdentifier": "CoreyButler.NVMforWindows" },
+        { "PackageIdentifier": "Microsoft.NuGet" },
+        { "PackageIdentifier": "PuTTY.PuTTY" },
+        { "PackageIdentifier": "WinSCP.WinSCP" },
+        { "PackageIdentifier": "Postman.Postman" },
+        { "PackageIdentifier": "ShiningLight.OpenSSL.Light" },
+        { "PackageIdentifier": "DBBrowserForSQLite.DBBrowserForSQLite" },
+        { "PackageIdentifier": "SQLite.SQLite" },
+        { "PackageIdentifier": "Adobe.Acrobat.Reader.64-bit" },
+        { "PackageIdentifier": "TheDocumentFoundation.LibreOffice" },
+        { "PackageIdentifier": "GIMP.GIMP.3" },
+        { "PackageIdentifier": "CrystalDewWorld.CrystalDiskInfo" },
+        { "PackageIdentifier": "NirSoft.BlueScreenView" },
+        { "PackageIdentifier": "Logitech.OptionsPlus" },
+        { "PackageIdentifier": "RazerInc.RazerInstaller.Synapse4" },
+        { "PackageIdentifier": "Spotify.Spotify" },
+        { "PackageIdentifier": "SlackTechnologies.Slack" }
+      ],
+      "SourceDetails": {
+        "Argument": "https://cdn.winget.microsoft.com/cache",
+        "Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+        "Name": "winget",
+        "Type": "Microsoft.PreIndexed.Package"
+      }
+    },
+    {
+      "Packages": [
+        { "PackageIdentifier": "9WZDNCRDMDM3" }
+      ],
+      "SourceDetails": {
+        "Argument": "https://storeedgefd.dsx.mp.microsoft.com/v9.0",
+        "Identifier": "StoreEdgeFD",
+        "Name": "msstore",
+        "Type": "Microsoft.Rest"
+      }
+    }
+  ]
+}

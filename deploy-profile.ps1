@@ -71,15 +71,18 @@ function Link-Dotfile($target, $link)
     Write-Host "$link -> $target [OK]"
 }
 
-$wslDistro = "Ubuntu-20.04"
-$wslHome = "\\wsl$\$wslDistro\home\jlevitt"
-$wslLinuxHome = "/home/jlevitt"
+if ($vm_type -eq "laptop")
+{
+    # Default distro and its default user.
+    $wslLinuxHome = wsl -- bash -c 'echo $HOME'
+    $wslHome = wsl -- bash -c 'wslpath -w ~'
+}
 
 # Same as Link-Dotfile, but the link lives inside WSL so Linux tools see a real symlink.
 function Link-WslDotfile($target, $link)
 {
-    $wslTarget = wsl -d $wslDistro -- wslpath -a ($target -replace '\\', '/')
-    wsl -d $wslDistro -u jlevitt -- bash -c "if [ -e '$link' ] && [ ! -L '$link' ]; then mv '$link' '$link.`$(date +%Y%m%d%H%M%S).bak'; fi; ln -sfn '$wslTarget' '$link'"
+    $wslTarget = wsl -- wslpath -a ($target -replace '\\', '/')
+    wsl -- bash -c "if [ -e '$link' ] && [ ! -L '$link' ]; then mv '$link' '$link.`$(date +%Y%m%d%H%M%S).bak'; fi; ln -sfn '$wslTarget' '$link'"
     Write-Host "WSL $link -> $wslTarget [OK]"
 }
 
@@ -115,11 +118,9 @@ reg import $dotfiles\TortoiseGit.reg | Out-Null
 reg import $dotfiles\TortoiseGitMerge.reg | Out-Null
 Write-Host "TortoiseGit settings installed to registry [OK]"
 
-$vscodeDir = "$homeDir\AppData\Roaming\Code\User"
-if (Test-Path $vscodeDir)
-{
-    Link-Dotfile $dotfiles\vscode-user-settings.json $vscodeDir\settings.json
-}
+Link-Dotfile $dotfiles\greenshot\Greenshot.ini $homeDir\AppData\Roaming\Greenshot\Greenshot.ini
+Link-Dotfile $dotfiles\wmux\config.json $homeDir\.wmux\config.json
+Link-Dotfile $dotfiles\wmux\deck-policy.md $homeDir\.wmux\deck-policy.md
 
 $windowsTerminalDir = "$homeDir\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 if (Test-Path $windowsTerminalDir)
@@ -135,7 +136,7 @@ if (Test-Path $windowsTerminalPreviewDir)
 
 if ($vm_type -eq "laptop")
 {
-    foreach ($f in @('.bash_aliases', '.bash_functions', '.bashrc', '.profile'))
+    foreach ($f in @('.bash_aliases', '.bashrc', '.profile'))
     {
         Link-WslDotfile $dotfiles\wsl\$f "$wslLinuxHome/$f"
     }
