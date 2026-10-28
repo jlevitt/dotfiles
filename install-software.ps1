@@ -2,9 +2,6 @@
 # New machine setup. Run before deploy-profile.ps1, from an admin Windows PowerShell:
 #   Set-ExecutionPolicy Bypass -Scope Process -Force; .\install-software.ps1 -Work
 # packages\both.json always installs; -Work and -Personal add their lists.
-# Olo-internal setup (local-devx, olo-builder, olo init, the C:\mobo junctions) stays with the
-# Ordering Platform Developer Setup guide:
-# https://ololabs.atlassian.net/wiki/spaces/LDE/pages/2170126489/Ordering+Platform+Developer+Setup+Windows
 param(
     [switch]$Work,
     [switch]$Personal
@@ -51,9 +48,8 @@ foreach ($list in $lists)
 
 if ($Work)
 {
-    # Workloads from the Olo setup guide.
     winget install --id Microsoft.VisualStudio.Professional -e --accept-package-agreements --override '--wait --quiet --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.Net.Component.4.8.TargetingPack'
-    # anzu needs 32-bit 3.13; 3.14 (both.json) is the default python.
+    # 32-bit 3.13 alongside the default 3.14 from both.json.
     winget install --id Python.Python.3.13 -e --architecture x86 --accept-package-agreements
 }
 
@@ -69,7 +65,7 @@ if ($Work)
     choco install rabbitmqadmin -y
     choco install mingw -y  # gcc for building the Go Agent (cgo)
     choco install amazon-ecr-credential-helper -y
-    choco install terraform --version 1.9.5 -y  # version from the Olo setup guide
+    choco install terraform --version 1.9.5 -y
     choco pin add --name=terraform
 }
 if ($Personal)
@@ -113,7 +109,7 @@ Manual
 - [ ] vim +PlugInstall +qall (after deploy links _vimrc)
 - [ ] JetBrains Toolbox: GoLand, PyCharm Pro, WebStorm, DataGrip, Fleet, Gateway
 - [ ] Telepresence (work): https://telepresence.io/docs/install/client (not on winget or choco)
-- [ ] Olo setup guide (work), from "Mobo Directory Junctions" onward
+- [ ] Work dev environment setup guide
 - [ ] Vimium + vimium-options.json
 - [ ] Rsync for JetBrains remote run targets: install cygwin with openssh + rsync.
       In GoLand, set rsync and ssh to C:\cygwin64\bin\rsync.exe and C:\cygwin64\bin\ssh.exe.
