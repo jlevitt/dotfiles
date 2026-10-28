@@ -92,6 +92,7 @@ if ($Work)
     {
         [Environment]::SetEnvironmentVariable('Path', "$machinePath;C:\Program Files\WinSW", 'Machine')
     }
+    Write-Host "Optional next step: install the tunnel services with $PSScriptRoot\windows\services\install-services.ps1 (prompts for your Windows credentials)."
 }
 
 Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $HOME\vimfiles\autoload\plug.vim -Force | Out-Null
