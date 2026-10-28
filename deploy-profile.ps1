@@ -1,196 +1,147 @@
-$deployParamsPath = ".deploy-profile-params.xml"
-$profileParams = @{}
-$expectedParams = @(
-    'HOME_DIR',
-    'USE_POSH_GIT',
-    'PROJECTS_DIR',
-    'DOTFILES_DIR',
-    'EDITOR',
-    'VM_TYPE',
-    'ZOOM_ROOM_PASSWORD',
-    'GITHUB_SSH_KEY',
-    'GIT_EMAIL',
-    'GIT_NAME'
-)
-
-if (Test-Path $deployParamsPath)
-{
-   $profileParams = Import-Clixml $deployParamsPath
+# Machine-specific settings, dot-sourced by the profile. Edit by hand or delete a line to be re-prompted.
+$paramsPath = "$env:USERPROFILE\.profile-params.ps1"
+$expectedParams = [ordered]@{
+    homeDir = 'Home directory'
+    usePoshGit = 'Use posh-git? (y/n)'
+    projectsDir = 'Projects directory'
+    dotfiles = 'Dotfiles directory'
+    editor = 'Editor'
+    vm_type = 'VM type'
+    zoom_room_password = 'Zoom room password'
+    github_ssh_key = 'GitHub SSH key file name'
+    git_name = 'Git user name'
+    git_email = 'Git email'
 }
 
-foreach($param in $expectedParams)
+if (Test-Path $paramsPath)
 {
-    if (-not $profileParams.ContainsKey($param))
+    . $paramsPath
+}
+
+$lines = foreach ($name in $expectedParams.Keys)
+{
+    $value = Get-Variable $name -Scope Script -ValueOnly -ErrorAction SilentlyContinue
+    if ($null -eq $value)
     {
-        $profileParams[$param] = Read-Host "Value for $($param)?"
-    }
-}
-
-$homeDir = $profileParams["HOME_DIR"]
-$dotfiles = $profileParams["DOTFILES_DIR"]
-$projects = $profileParams["PROJECTS_DIR"]
-$vm_type = $profileParams["VM_TYPE"]
-
-$profileParams | Export-Clixml -Path $deployParamsPath
-
-# From: https://github.com/craibuc/PsTokens/blob/master/Merge-Tokens.ps1
-<#
-.SYNOPSIS
-Replaces tokens in a block of text with a specified value.
-.DESCRIPTION
-Replaces tokens in a block of text with a specified value.
-.PARAMETER template
-The block of text that contains text and tokens to be replaced.
-.PARAMETER tokens
-Token name/value hashtable.
-.EXAMPLE
- $content = Get-Content .\template.txt | Merge-Tokens -tokens @{FirstName: 'foo'; LastName: 'bar'}
-Pass template to function via pipeline.
-#>
-function Merge-Tokens() {
-
-    [CmdletBinding()]
-
-    param (
-        [Parameter(Mandatory=$True, ValueFromPipeline=$true)]
-        [AllowEmptyString()]
-        [String] $template,
-
-        [Parameter(Mandatory=$true)]
-        [HashTable] $tokens
-    )
-
-    # begin { Write-Debug "$($MyInvocation.MyCommand.Name)::Begin" }
-
-    process {
-        # Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
-
-        # adapted based on this Stackoverflow answer: http://stackoverflow.com/a/29041580/134367
-        try {
-
-            [regex]::Replace( $template, '__(?<tokenName>[\w\.]+)__', {
-              # __TOKEN__
-              param($match)
-
-              $tokenName = $match.Groups['tokenName'].Value
-              Write-Debug $tokenName
-
-              $tokenValue = Invoke-Expression "`$tokens.$tokenName"
-              Write-Debug $tokenValue
-
-              if ($tokenValue) {
-                # there was a value; return it
-                return $tokenValue
-              }
-              else {
-                # non-matching token; return token
-                return $match
-              }
-            })
-
+        $value = Read-Host $expectedParams[$name]
+        if ($name -eq 'usePoshGit')
+        {
+            $value = $value -like 'y*'
         }
-        catch {
-            Write-Error $_
-        }
-
+        Set-Variable $name $value -Scope Script
     }
 
-    # end { Write-Debug "$($MyInvocation.MyCommand.Name)::End" }
+    if ($value -is [bool])
+    {
+        "`$$name = `$$value"
+    }
+    else
+    {
+        "`$$name = '$($value -replace "'", "''")'"
+    }
+}
+$lines | Set-Content $paramsPath
+Write-Host "$paramsPath written [OK]"
 
+# Point $link at $target in the repo. A real file already at $link is moved aside, never deleted.
+function Link-Dotfile($target, $link)
+{
+    $existing = Get-Item $link -Force -ErrorAction SilentlyContinue
+    if ($existing -and $existing.LinkType -eq 'SymbolicLink')
+    {
+        if ($existing.Target -eq $target)
+        {
+            return
+        }
+        $existing.Delete()
+    }
+    elseif ($existing)
+    {
+        $backup = "$link.$(Get-Date -Format yyyyMMddHHmmss).bak"
+        Move-Item $link $backup
+        Write-Host "  Moved existing $link to $backup"
+    }
+
+    $parent = Split-Path $link -Parent
+    if (-not (Test-Path $parent))
+    {
+        mkdir $parent | Out-Null
+    }
+    New-Item -ItemType SymbolicLink -Path $link -Target $target | Out-Null
+    Write-Host "$link -> $target [OK]"
 }
 
-Get-Content .\Microsoft.PowerShell_profile.ps1 | Merge-Tokens -tokens $profileParams | Set-Content $PROFILE
-Write-Host "Profile written [OK]"
+$wslDistro = "Ubuntu-20.04"
+$wslHome = "\\wsl$\$wslDistro\home\jlevitt"
+$wslLinuxHome = "/home/jlevitt"
 
-Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content ~\.gitconfig
+# Same as Link-Dotfile, but the link lives inside WSL so Linux tools see a real symlink.
+function Link-WslDotfile($target, $link)
+{
+    $wslTarget = wsl -d $wslDistro -- wslpath -a ($target -replace '\\', '/')
+    wsl -d $wslDistro -u jlevitt -- bash -c "if [ -e '$link' ] && [ ! -L '$link' ]; then mv '$link' '$link.`$(date +%Y%m%d%H%M%S).bak'; fi; ln -sfn '$wslTarget' '$link'"
+    Write-Host "WSL $link -> $wslTarget [OK]"
+}
+
+Link-Dotfile $dotfiles\Microsoft.PowerShell_profile.ps1 $PROFILE
+
+$gitconfigLocal = "[user]`n  name = $git_name`n  email = $git_email"
+$gitconfigLocal | Set-Content $homeDir\.gitconfig.local
+Link-Dotfile $dotfiles\.gitconfig $homeDir\.gitconfig
 if ($vm_type -eq "laptop")
 {
-	Get-Content .\.gitconfig-template | Merge-Tokens -tokens $profileParams | Set-Content \\wsl$\Ubuntu-20.04\home\jlevitt\.gitconfig
+    $gitconfigLocal | Set-Content $wslHome\.gitconfig.local
+    Link-WslDotfile $dotfiles\.gitconfig "$wslLinuxHome/.gitconfig"
 }
-Write-Host "Git config written [OK]"
 
-if ($profileParams["USE_POSH_GIT"] -and -not (Get-Module posh-git))
+if ($usePoshGit -and -not (Get-Module posh-git))
 {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
     Write-Host "PoshGit module installed [OK]"
 }
 
-$installAgentModulePath = "C:\Program Files\WindowsPowerShell\Modules\InstallAgent"
-if (-not $(Test-Path $installAgentModulePath))
-{
-    mkdir $installAgentModulePath | Out-Null
-}
-cp .\InstallAgent.psm1 $installAgentModulePath\InstallAgent.psm1
-Write-Host "InstallAgent module written [OK]"
+Link-Dotfile $dotfiles\InstallAgent.psm1 "C:\Program Files\WindowsPowerShell\Modules\InstallAgent\InstallAgent.psm1"
 
-cp $dotfiles\windows\laptop\.vimlayout $homeDir\.vimlayout -Force
-Write-Host ".vimlayout written [OK]"
+Link-Dotfile $dotfiles\windows\laptop\.vimlayout $homeDir\.vimlayout
+Link-Dotfile $dotfiles\.vimrc $homeDir\_vimrc
+Link-Dotfile $dotfiles\.ideavimrc $homeDir\.ideavimrc
+Link-Dotfile $dotfiles\default.ahk $homeDir\default.ahk
+Link-Dotfile $dotfiles\windows\laptop\.bashrc $homeDir\.bashrc
+Link-Dotfile $dotfiles\wsl\.wslconfig $homeDir\.wslconfig
+Link-Dotfile $dotfiles\starship.toml $homeDir\.config\starship.toml
 
 reg import $dotfiles\TortoiseGit.reg | Out-Null
 reg import $dotfiles\TortoiseGitMerge.reg | Out-Null
 Write-Host "TortoiseGit settings installed to registry [OK]"
 
-$windowsTerminalPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-if (Test-Path $windowsTerminalPath)
+$vscodeDir = "$homeDir\AppData\Roaming\Code\User"
+if (Test-Path $vscodeDir)
 {
-    cp $dotfiles\windows\terminal\settings.json $windowsTerminalPath
-    Write-Host "Windows Terminal settings.json written [OK]"
+    Link-Dotfile $dotfiles\vscode-user-settings.json $vscodeDir\settings.json
 }
 
-$windowsTerminalPreviewPath = "~\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
-if (Test-Path $windowsTerminalPreviewPath)
+$windowsTerminalDir = "$homeDir\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+if (Test-Path $windowsTerminalDir)
 {
-    cp $dotfiles\windows\terminal\settings-preview.json $windowsTerminalPreviewPath
-    Write-Host "Windows Terminal Preview settings.json written [OK]"
+    Link-Dotfile $dotfiles\windows\terminal\settings.json $windowsTerminalDir\settings.json
 }
 
-cp $dotfiles\wsl\.wslconfig $homeDir\.wslconfig
-Write-Host ".wslconfig written [OK]"
-
-cp $dotfiles\windows\laptop\.bashrc $homeDir\.bashrc
-Write-Host "Windows .bashrc written [OK]"
+$windowsTerminalPreviewDir = "$homeDir\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState"
+if (Test-Path $windowsTerminalPreviewDir)
+{
+    Link-Dotfile $dotfiles\windows\terminal\settings-preview.json $windowsTerminalPreviewDir\settings.json
+}
 
 if ($vm_type -eq "laptop")
 {
-	gci $dotfiles\wsl -Exclude .gitattributes | cp -Destination \\wsl$\Ubuntu-20.04\home\jlevitt
-	Write-Host "WSL dotfiles written [OK]"
+    foreach ($f in @('.bash_aliases', '.bash_functions', '.bashrc', '.profile'))
+    {
+        Link-WslDotfile $dotfiles\wsl\$f "$wslLinuxHome/$f"
+    }
 }
 
-$starshipDst = "$homeDir\.config\starship.toml"
-if (Test-Path $dotfiles\starship.toml)
-{
-    $starshipDstDir = Split-Path $starshipDst -Parent
-    if (-not (Test-Path $starshipDstDir))
-    {
-        mkdir $starshipDstDir | Out-Null
-    }
-    cp $dotfiles\starship.toml $starshipDst -Force
-    Write-Host "starship.toml written [OK]"
-}
-
-# Claude Code config — copy safe, non-secret files into ~/.claude.
-$claudeSrc = "$dotfiles\.claude"
-$claudeDst = "$homeDir\.claude"
-if (Test-Path $claudeSrc)
-{
-    if (-not (Test-Path $claudeDst)) { mkdir $claudeDst | Out-Null }
-    foreach ($f in @('CLAUDE.md', 'settings.json', 'keybindings.json', 'statusline.sh'))
-    {
-        if (Test-Path "$claudeSrc\$f") { cp "$claudeSrc\$f" "$claudeDst\$f" -Force }
-    }
-    foreach ($d in @('commands', 'skills'))
-    {
-        if (Test-Path "$claudeSrc\$d")
-        {
-            if (-not (Test-Path "$claudeDst\$d")) { mkdir "$claudeDst\$d" | Out-Null }
-            cp "$claudeSrc\$d\*" "$claudeDst\$d\" -Recurse -Force
-        }
-    }
-    Write-Host "Claude Code config written [OK]"
-}
-
-$gopath = "$projects\go"
+$gopath = "$projectsDir\go"
 [Environment]::SetEnvironmentVariable('GOPATH', $gopath, [EnvironmentVariableTarget]::Machine)
 $env:GOPATH = $gopath
 if (-not $(Test-Path $gopath))
