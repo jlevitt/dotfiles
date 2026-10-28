@@ -25,7 +25,6 @@
         { "PackageIdentifier": "Microsoft.PowerToys" },
         { "PackageIdentifier": "Docker.DockerDesktop" },
         { "PackageIdentifier": "JetBrains.Toolbox" },
-        { "PackageIdentifier": "AgileBits.1Password" },
         { "PackageIdentifier": "Anthropic.Claude" },
         { "PackageIdentifier": "Anthropic.ClaudeCode" },
         { "PackageIdentifier": "openwong2kim.wmux" },
@@ -36,11 +35,8 @@
         { "PackageIdentifier": "Microsoft.NuGet" },
         { "PackageIdentifier": "PuTTY.PuTTY" },
         { "PackageIdentifier": "WinSCP.WinSCP" },
-        { "PackageIdentifier": "WiresharkFoundation.Wireshark" },
-        { "PackageIdentifier": "Telerik.Fiddler.Classic" },
         { "PackageIdentifier": "Postman.Postman" },
         { "PackageIdentifier": "ShiningLight.OpenSSL.Light" },
-        { "PackageIdentifier": "Wilfred.difftastic" },
         { "PackageIdentifier": "DBBrowserForSQLite.DBBrowserForSQLite" },
         { "PackageIdentifier": "SQLite.SQLite" },
         { "PackageIdentifier": "Adobe.Acrobat.Reader.64-bit" },
@@ -50,7 +46,8 @@
         { "PackageIdentifier": "NirSoft.BlueScreenView" },
         { "PackageIdentifier": "Logitech.OptionsPlus" },
         { "PackageIdentifier": "RazerInc.RazerInstaller.Synapse4" },
-        { "PackageIdentifier": "Spotify.Spotify" }
+        { "PackageIdentifier": "Spotify.Spotify" },
+        { "PackageIdentifier": "SlackTechnologies.Slack" }
       ],
       "SourceDetails": {
         "Argument": "https://cdn.winget.microsoft.com/cache",
