@@ -13,7 +13,6 @@
     <onfailure action="restart" delay="5 min" />
     <onfailure action="none" />
     <resetfailure>1 hour</resetfailure>
-    <serviceaccount>
-        <prompt>console</prompt>
-    </serviceaccount>
+    <!-- Refreshing the service config on start needs rights the NT SERVICE account doesn't have. -->
+    <autoRefresh>false</autoRefresh>
 </service>

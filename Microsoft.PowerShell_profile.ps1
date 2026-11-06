@@ -33,8 +33,6 @@ Remove-Variable -Force HOME -ErrorAction SilentlyContinue
 Set-Variable HOME $homeDir
 $env:HOMEDRIVE = Split-Path -Path $homeDir -Qualifier
 $env:HOMEPATH = Split-Path -Path $homeDir -NoQualifier
-$env:GIT_SSH = "$((which plink).Definition)"
-[Environment]::SetEnvironmentVariable("GIT_SSH", $env:GIT_SSH, "Machine")
 $env:KUBE_EDITOR = "vim"
 
 ### End environment variables
@@ -445,7 +443,8 @@ if ($mtx.WaitOne(0))
             }
 
             # --openssh-config causes it to write a file telling OpenSSH where the named pipe for auth lives. This allows us to use pageant auth for OpenSSH connections.
-            pageant --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
+            # Full path so TortoiseGit's bundled pageant, earlier on PATH, isn't picked up instead.
+            & "$env:ProgramFiles\PuTTY\pageant.exe" --openssh-config $homeDir\.ssh\pageant.conf $(Resolve-Path ~\.ssh\$github_ssh_key)
         }
 
         if (-not $(ps AutoHotkey64 -ErrorAction SilentlyContinue))
@@ -473,7 +472,7 @@ $env:TERM='xterm' # http://stefano.salvatori.cl/blog/2017/12/08/how-to-fix-open_
 function Start-AzureHVTunnels
 {
     Start-Job -Name "Tunnel - Azure: jlevitt-POSi641-20180103" -ScriptBlock {
-        C:\Users\jlevitt\.raxvm\omniprox.exe -host router.azure.pos-api.com -port 10000
+        & "$env:ProgramFiles\omniprox\omniprox.exe" -host router.azure.pos-api.com -port 10000
     } | Out-Null
 }
 
@@ -841,3 +840,13 @@ function Parse-TodoList
 New-Alias ptd Parse-TodoList
 
 Invoke-Expression (&starship init powershell)
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}

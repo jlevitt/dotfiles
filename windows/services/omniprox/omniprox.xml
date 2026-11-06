@@ -1,12 +1,13 @@
 <service>
     <id>Omniprox</id>
     <name>Omniprox</name>
-    <executable>%USERPROFILE%\.raxvm\omniprox.exe</executable>
+    <executable>%ProgramFiles%\omniprox\omniprox.exe</executable>
+    <!-- Set per service by install-services.ps1 -->
+    <arguments>-cert "%OMNIPROX_CERTS%\client.crt" -key "%OMNIPROX_CERTS%\client.key" -ca "%OMNIPROX_CERTS%\ca.crt"</arguments>
     <startmode>Automatic</startmode>
     <delayedAutoStart>true</delayedAutoStart>
     <log mode="roll"></log>
     <onfailure action="restart" />
-    <serviceaccount>
-        <prompt>console</prompt>
-    </serviceaccount>
+    <!-- Refreshing the service config on start needs rights the NT SERVICE account doesn't have. -->
+    <autoRefresh>false</autoRefresh>
 </service>

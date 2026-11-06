@@ -1,56 +1,76 @@
-function Validate-Creds($cred)
-{
-    # Import the required .NET assembly
-    Add-Type -AssemblyName System.DirectoryServices.AccountManagement
+#Requires -RunAsAdministrator
+# Each service runs as its own virtual account (NT SERVICE\<name>), which has no password to expire.
+# Entra ID (AzureAD\) accounts can't run services on a machine that isn't domain joined: SCM starts Netlogon first, which fails.
 
-    # Define the context (local machine)
-    # For domain, use: [System.DirectoryServices.AccountManagement.ContextType]::Domain
-    $contextType = [System.DirectoryServices.AccountManagement.ContextType]::Machine
-
-    # Create the principal context
-    $context = New-Object System.DirectoryServices.AccountManagement.PrincipalContext($contextType)
-
-    # Use the ValidateCredentials method
-    $context.ValidateCredentials($cred.UserName, $cred.GetNetworkCredential().Password)
+# Machine-specific settings. Edit by hand or delete a line to be re-prompted.
+$paramsPath = "$env:USERPROFILE\.services-params.ps1"
+$expectedParams = [ordered]@{
+    tshHome = "Teleport cert directory the tunnels use (e.g. $env:USERPROFILE\.tsh)"
+    omniproxCerts = 'Omniprox cert directory (holds client.crt, client.key, ca.crt)'
 }
 
-
-$c = Get-Credential
-
-$isValid = $false
-try
+if (Test-Path $paramsPath)
 {
-    Write-Host "Validating credentials..." -ForegroundColor Cyan
-    $isValid = Validate-Creds $c
-    if ($isValid) {
-        Write-Host "Credentials are valid." -ForegroundColor Green
-    } else {
-        Write-Host "Credentials are NOT valid (e.g., invalid username or password)." -ForegroundColor Red
+    . $paramsPath
+}
+
+$lines = foreach ($name in $expectedParams.Keys)
+{
+    $value = Get-Variable $name -Scope Script -ValueOnly -ErrorAction SilentlyContinue
+    if ($null -eq $value)
+    {
+        $value = Read-Host $expectedParams[$name]
+        Set-Variable $name $value -Scope Script
+    }
+    "`$$name = '$($value -replace "'", "''")'"
+}
+$lines | Set-Content $paramsPath
+Write-Host "$paramsPath written [OK]"
+
+if (-not (Test-Path $tshHome))
+{
+    mkdir $tshHome | Out-Null
+}
+
+foreach ($file in 'client.crt', 'client.key', 'ca.crt')
+{
+    if (-not (Test-Path "$omniproxCerts\$file" -PathType Leaf))
+    {
+        Write-Host "$omniproxCerts\$file not found. Fix omniproxCerts in $paramsPath and run again." -ForegroundColor Red
+        exit
     }
 }
-catch
-{
-    # This will catch other errors, like the user not existing
-    Write-Warning "An error occurred during validation: $($_.Exception.Message)"
+
+# Each service's environment, set per service so nothing else sees it. The XMLs reference these as %NAME%.
+$teleport = @{ TELEPORT_HOME = $tshHome }
+$services = [ordered]@{
+    Omniprox = @{ OMNIPROX_CERTS = $omniproxCerts }
+    MySqlDevTunnel = $teleport
+    SFTPTunnel = $teleport
+    RabbitMQAdminTunnel = $teleport
+    DashDevTunnel = $teleport
 }
 
-if (-not $isValid)
+foreach ($service in $services.Keys)
 {
-    exit
+    $account = "NT SERVICE\$service"
+    $environment = $services[$service]
+    winsw install $PSScriptRoot\$service\$service.xml
+    sc.exe config $service obj= $account | Out-Null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\$service" Environment -PropertyType MultiString -Value ($environment.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -Force | Out-Null
+
+    # winsw writes its logs next to the XML, as the service account.
+    icacls "$PSScriptRoot\$service" /grant "${account}:(OI)(CI)M" | Out-Null
+    if ($environment.TELEPORT_HOME)
+    {
+        # tsh writes here too (keys, known hosts), not just reads.
+        icacls $tshHome /grant "${account}:(OI)(CI)M" | Out-Null
+    }
+    if ($environment.OMNIPROX_CERTS)
+    {
+        icacls $omniproxCerts /grant "${account}:(OI)(CI)RX" | Out-Null
+    }
+
+    gsv $service | sasv
+    Write-Host "$service running as $account [OK]"
 }
-
-winsw install $PSScriptRoot\Omniprox\Omniprox.xml --user $c.GetNetworkCredential().Username --password $c.GetNetworkCredential().Password
-gsv Omniprox | sasv
-
-winsw install $PSScriptRoot\MySqlDevTunnel\MySqlDevTunnel.xml --user $c.GetNetworkCredential().Username --password $c.GetNetworkCredential().Password
-gsv MySqlDevTunnel | sasv
-
-winsw install $PSScriptRoot\SFTPTunnel\SFTPTunnel.xml --user $c.GetNetworkCredential().Username --password $c.GetNetworkCredential().Password
-gsv SFTPTunnel | sasv
-
-winsw install $PSScriptRoot\RabbitMQAdminTunnel\RabbitMQAdminTunnel.xml --user $c.GetNetworkCredential().Username --password $c.GetNetworkCredential().Password
-gsv RabbitMQAdminTunnel | sasv
-
-winsw install $PSScriptRoot\DashDevTunnel\DashDevTunnel.xml --user $c.GetNetworkCredential().Username --password $c.GetNetworkCredential().Password
-gsv DashDevTunnel | sasv
-

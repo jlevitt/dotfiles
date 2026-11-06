@@ -1,3 +1,6 @@
+#Requires -RunAsAdministrator
+# Run after install-software.ps1, from an admin PowerShell.
+
 # Machine-specific settings, dot-sourced by the profile. Edit by hand or delete a line to be re-prompted.
 $paramsPath = "$env:USERPROFILE\.profile-params.ps1"
 $expectedParams = [ordered]@{
@@ -86,7 +89,12 @@ function Link-WslDotfile($target, $link)
     Write-Host "WSL $link -> $wslTarget [OK]"
 }
 
-Link-Dotfile $dotfiles\Microsoft.PowerShell_profile.ps1 $PROFILE
+# Both Windows PowerShell 5.1 and PowerShell 7, whichever this is run from.
+$documents = [Environment]::GetFolderPath('MyDocuments')
+foreach ($psDir in 'WindowsPowerShell', 'PowerShell')
+{
+    Link-Dotfile $dotfiles\Microsoft.PowerShell_profile.ps1 $documents\$psDir\Microsoft.PowerShell_profile.ps1
+}
 
 $gitconfigLocal = "[user]`n  name = $git_name`n  email = $git_email"
 $gitconfigLocal | Set-Content $homeDir\.gitconfig.local
@@ -150,4 +158,17 @@ if (-not $(Test-Path $gopath))
     mkdir $gopath | Out-Null
 }
 Write-Host "GOPATH written ($gopath) [OK]"
+
+# Git authenticates through pageant via PuTTY's plink.
+$gitSsh = "$env:ProgramFiles\PuTTY\plink.exe"
+[Environment]::SetEnvironmentVariable('GIT_SSH', $gitSsh, [EnvironmentVariableTarget]::Machine)
+$env:GIT_SSH = $gitSsh
+Write-Host "GIT_SSH written ($gitSsh) [OK]"
+
+# Git Bash ahead of system32, which has WSL's bash.exe.
+$gitBash = "$env:ProgramFiles\Git\bin"
+$machinePath = [Environment]::GetEnvironmentVariable('Path', 'Machine') -split ';' | Where-Object { $_ -and $_ -ne $gitBash }
+[Environment]::SetEnvironmentVariable('Path', (@($gitBash) + $machinePath) -join ';', 'Machine')
+$env:Path = "$gitBash;$env:Path"
+Write-Host "$gitBash first on PATH [OK]"
 

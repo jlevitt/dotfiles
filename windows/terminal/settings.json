@@ -397,6 +397,24 @@
                 "suppressApplicationTitle": true,
                 "tabTitle": "k9s",
                 "useAcrylic": false
+            },
+            {
+                "guid": "{df2f036e-0890-5350-912d-4c7a325fb754}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
+            },
+            {
+                "guid": "{41bbedac-d0ed-5dff-8092-59d9c7686354}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{ceb38f16-8fb6-5803-922d-345767c81e09}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },

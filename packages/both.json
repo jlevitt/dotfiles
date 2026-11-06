@@ -35,7 +35,6 @@
         { "PackageIdentifier": "Microsoft.NuGet" },
         { "PackageIdentifier": "PuTTY.PuTTY" },
         { "PackageIdentifier": "WinSCP.WinSCP" },
-        { "PackageIdentifier": "Postman.Postman" },
         { "PackageIdentifier": "ShiningLight.OpenSSL.Light" },
         { "PackageIdentifier": "DBBrowserForSQLite.DBBrowserForSQLite" },
         { "PackageIdentifier": "SQLite.SQLite" },
@@ -46,7 +45,6 @@
         { "PackageIdentifier": "NirSoft.BlueScreenView" },
         { "PackageIdentifier": "Logitech.OptionsPlus" },
         { "PackageIdentifier": "RazerInc.RazerInstaller.Synapse4" },
-        { "PackageIdentifier": "Spotify.Spotify" },
         { "PackageIdentifier": "SlackTechnologies.Slack" }
       ],
       "SourceDetails": {
