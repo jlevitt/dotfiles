@@ -61,6 +61,7 @@ winget install --id vim.vim -e --scope machine --no-upgrade --accept-package-agr
 if ($Work)
 {
     winget install --id Microsoft.VisualStudio.Professional -e --no-upgrade --accept-package-agreements --override '--wait --quiet --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.Net.Component.4.8.TargetingPack'
+    winget install --id Microsoft.VisualStudio.2022.BuildTools -e --no-upgrade --accept-package-agreements --override '--wait --quiet --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended'
     # 32-bit 3.13 alongside the default 3.14 from both.json.
     winget install --id Python.Python.3.13 -e --architecture x86 --no-upgrade --accept-package-agreements
 }
