@@ -52,6 +52,9 @@ foreach ($list in $lists)
 winget install --id Postman.Postman -e --version 11.86.1 --no-upgrade --accept-package-agreements
 winget pin add --id Postman.Postman --version '11.*'
 
+# CmdTools puts Git\usr\bin (grep etc.) on PATH for the profile's git helpers. --override replaces winget's default silent args, so they're repeated here.
+winget install --id Git.Git -e --no-upgrade --accept-package-agreements --override '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP- /o:PathOption=CmdTools'
+
 # Machine scope so the installer drops gvim.bat/vim.bat into C:\Windows; the per-user install leaves vim off PATH.
 winget install --id vim.vim -e --scope machine --no-upgrade --accept-package-agreements
 
