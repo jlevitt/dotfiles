@@ -8,7 +8,6 @@
         { "PackageIdentifier": "GitHub.cli" },
         { "PackageIdentifier": "7zip.7zip" },
         { "PackageIdentifier": "Notepad++.Notepad++" },
-        { "PackageIdentifier": "vim.vim" },
         { "PackageIdentifier": "DominikReichl.KeePass" },
         { "PackageIdentifier": "MHNexus.HxD" },
         { "PackageIdentifier": "KDE.KDiff3" },

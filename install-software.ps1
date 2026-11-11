@@ -52,6 +52,9 @@ foreach ($list in $lists)
 winget install --id Postman.Postman -e --version 11.86.1 --no-upgrade --accept-package-agreements
 winget pin add --id Postman.Postman --version '11.*'
 
+# Machine scope so the installer drops gvim.bat/vim.bat into C:\Windows; the per-user install leaves vim off PATH.
+winget install --id vim.vim -e --scope machine --no-upgrade --accept-package-agreements
+
 if ($Work)
 {
     winget install --id Microsoft.VisualStudio.Professional -e --no-upgrade --accept-package-agreements --override '--wait --quiet --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.Net.Component.4.8.TargetingPack'
